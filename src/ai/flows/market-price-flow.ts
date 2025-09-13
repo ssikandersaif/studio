@@ -51,7 +51,7 @@ const marketPricePrompt = ai.definePrompt({
     - Commodity variety.
     - Mandi name and state.
     - Minimum, Maximum, and Modal prices in Rupees per Quintal. The prices should be realistic for the commodity.
-    - The date should be today's date: {{currentDate}}.
+    - The date should be today's date: ${format(new Date(), 'yyyy-MM-dd')}.
 
     Generate at least 100 unique entries. The response must be a valid JSON object matching the provided schema.
     `,
@@ -63,9 +63,7 @@ const marketPriceFlow = ai.defineFlow(
         outputSchema: MarketPricesOutputSchema,
     },
     async () => {
-        const { output } = await marketPricePrompt({
-            currentDate: format(new Date(), 'yyyy-MM-dd')
-        });
+        const { output } = await marketPricePrompt();
         return output!;
     }
 );
