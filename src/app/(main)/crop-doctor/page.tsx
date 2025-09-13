@@ -16,7 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { getCropAdvice } from "@/ai/flows/ai-crop-advice";
 import { Lightbulb, Loader2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useLanguage } from "@/contexts/language-context";
+import { useLanguage, languageNameMap } from "@/contexts/language-context";
 
 export default function CropDoctorPage() {
   const [question, setQuestion] = useState("");
@@ -30,8 +30,8 @@ export default function CropDoctorPage() {
     if (!question.trim()) {
       toast({
         variant: "destructive",
-        title: "Question is empty",
-        description: "Please enter a question about your farming problem.",
+        title: t({ en: "Question is empty", ml: "ചോദ്യം ശൂന്യമാണ്" }),
+        description: t({ en: "Please enter a question about your farming problem.", ml: "നിങ്ങളുടെ കാർഷിക പ്രശ്നത്തെക്കുറിച്ച് ഒരു ചോദ്യം നൽകുക." }),
       });
       return;
     }
@@ -47,8 +47,8 @@ export default function CropDoctorPage() {
       console.error("Error getting crop advice:", error);
       toast({
         variant: "destructive",
-        title: "AI Error",
-        description: "Failed to get advice from AI. Please try again later.",
+        title: t({ en: "AI Error", ml: "AI പിശക്" }),
+        description: t({ en: "Failed to get advice from AI. Please try again later.", ml: "AI-യിൽ നിന്ന് ഉപദേശം ലഭിക്കുന്നതിൽ പരാജയപ്പെട്ടു. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക." }),
       });
     } finally {
       setLoading(false);
@@ -58,24 +58,26 @@ export default function CropDoctorPage() {
   return (
     <>
       <Header
-        title={t("Crop Doctor", "വിള ഡോക്ടർ")}
-        description={t("Get AI-driven advice for your farming problems.", "നിങ്ങളുടെ കാർഷിക പ്രശ്നങ്ങൾക്ക് AI-യുടെ സഹായത്തോടെ ഉപദേശം നേടുക.")}
+        title={t({ en: "Crop Doctor", ml: "വിള ഡോക്ടർ" })}
+        description={t({ en: "Get AI-driven advice for your farming problems.", ml: "നിങ്ങളുടെ കാർഷിക പ്രശ്നങ്ങൾക്ക് AI-യുടെ സഹായത്തോടെ ഉപദേശം നേടുക." })}
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
         <div className="grid gap-8 md:grid-cols-2">
           <Card>
             <form onSubmit={handleSubmit}>
               <CardHeader>
-                <CardTitle>{t("Ask a Question", "ചോദ്യം ചോദിക്കുക")}</CardTitle>
+                <CardTitle>{t({ en: "Ask a Question", ml: "ചോദ്യം ചോദിക്കുക" })}</CardTitle>
                 <CardDescription>
-                  {t("Describe your farming problem, and our AI expert will provide a solution.", "നിങ്ങളുടെ കാർഷിക പ്രശ്നം വിവരിക്കുക, ഞങ്ങളുടെ AI വിദഗ്ദ്ധൻ ഒരു പരിഹാരം നൽകും.")}
+                  {t({ en: "Describe your farming problem, and our AI expert will provide a solution.", ml: "നിങ്ങളുടെ കാർഷിക പ്രശ്നം വിവരിക്കുക, ഞങ്ങളുടെ AI വിദഗ്ദ്ധൻ ഒരു പരിഹാരം നൽകും." })}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Textarea
                   placeholder={t(
-                    "e.g., 'My tomato plants have yellow leaves with brown spots. What should I do?'", 
-                    "ഉദാ: 'എന്റെ തക്കാളി ചെടികൾക്ക് മഞ്ഞ ഇലകളും തവിട്ടുനിറത്തിലുള്ള പാടുകളും ഉണ്ട്. ഞാൻ എന്തുചെയ്യണം?'"
+                    {
+                      en: "e.g., 'My tomato plants have yellow leaves with brown spots. What should I do?'", 
+                      ml: "ഉദാ: 'എന്റെ തക്കാളി ചെടികൾക്ക് മഞ്ഞ ഇലകളും തവിട്ടുനിറത്തിലുള്ള പാടുകളും ഉണ്ട്. ഞാൻ എന്തുചെയ്യണം?'"
+                    }
                   )}
                   className="min-h-[150px]"
                   value={question}
@@ -86,7 +88,7 @@ export default function CropDoctorPage() {
               <CardFooter>
                 <Button type="submit" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {loading ? t("Getting Advice...", "ഉപദേശം നേടുന്നു...") : t("Get AI Advice", "AI ഉപദേശം നേടുക")}
+                  {loading ? t({ en: "Getting Advice...", ml: "ഉപദേശം നേടുന്നു..." }) : t({ en: "Get AI Advice", ml: "AI ഉപദേശം നേടുക" })}
                 </Button>
               </CardFooter>
             </form>
@@ -96,10 +98,10 @@ export default function CropDoctorPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Lightbulb className="text-accent" />
-                {t("AI Recommendation", "AI ശുപാർശ")}
+                {t({ en: "AI Recommendation", ml: "AI ശുപാർശ" })}
               </CardTitle>
               <CardDescription>
-                {t("The AI's advice will appear here.", "AI-യുടെ ഉപദേശം ഇവിടെ ദൃശ്യമാകും.")}
+                {t({ en: "The AI's advice will appear here.", ml: "AI-യുടെ ഉപദേശം ഇവിടെ ദൃശ്യമാകും." })}
               </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow space-y-4">
@@ -120,17 +122,19 @@ export default function CropDoctorPage() {
                       {advice.english}
                     </div>
                   </div>
-                   <div>
-                    <h3 className="font-semibold mb-2">In {t('Malayalam', 'മലയാളം')}:</h3>
-                    <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap rounded-md bg-secondary/50 p-4">
-                      {advice.translated}
+                   {language !== 'en' && (
+                    <div>
+                      <h3 className="font-semibold mb-2">In {languageNameMap[language]}:</h3>
+                      <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap rounded-md bg-secondary/50 p-4">
+                        {advice.translated}
+                      </div>
                     </div>
-                  </div>
+                   )}
                 </div>
               )}
               {!loading && !advice && (
                 <div className="flex items-center justify-center h-full text-muted-foreground text-center">
-                    <p>{t("Your expert advice will be generated here.", "നിങ്ങളുടെ വിദഗ്ദ്ധ ഉപദേശം ഇവിടെ ജനറേറ്റ് ചെയ്യും.")}</p>
+                    <p>{t({ en: "Your expert advice will be generated here.", ml: "നിങ്ങളുടെ വിദഗ്ദ്ധ ഉപദേശം ഇവിടെ ജനറേറ്റ് ചെയ്യും." })}</p>
                 </div>
               )}
             </CardContent>

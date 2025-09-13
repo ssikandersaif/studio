@@ -45,22 +45,22 @@ export default function GovtSchemesPage() {
   return (
     <>
       <Header
-        title={t("Government Schemes", "സർക്കാർ പദ്ധതികൾ")}
-        description={t("Check your eligibility for beneficial schemes.", "പ്രയോജനകരമായ പദ്ധതികൾക്ക് നിങ്ങളുടെ യോഗ്യത പരിശോധിക്കുക.")}
+        title={t({ en: "Government Schemes", ml: "സർക്കാർ പദ്ധതികൾ" })}
+        description={t({ en: "Check your eligibility for beneficial schemes.", ml: "പ്രയോജനകരമായ പദ്ധതികൾക്ക് നിങ്ങളുടെ യോഗ്യത പരിശോധിക്കുക." })}
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
         <div className="grid gap-8 md:grid-cols-3">
           <Card className="md:col-span-1">
             <CardHeader>
-              <CardTitle>{t("Check Eligibility", "യോഗ്യത പരിശോധിക്കുക")}</CardTitle>
-              <CardDescription>{t("Select your state and crop to find schemes.", "പദ്ധതികൾ കണ്ടെത്താൻ നിങ്ങളുടെ സംസ്ഥാനവും വിളയും തിരഞ്ഞെടുക്കുക.")}</CardDescription>
+              <CardTitle>{t({ en: "Check Eligibility", ml: "യോഗ്യത പരിശോധിക്കുക" })}</CardTitle>
+              <CardDescription>{t({ en: "Select your state and crop to find schemes.", ml: "പദ്ധതികൾ കണ്ടെത്താൻ നിങ്ങളുടെ സംസ്ഥാനവും വിളയും തിരഞ്ഞെടുക്കുക." })}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="text-sm font-medium">{t("State", "സംസ്ഥാനം")}</label>
+                <label className="text-sm font-medium">{t({ en: "State", ml: "സംസ്ഥാനം" })}</label>
                 <Select onValueChange={setSelectedState} value={selectedState}>
                   <SelectTrigger>
-                    <SelectValue placeholder={t("Select a state", "ഒരു സംസ്ഥാനം തിരഞ്ഞെടുക്കുക")} />
+                    <SelectValue placeholder={t({ en: "Select a state", ml: "ഒരു സംസ്ഥാനം തിരഞ്ഞെടുക്കുക" })} />
                   </SelectTrigger>
                   <SelectContent>
                     {allStates.map(state => <SelectItem key={state} value={state}>{state}</SelectItem>)}
@@ -68,10 +68,10 @@ export default function GovtSchemesPage() {
                 </Select>
               </div>
               <div>
-                <label className="text-sm font-medium">{t("Crop", "വിള")}</label>
+                <label className="text-sm font-medium">{t({ en: "Crop", ml: "വിള" })}</label>
                 <Select onValueChange={setSelectedCrop} value={selectedCrop}>
                   <SelectTrigger>
-                    <SelectValue placeholder={t("Select a crop", "ഒരു വിള തിരഞ്ഞെടുക്കുക")} />
+                    <SelectValue placeholder={t({ en: "Select a crop", ml: "ഒരു വിള തിരഞ്ഞെടുക്കുക" })} />
                   </SelectTrigger>
                   <SelectContent>
                      {allCrops.map(crop => <SelectItem key={crop} value={crop}>{crop}</SelectItem>)}
@@ -79,14 +79,14 @@ export default function GovtSchemesPage() {
                 </Select>
               </div>
               <Button onClick={handleCheckEligibility} className="w-full" disabled={!selectedState || !selectedCrop}>
-                {t("Find Schemes", "പദ്ധതികൾ കണ്ടെത്തുക")}
+                {t({ en: "Find Schemes", ml: "പദ്ധതികൾ കണ്ടെത്തുക" })}
               </Button>
             </CardContent>
           </Card>
 
           <Card className="md:col-span-2">
             <CardHeader>
-              <CardTitle>{t("Eligible Schemes", "യോഗ്യമായ പദ്ധതികൾ")}</CardTitle>
+              <CardTitle>{t({ en: "Eligible Schemes", ml: "യോഗ്യമായ പദ്ധതികൾ" })}</CardTitle>
             </CardHeader>
             <CardContent>
               {eligibleSchemes.length > 0 ? (
@@ -106,8 +106,8 @@ export default function GovtSchemesPage() {
               ) : (
                 <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground p-8">
                   <HandHelping className="w-16 h-16 mb-4"/>
-                  <p>{t("Your eligible schemes will be shown here.", "നിങ്ങളുടെ യോഗ്യമായ പദ്ധതികൾ ഇവിടെ കാണിക്കും.")}</p>
-                  <p className="text-sm">{t("Please select a state and crop to get started.", "ആരംഭിക്കുന്നതിന് ഒരു സംസ്ഥാനവും വിളവും തിരഞ്ഞെടുക്കുക.")}</p>
+                  <p>{t({ en: "Your eligible schemes will be shown here.", ml: "നിങ്ങളുടെ യോഗ്യമായ പദ്ധതികൾ ഇവിടെ കാണിക്കും." })}</p>
+                  <p className="text-sm">{t({ en: "Please select a state and crop to get started.", ml: "ആരംഭിക്കുന്നതിന് ഒരു സംസ്ഥാനവും വിളവും തിരഞ്ഞെടുക്കുക." })}</p>
                 </div>
               )}
             </CardContent>

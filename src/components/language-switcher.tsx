@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLanguage } from "@/contexts/language-context";
+import { useLanguage, languageNameMap, Language } from "@/contexts/language-context";
 import { Languages } from "lucide-react";
 
 export function LanguageSwitcher() {
@@ -22,12 +22,11 @@ export function LanguageSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setLanguage("en")} disabled={language === 'en'}>
-          English
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setLanguage("ml")} disabled={language === 'ml'}>
-          മലയാളം (Malayalam)
-        </DropdownMenuItem>
+        {(Object.keys(languageNameMap) as Language[]).map((lang) => (
+            <DropdownMenuItem key={lang} onClick={() => setLanguage(lang)} disabled={language === lang}>
+                {languageNameMap[lang]}
+            </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

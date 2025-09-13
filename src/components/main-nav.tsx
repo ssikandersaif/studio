@@ -28,42 +28,42 @@ export function MainNav() {
   const menuItems = [
     {
       href: "/dashboard",
-      label: t("Dashboard", "ഡാഷ്ബോർഡ്"),
+      label: t({en: "Dashboard", ml: "ഡാഷ്ബോർഡ്", hi: "tableau de bord"}),
       icon: <LayoutGrid />,
     },
     {
       href: "/market-prices",
-      label: t("Market Prices", "വിപണി വിലകൾ"),
+      label: t({en: "Market Prices", ml: "വിപണി വിലകൾ", hi: "बाजार मूल्य"}),
       icon: <DollarSign />,
     },
     {
       href: "/weather",
-      label: t("Weather", "കാലാവസ്ഥ"),
+      label: t({en: "Weather", ml: "കാലാവസ്ഥ", hi: "मौसम"}),
       icon: <CloudSun />,
     },
     {
       href: "/crop-doctor",
-      label: t("Crop Doctor", "വിള ഡോക്ടർ"),
+      label: t({en: "Crop Doctor", ml: "വിള ഡോക്ടർ", hi: "फसल चिकित्सक"}),
       icon: <Stethoscope />,
     },
     {
       href: "/scan-crop",
-      label: t("Scan Crop", "വിള സ്കാൻ"),
+      label: t({en: "Scan Crop", ml: "വിള സ്കാൻ", hi: "फसल स्कैन"}),
       icon: <ScanLine />,
     },
     {
       href: "/voice-query",
-      label: t("Voice Query", "ശബ്ദ ചോദ്യം"),
+      label: t({en: "Voice Query", ml: "ശബ്ദ ചോദ്യം", hi: "आवाज क्वेरी"}),
       icon: <Mic />,
     },
     {
       href: "/govt-schemes",
-      label: t("Govt. Schemes", "സർക്കാർ പദ്ധതികൾ"),
+      label: t({en: "Govt. Schemes", ml: "സർക്കാർ പദ്ധതികൾ", hi: "सरकारी योजनाएं"}),
       icon: <ScrollText />,
     },
     {
       href: "/officer-directory",
-      label: t("Officer Directory", "ഓഫീസർ ഡയറക്ടറി"),
+      label: t({en: "Officer Directory", ml: "ഓഫീസർ ഡയറക്ടറി", hi: "अधिकारी निर्देशिका"}),
       icon: <Users />,
     },
   ]
@@ -71,7 +71,7 @@ export function MainNav() {
   return (
     <SidebarMenu>
       {menuItems.map((item) => (
-        <SidebarMenuItem key={item.href}>
+         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
             asChild
             className="font-semibold"
