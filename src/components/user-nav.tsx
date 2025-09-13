@@ -1,5 +1,24 @@
 "use client";
 
+import {
+  User,
+  Tractor,
+  LineChart,
+  Sprout,
+  DollarSign,
+  Globe,
+  Bell,
+  Mic,
+  Smartphone,
+  Lock,
+  Cloud,
+  Users,
+  Info,
+  LogOut,
+  Settings,
+  ChevronRight
+} from "lucide-react"
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,6 +29,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu"
 import { useLanguage } from "@/contexts/language-context"
 import { useAuth } from "@/contexts/auth-context"
@@ -23,6 +46,157 @@ export function UserNav() {
     return null;
   }
 
+  const profileSections = [
+    {
+      icon: <User className="mr-2 h-4 w-4" />,
+      title: t({ en: "Personal Information", hi: "व्यक्तिगत जानकारी" }),
+      options: [
+        t({ en: "Edit Name & Photo" }),
+        t({ en: "Contact Details (Phone, Email)" }),
+        t({ en: "Farmer ID/Registration Number" }),
+        t({ en: "Language Preference" }),
+        t({ en: "Location/Address" }),
+      ],
+    },
+    {
+      icon: <Tractor className="mr-2 h-4 w-4" />,
+      title: t({ en: "Farm Details", hi: "खेत का विवरण" }),
+      options: [
+        t({ en: "Farm Size & Location" }),
+        t({ en: "Soil Type & Quality" }),
+        t({ en: "Water Source & Irrigation" }),
+        t({ en: "Current Crops Growing" }),
+        t({ en: "Farming Experience Level" }),
+      ],
+    },
+    {
+      icon: <LineChart className="mr-2 h-4 w-4" />,
+      title: t({ en: "Dashboard", hi: "डैशबोर्ड" }),
+      options: [
+        t({ en: "My Query History" }),
+        t({ en: "Saved Responses" }),
+        t({ en: "Bookmarked Advice" }),
+        t({ en: "Progress Tracking" }),
+        t({ en: "Yield Records" }),
+      ],
+    },
+    {
+      icon: <Sprout className="mr-2 h-4 w-4" />,
+      title: t({ en: "Crop Management", hi: "फसल प्रबंधन" }),
+      options: [
+        t({ en: "Active Crops List" }),
+        t({ en: "Planting Calendar" }),
+        t({ en: "Harvest Schedule" }),
+        t({ en: "Crop Health Status" }),
+        t({ en: "Pest/Disease History" }),
+      ],
+    },
+    {
+      icon: <DollarSign className="mr-2 h-4 w-4" />,
+      title: t({ en: "Financial Tracking", hi: "वित्तीय ट्रैकिंग" }),
+      options: [
+        t({ en: "Income/Expense Records" }),
+        t({ en: "Market Price Alerts" }),
+        t({ en: "Government Scheme Status" }),
+        t({ en: "Subsidy Applications" }),
+        t({ en: "Profit/Loss Analysis" }),
+      ],
+    },
+  ];
+
+  const settingsSections = [
+    {
+      icon: <Globe className="mr-2 h-4 w-4" />,
+      title: t({ en: "Location & Language", hi: "स्थान और भाषा" }),
+      options: [
+        t({ en: "Auto-Detect Location (ON/OFF)" }),
+        t({ en: "Set Manual Location" }),
+        t({ en: "Primary Language Selection" }),
+        t({ en: "Secondary Language Option" }),
+        t({ en: "Regional Dialect Settings" }),
+      ],
+    },
+    {
+      icon: <Bell className="mr-2 h-4 w-4" />,
+      title: t({ en: "Notifications", hi: "सूचनाएं" }),
+      options: [
+        t({ en: "Weather Alerts (ON/OFF)" }),
+        t({ en: "Market Price Updates" }),
+        t({ en: "Pest Outbreak Warnings" }),
+        t({ en: "Seasonal Reminders" }),
+        t({ en: "Officer Messages" }),
+        t({ en: "System Updates" }),
+      ],
+    },
+    {
+      icon: <Mic className="mr-2 h-4 w-4" />,
+      title: t({ en: "Voice & Speech", hi: "आवाज और भाषण" }),
+      options: [
+        t({ en: "Voice Input (Enable/Disable)" }),
+        t({ en: "Speech Language" }),
+        t({ en: "Voice Sensitivity Level" }),
+        t({ en: "Text-to-Speech Settings" }),
+        t({ en: "Auto-Play Responses" }),
+      ],
+    },
+    {
+      icon: <Smartphone className="mr-2 h-4 w-4" />,
+      title: t({ en: "App Preferences", hi: "ऐप प्राथमिकताएं" }),
+      options: [
+        t({ en: "Theme (Light/Dark Mode)" }),
+        t({ en: "Font Size (Small/Medium/Large)" }),
+        t({ en: "Data Usage (WiFi Only/Mobile Data)" }),
+        t({ en: "Offline Mode Settings" }),
+        t({ en: "Auto-Save Queries" }),
+      ],
+    },
+    {
+      icon: <Lock className="mr-2 h-4 w-4" />,
+      title: t({ en: "Privacy & Security", hi: "गोपनीयता और सुरक्षा" }),
+      options: [
+        t({ en: "Data Sharing Preferences" }),
+        t({ en: "Location Privacy" }),
+        t({ en: "Photo Storage Settings" }),
+        t({ en: "Account Security" }),
+        t({ en: "Delete Account Option" }),
+      ],
+    },
+    {
+      icon: <Cloud className="mr-2 h-4 w-4" />,
+      title: t({ en: "Data & Sync", hi: "डेटा और सिंक" }),
+      options: [
+        t({ en: "Cloud Backup (ON/OFF)" }),
+        t({ en: "Auto-Sync Settings" }),
+        t({ en: "Export My Data" }),
+        t({ en: "Clear Cache" }),
+        t({ en: "Storage Usage" }),
+      ],
+    },
+    {
+      icon: <Users className="mr-2 h-4 w-4" />,
+      title: t({ en: "Officer Connection", hi: "अधिकारी कनेक्शन" }),
+      options: [
+        t({ en: "Nearby Officers List" }),
+        t({ en: "Preferred Contact Method" }),
+        t({ en: "Availability Hours" }),
+        t({ en: "Emergency Contact Priority" }),
+        t({ en: "Consultation History" }),
+      ],
+    },
+    {
+      icon: <Info className="mr-2 h-4 w-4" />,
+      title: t({ en: "Support & Info", hi: "सहायता और जानकारी" }),
+      options: [
+        t({ en: "Help & Tutorials" }),
+        t({ en: "Contact Support" }),
+        t({ en: "App Version Info" }),
+        t({ en: "Terms & Privacy Policy" }),
+        t({ en: "Feedback & Ratings" }),
+      ],
+    },
+  ];
+
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -33,7 +207,7 @@ export function UserNav() {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className="w-64" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user.name}</p>
@@ -42,21 +216,69 @@ export function UserNav() {
             </p>
           </div>
         </DropdownMenuLabel>
+        
         <DropdownMenuSeparator />
+
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            {t({ en: "Profile", ml: "പ്രൊഫൈൽ", hi: "प्रोफ़ाइल", ta: "சுயவிவரம்", te: "ప్రొఫైల్", kn: "ಪ್ರೊಫೈಲ್", bn: "প্রোফাইল", mr: "प्रोफाइल", gu: "પ્રોફાઇલ", pa: "ਪ੍ਰੋਫਾਈਲ" })}
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            {t({ en: "Settings", ml: "ക്രമീകരണങ്ങൾ", hi: "सेटिंग्स", ta: "அமைப்புகள்", te: "సెట్టింగ్స్", kn: "ಸೆಟ್ಟಿಂಗ್‌ಗಳು", bn: "সেটিংস", mr: "सेटिंग्ज", gu: "સેટિંગ્સ", pa: "ਸੈਟਿੰਗਾਂ" })}
-          </DropdownMenuItem>
+            <DropdownMenuLabel>{t({en: "Profile", hi: "प्रोफ़ाइल"})}</DropdownMenuLabel>
+            {profileSections.map((section, index) => (
+                <DropdownMenuSub key={index}>
+                    <DropdownMenuSubTrigger>
+                        {section.icon}
+                        <span>{section.title}</span>
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                        <DropdownMenuSubContent className="w-56">
+                            {section.options.map((option, i) => (
+                                <DropdownMenuItem key={i}>{option}</DropdownMenuItem>
+                            ))}
+                        </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                </DropdownMenuSub>
+            ))}
         </DropdownMenuGroup>
+        
         <DropdownMenuSeparator />
+        
+        <DropdownMenuGroup>
+            <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>{t({en: "Settings", hi: "सेटिंग्स"})}</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="w-64">
+                         {settingsSections.map((section, index) => (
+                            <DropdownMenuSub key={index}>
+                                <DropdownMenuSubTrigger>
+                                    {section.icon}
+                                    <span>{section.title}</span>
+                                </DropdownMenuSubTrigger>
+                                <DropdownMenuPortal>
+                                    <DropdownMenuSubContent className="w-56">
+                                        {section.options.map((option, i) => (
+                                            <DropdownMenuItem key={i}>{option}</DropdownMenuItem>
+                                        ))}
+                                    </DropdownMenuSubContent>
+                                </DropdownMenuPortal>
+                            </DropdownMenuSub>
+                        ))}
+                    </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+            </DropdownMenuSub>
+        </DropdownMenuGroup>
+        
+        <DropdownMenuSeparator />
+
         <ThemeSwitcher />
+
         <DropdownMenuSeparator />
+        
         <DropdownMenuItem onClick={logout}>
-          {t({ en: "Log out", ml: "ലോഗ് ഔട്ട്", hi: "लॉग आउट", ta: "வெளியேறு", te: "లాగ్ అవుట్", kn: "ಲಾಗ್ ಔట్", bn: "লగ్ আউট", mr: "लॉग आउट", gu: "લૉગ આઉટ", pa: "ਲਾਗ ਆਊਟ" })}
+          <LogOut className="mr-2 h-4 w-4" />
+          {t({ en: "Log out", hi: "लॉग आउट" })}
         </DropdownMenuItem>
+
       </DropdownMenuContent>
     </DropdownMenu>
   )
