@@ -1,3 +1,52 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "farmer-hero",
+      "description": "A vibrant image of an Indian farmer in a lush green field, symbolizing prosperity.",
+      "imageUrl": "https://picsum.photos/seed/farmer-hero/1200/600",
+      "imageHint": "indian farmer"
+    },
+    {
+      "id": "market-prices",
+      "description": "A bustling agricultural market scene.",
+      "imageUrl": "https://picsum.photos/seed/market-prices/400/300",
+      "imageHint": "agricultural market"
+    },
+    {
+      "id": "weather-forecast",
+      "description": "A clear sky with a sun, representing good weather.",
+      "imageUrl": "https://picsum.photos/seed/weather-forecast/400/300",
+      "imageHint": "clear sky"
+    },
+    {
+      "id": "crop-doctor",
+      "description": "A close-up of a healthy green leaf.",
+      "imageUrl": "https://picsum.photos/seed/crop-doctor/400/300",
+      "imageHint": "green leaf"
+    },
+    {
+      "id": "scan-crop",
+      "description": "A person holding a smartphone to scan a plant.",
+      "imageUrl": "https://picsum.photos/seed/scan-crop/400/300",
+      "imageHint": "phone scanning plant"
+    },
+     {
+      "id": "voice-query",
+      "description": "Sound waves illustration for voice query.",
+      "imageUrl": "https://picsum.photos/seed/voice-query/400/300",
+      "imageHint": "sound waves"
+    },
+     {
+      "id": "govt-schemes",
+      "description": "An official government building.",
+      "imageUrl": "https://picsum.photos/seed/govt-schemes/400/300",
+      "imageHint": "government building"
+    },
+    {
+      "id": "officer-directory",
+      "description": "A group of professionals in a meeting.",
+      "imageUrl": "https://picsum.photos/seed/officer-directory/400/300",
+      "imageHint": "professional meeting"
+    }
+  ]
 }
