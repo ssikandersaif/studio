@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     // Check if user is logged in from a previous session
-    const storedUser = sessionStorage.getItem('agrimitra-user');
+    const storedUser = localStorage.getItem('agrimitra-user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const foundUser = mockUsers.find(u => u.name.toLowerCase() === username.toLowerCase());
     if (foundUser && mockUserPasswords[foundUser.id] === password) {
       setUser(foundUser);
-      sessionStorage.setItem('agrimitra-user', JSON.stringify(foundUser));
+      localStorage.setItem('agrimitra-user', JSON.stringify(foundUser));
       return true;
     }
     return false;
@@ -35,6 +35,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('agrimitra-user');
+    // also clear session storage for good measure from previous implementation
     sessionStorage.removeItem('agrimitra-user');
   };
 
