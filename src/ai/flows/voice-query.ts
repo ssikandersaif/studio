@@ -18,7 +18,7 @@ const VoiceQueryForFarmingInputSchema = z.object({
   voiceQuery: z
     .string()
     .describe(
-      'The voice query from the farmer, as a data URI that must include a MIME type and use Base64 encoding. Expected format: \'data:<mimetype>;base64,<encoded_data>\'.'      
+      "The voice query from the farmer, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
   language: z.string().describe('The language of the voice query.'),
 });
@@ -41,8 +41,10 @@ const prompt = ai.definePrompt({
 
 You will be provided with a voice query from a farmer in their local language, and your task is to provide a helpful and informative answer in the same language.
 
-Voice Query: {{{voiceQuery}}}
+Voice Query (this is an audio file): {{media url=voiceQuery}}
 Language: {{{language}}}
+
+First, transcribe the audio. Then, provide a helpful and informative answer based on the transcription in the same language as the query.
 
 Answer: `,
 });
