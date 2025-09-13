@@ -37,10 +37,8 @@ export default function RootLayout({
             </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
-        <Script src="//code.tidio.co/gktpkpuf8khohc1mzzs8fe6zzdff1y9e.js" async />
+        <Script src="//code.tidio.co/gktpkpuf8khohc1mzzs8fe6zzdff1y9e.js" strategy="lazyOnload" />
       </body>
     </html>
   );
 }
-
-    
