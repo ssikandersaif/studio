@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,26 +12,33 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useLanguage } from "@/contexts/language-context"
+import { useAuth } from "@/contexts/auth-context"
 import { ThemeSwitcher } from "./theme-switcher"
 
 export function UserNav() {
   const { t } = useLanguage();
+  const { user, logout } = useAuth();
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-9 w-9">
-            <AvatarImage src="https://picsum.photos/seed/user-avatar/40/40" alt="@user" />
-            <AvatarFallback>U</AvatarFallback>
+            <AvatarImage src={user.avatarUrl} alt={user.name} />
+            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{t({ en: "Farmer", ml: "കർഷകൻ", hi: "किसान", ta: "விவசாயி", te: "రైతు", kn: "ರೈತ", bn: "কৃষক", mr: "शेतकरी", gu: "ખેડૂત", pa: "ਕਿਸਾਨ" })}</p>
+            <p className="text-sm font-medium leading-none">{user.name}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              farmer@example.com
+              {user.email}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -45,8 +54,8 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <ThemeSwitcher />
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          {t({ en: "Log out", ml: "ലോഗ് ഔട്ട്", hi: "लॉग आउट", ta: "வெளியேறு", te: "లాగ్ అవుట్", kn: "ಲಾಗ್ ಔట్", bn: "লగ్ আউট", mr: "लॉग आउट", gu: "લૉગ આઉట్", pa: "ਲਾਗ ਆਊਟ" })}
+        <DropdownMenuItem onClick={logout}>
+          {t({ en: "Log out", ml: "ലോഗ് ഔട്ട്", hi: "लॉग आउट", ta: "வெளியேறு", te: "లాగ్ అవుట్", kn: "ಲಾಗ್ ಔట్", bn: "লగ్ আউট", mr: "लॉग आउट", gu: "લૉગ આઉટ", pa: "ਲਾਗ ਆਊਟ" })}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

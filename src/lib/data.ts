@@ -1,10 +1,23 @@
 import {
   CropPrice,
-  WeatherData,
   AgriculturalOfficer,
   GovernmentScheme,
+  User,
 } from './types';
-import { format, addDays } from 'date-fns';
+import { format } from 'date-fns';
+
+export const mockUsers: User[] = [
+    { id: '1', name: 'Farmer1', email: 'farmer1@example.com', avatarUrl: 'https://picsum.photos/seed/user1/100/100' },
+    { id: '2', name: 'Farmer2', email: 'farmer2@example.com', avatarUrl: 'https://picsum.photos/seed/user2/100/100' },
+    { id: '3', name: 'Farmer3', email: 'farmer3@example.com', avatarUrl: 'https://picsum.photos/seed/user3/100/100' },
+];
+
+export const mockUserPasswords: { [key: string]: string } = {
+    '1': 'password123',
+    '2': 'password123',
+    '3': 'password123',
+};
+
 
 export const mockCropPrices: CropPrice[] = [
   {

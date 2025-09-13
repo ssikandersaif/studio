@@ -1,3 +1,5 @@
+"use client";
+
 import { MainNav } from "@/components/main-nav"
 import {
   Sidebar,
@@ -7,12 +9,28 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import { Sprout } from "lucide-react"
+import { useAuth } from "@/contexts/auth-context";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user === null) {
+      router.push('/login');
+    }
+  }, [user, router]);
+
+  if (!user) {
+    return null; // or a loading spinner
+  }
+
   return (
     <SidebarProvider>
       <Sidebar>

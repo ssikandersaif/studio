@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from '@/contexts/language-context';
 import { ThemeProvider } from '@/contexts/theme-provider';
+import { AuthProvider } from '@/contexts/auth-context';
 
 export const metadata: Metadata = {
   title: 'AgriMitra',
@@ -29,8 +30,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
-            {children}
-            <Toaster />
+            <AuthProvider>
+              {children}
+              <Toaster />
+            </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>
