@@ -44,7 +44,7 @@ export default function MainLayout({
           <MainNav />
         </SidebarContent>
       </Sidebar>
-      <SidebarInset>
+      <SidebarInset className="bg-background">
         {children}
       </SidebarInset>
     </SidebarProvider>
