@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from '@/contexts/language-context';
 import { ThemeProvider } from '@/contexts/theme-provider';
 import { AuthProvider } from '@/contexts/auth-context';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'AgriMitra',
@@ -36,6 +37,7 @@ export default function RootLayout({
             </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
+        <Script src="//code.tidio.co/gktpkpuf8khohc1mzzs8fe6zzdff1y9e.js" async />
       </body>
     </html>
   );
