@@ -10,7 +10,6 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card"
 import {
   Dialog,
@@ -20,7 +19,6 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
-  DialogClose,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -38,6 +36,16 @@ import {
 } from "lucide-react"
 import { Header } from "@/components/header"
 import { useLanguage } from "@/contexts/language-context"
+
+declare global {
+  interface Window {
+    tidioChat: {
+      open: () => void;
+      message: (msg: string) => void;
+    };
+  }
+}
+
 
 export default function DashboardPage() {
   const { t } = useLanguage()
@@ -64,13 +72,15 @@ export default function DashboardPage() {
     { title: t({ en: "Crop Doctor", ml: "വിള ഡോക്ടർ", hi: "फ़सल डॉक्टर", ta: "பயிர் மருத்துவர்", te: "పంట மருத்துவர்", kn: "ಬೆಳೆ ವೈದ್ಯ", bn: "ফসল ডাক্তার", mr: "पीक डॉक्टर", gu: "પાક ડોક્ટર", pa: "ਫਸਲ ਡਾਕਟਰ" }), description: t({ en: "Get AI advice for your crops", ml: "നിങ്ങളുടെ വിളകൾക്ക് AI ഉപദേശം നേടുക", hi: "अपनी फसलों के लिए AI सलाह प्राप्त करें", ta: "உங்கள் பயிர்களுக்கு AI ஆலோசனை பெறுங்கள்", te: "మీ పంటలకు AI సలహా పొందండి", kn: "ನಿಮ್ಮ ಬೆಳೆಗಳಿಗೆ AI ಸಲಹೆ ಪಡೆಯಿರಿ", bn: "আপনার ফসলের জন্য AI পরামর্শ পান", mr: "तुमच्या पिकांसाठी AI सल्ला मिळवा", gu: "તમારા પાક માટે AI સલાહ મેળવો", pa: "ਆਪਣੀਆਂ ਫਸਲਾਂ ਲਈ AI ਸਲਾਹ ਲਓ" }), href: "/crop-doctor", icon: <Stethoscope className="w-8 h-8 text-primary" />, image: featureImages.doctor },
     { title: t({ en: "Scan Crop", ml: "വിള സ്കാൻ", hi: "फ़सल स्कैन", ta: "பயிர் స్కాన్", te: "పంట స్కాన్", kn: "ಬೆಳೆ స్కాన్", bn: "ফসল স্ক্যান", mr: "पीक स्कॅन", gu: "પાક સ્કેન", pa: "ਫਸਲ ਸਕੈਨ" }), description: t({ en: "Identify diseases with your camera", ml: "നിങ്ങളുടെ ക്യാമറ ഉപയോഗിച്ച് രോഗങ്ങൾ തിരിച്ചറിയുക", hi: " अपने कैमरे से बीमारियों की पहचान करें", ta: "உங்கள் கேமரா மூலம் நோய்களைக் கண்டறியவும்", te: "మీ కెమెరాతో వ్యాధులను గుర్తించండి", kn: "ನಿಮ್ಮ ಕ್ಯಾಮೆರಾದಿಂದ ರೋಗಗಳನ್ನು ಗುರುತಿಸಿ", bn: "আপনার ক্যামেরা দিয়ে রোগ সনাক্ত করুন", mr: "तुमच्या कॅमेऱ्याने रोग ओळखा", gu: "તમારા કેમેરા વડે રોગોને ઓળખો", pa: "ਆਪਣੇ ਕੈਮਰੇ ਨਾਲ ਬਿਮਾਰੀਆਂ ਦੀ ਪਛਾਣ ਕਰੋ" }), href: "/scan-crop", icon: <ScanLine className="w-8 h-8 text-primary" />, image: featureImages.scan },
     { title: t({ en: "Voice Query", ml: "ശബ്ദ ചോദ്യം", hi: "आवाज प्रश्न", ta: "குரல் கேள்வி", te: "వాయిస్ ప్రశ్న", kn: "ಧ್ವನಿ ಪ್ರಶ್ನೆ", bn: "ভয়েস কোয়েরি", mr: "आवाज प्रश्न", gu: "અવાજ ક્વેરી", pa: "ਅਵਾਜ਼ ਸਵਾਲ" }), description: t({ en: "Ask questions in your language", ml: "നിങ്ങളുടെ ഭാഷയിൽ ചോദ്യങ്ങൾ ചോദിക്കുക", hi: "अपनी भाषा में प्रश्न पूछें", ta: "உங்கள் மொழியில் கேள்விகளைக் கேளுங்கள்", te: "మీ भाषाలో ప్రశ్నలు అడగండి", kn: "ನಿಮ್ಮ భాషೆಯಲ್ಲಿ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ", bn: "আপনার ভাষায় প্রশ্ন জিজ্ঞাসা করুন", mr: "तुमच्या भाषेत प्रश्न विचारा", gu: "તમારી ભાષામાં પ્રશ્નો પૂછો", pa: "ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਸਵਾਲ ਪੁੱਛੋ" }), href: "/voice-query", icon: <Mic className="w-8 h-8 text-primary" />, image: featureImages.voice },
-    { title: t({ en: "Govt. Schemes", ml: "സർക്കാർ പദ്ധതികൾ", hi: "सरकारी योजनाएं", ta: "அரசு திட்டங்கள்", te: "ప్రభుత్వ పథకాలు", kn: "ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು", bn: "सरकारी योजना", mr: "सरकारी योजना", gu: "સરકારી યોજનાઓ", pa: "ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ" }), description: t({ en: "Check your eligibility for schemes", ml: "പദ്ധതികൾക്ക് നിങ്ങളുടെ യോഗ്യത പരിശോധിക്കുക", hi: "योजनाओं के लिए अपनी पात्रता जांचें", ta: "திட்டங்களுக்கான உங்கள் தகுதியை சரிபார்க்கவும்", te: "పథకాలకు మీ అర్హతను తనిఖీ చేయండి", kn: "ಯੋਜನೆಗಳಿಗೆ ನಿಮ್ಮ ಅರ್ಹತೆಯನ್ನು ಪರಿಶೀಲಿಸಿ", bn: "স্কیمগুলির জন্য আপনার যোগ্যতা जांचুন", mr: "योजनांसाठी तुमची पात्रता तपासा", gu: "યોજનાઓ માટે તમારી યોગ્યતા તપાસો", pa: "ਯੋਜਨਾਵਾਂ ਲਈ ਆਪਣੀ ਯੋਗਤਾ ਦੀ ਜਾਂਚ ਕਰੋ" }), href: "/govt-schemes", icon: <ScrollText className="w-8 h-8 text-primary" />, image: featureImages.schemes },
+    { title: t({ en: "Govt. Schemes", ml: "സർക്കാർ പദ്ധതികൾ", hi: "सरकारी योजनाएं", ta: "அரசு திட்டங்கள்", te: "ప్రభుత్వ పథకాలు", kn: "ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು", bn: "सरकारी योजना", mr: "सरकारी योजना", gu: "સરકારી યોજનાઓ", pa: "ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ" }), description: t({ en: "Check your eligibility for schemes", ml: "പദ്ധതികൾക്ക് നിങ്ങളുടെ യോഗ്യത പരിശോധിക്കുക", hi: "योजनाओं के लिए अपनी पात्रता जांचें", ta: "திட்டங்களுக்கான உங்கள் தகுதியை சரிபார்க்கவும்", te: "పథకాలకు మీ అర్హతను తనిఖీ చేయండి", kn: "ಯೋਜನೆಗಳಿಗೆ ನಿಮ್ಮ ಅರ್ಹತೆಯನ್ನು ಪರಿಶೀಲಿಸಿ", bn: "স্কیمগুলির জন্য আপনার যোগ্যতা जांचুন", mr: "योजनांसाठी तुमची पात्रता तपासा", gu: "યોજનાઓ માટે તમારી યોગ્યતા તપાસો", pa: "ਯੋਜਨਾਵਾਂ ਲਈ ਆਪਣੀ ਯੋਗਤਾ ਦੀ ਜਾਂਚ ਕਰੋ" }), href: "/govt-schemes", icon: <ScrollText className="w-8 h-8 text-primary" />, image: featureImages.schemes },
     { title: t({ en: "Officer Directory", ml: "ഓഫീസർ ഡയറക്ടറി", hi: "अधिकारी निर्देशिका", ta: "அதிகாரி டைரக்டरी", te: "అధికారి డైరెక్టరీ", kn: "ಅధికಾರಿ ಡೈರೆಕ್ಟರಿ", bn: "কর্মকর্তা निर्देशिका", mr: "अधिकारी निर्देशिका", gu: "અધિકारी નિર્દેશિકા", pa: "ਅਧਿਕਾਰੀ ਡਾਇਰੈਕਟਰੀ" }), description: t({ en: "Connect with local officers", ml: "പ്രാദേശിക ഉദ്യോഗസ്ഥരുമായി ബന്ധപ്പെടുക", hi: "स्थानीय अधिकारियों से जुड़ें", ta: "உள்ளூர் அதிகாரிகளுடன் இணையுங்கள்", te: "స్థానిక அதிகாரులతో కనెక్ట్ అవ్వండి", kn: "ಸ್ಥಳೀಯ ಅಧಿಕಾರಿಗಳೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸಿ", bn: "স্থানীয় அதிகாரীদের সাথে সংযোগ স্থাপন করুন", mr: "स्थानिक अधिकाऱ्यांशी संपर्क साधा", gu: "સ્થાનિક અધિકારીઓ સાથે જોડાઓ", pa: "ਸਥਾਨਕ ਅਧਿਕਾਰੀਆਂ ਨਾਲ ਜੁੜੋ" }), href: "/officer-directory", icon: <Users className="w-8 h-8 text-primary" />, image: featureImages.directory },
   ]
 
   const handleFeedbackSubmit = () => {
-    // In a real app, you would send this to a server
-    console.log("Feedback submitted:", feedback)
+    if (typeof window.tidioChat !== 'undefined') {
+        window.tidioChat.open();
+        window.tidioChat.message(`Feedback: ${feedback}`);
+    }
     toast({
       title: t({ en: "Feedback Submitted", hi: "प्रतिक्रिया सबमिट की गई" }),
       description: t({ en: "Thank you for your feedback!", hi: "आपकी प्रतिक्रिया के लिए धन्यवाद!" }),
@@ -80,8 +90,10 @@ export default function DashboardPage() {
   }
 
   const handleQuerySubmit = () => {
-    // In a real app, you would send this to a server
-    console.log("Query submitted:", query)
+    if (typeof window.tidioChat !== 'undefined') {
+        window.tidioChat.open();
+        window.tidioChat.message(`Query: ${query}`);
+    }
     toast({
       title: t({ en: "Query Submitted", hi: "प्रश्न सबमिट किया गया" }),
       description: t({ en: "Your query has been submitted. We will notify you on your provided email.", hi: "आपका प्रश्न सबमिट कर दिया गया है। हम आपको आपके दिए गए ईमेल पर सूचित करेंगे।" }),
@@ -113,7 +125,7 @@ export default function DashboardPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-0 p-6">
               <h2 className="text-3xl font-bold text-white font-headline">
-                {t({ en: "Empowering Indian Farmers with AI", ml: "AI ഉപയോഗിച്ച് ഇന്ത്യൻ കർഷകരെ ശാക്തീകരിക്കുന്നു", hi: "AI के साथ भारतीय किसानों को सशक्त बनाना", ta: "AI மூலம் இந்திய விவசாயிகளை மேம்படுத்துதல்", te: "AI తో భారతీయ ರೈతులను सशक्तం చేయడం", kn: "AI ಯೊಂದಿಗೆ ಭಾರತೀಯ ರೈತರನ್ನು ಸಶಕ್ತಗೊಳಿಸುವುದು", bn: "এআই দিয়ে भारतीय किसानोंকে सशक्त করা", mr: "एआय सह भारतीय शेतकऱ्यांना सक्षम करणे", gu: "AI વડે ભારતીય ખેડૂતોને સશક્તિકरण", pa: "AI ਨਾਲ ਭਾਰਤੀ ਕਿਸਾਨਾਂ ਨੂੰ ਸ਼ਕਤੀਸ਼ਾਲੀ ਬਣਾਉਣਾ" })}
+                {t({ en: "Empowering Indian Farmers with AI", ml: "AI ഉപയോഗിച്ച് ഇന്ത്യൻ കർഷകരെ ശാക്തീകരിക്കുന്നു", hi: "AI के साथ भारतीय किसानों को सशक्त बनाना", ta: "AI மூலம் இந்திய விவசாயிகளை மேம்படுத்துதல்", te: "AI తో భారతీయ రైతులను सशक्तం చేయడం", kn: "AI ಯೊಂದಿಗೆ ಭಾರತೀಯ ರೈತರನ್ನು ಸಶಕ್ತಗೊಳಿಸುವುದು", bn: "এআই দিয়ে भारतीय किसानोंকে सशक्त করা", mr: "एआय सह भारतीय शेतकऱ्यांना सक्षम करणे", gu: "AI વડે ભારતીય ખેડૂતોને સશક્તિકरण", pa: "AI ਨਾਲ ਭਾਰਤੀ ਕਿਸਾਨਾਂ ਨੂੰ ਸ਼ਕਤੀਸ਼ਾਲੀ ਬਣਾਉਣਾ" })}
               </h2>
               <p className="text-lg text-gray-200">
                 {t({ en: "Get instant advice, market data, and weather updates.", ml: "തൽക്ഷണ ഉപദേശം, മാർക്കറ്റ് ഡാറ്റ, കാലാവസ്ഥാ അപ്‌ഡേറ്റുകൾ എന്നിവ നേടുക.", hi: "तुरंत सलाह, बाजार डेटा और मौसम अपडेट प्राप्त करें।", ta: "உடனடி ஆலோசனை, சந்தை தரவு மற்றும் வானிலை புதுப்பிப்புகளைப் பெறுங்கள்.", te: "తక్షణ సలహా, మార్కెట్ డేటా మరియు వాతావరణ నవీకరణలను పొందండి.", kn: "ತక్షణ ಸಲಹೆ, ಮಾರುಕಟ್ಟೆ ಡೇಟਾ ಮತ್ತು ಹವಾಮಾನ ನವೀಕರಣಗಳನ್ನು ಪಡೆಯಿರಿ.", bn: "तत्काल পরামর্শ, বাজার ডেটা এবং আবহাওয়ার আপডেট পান।", mr: "त्वरित सल्ला, बाजार डेटा आणि हवामान अद्यतने मिळवा.", gu: "તાત્કાલિક સલાહ, બજાર ડેટા અને હવામાન અપડેટ્સ મેળવો.", pa: "ਤੁਰੰਤ ਸਲਾਹ, ਮਾਰਕੀਟ ਡੇਟਾ, ਅਤੇ ਮੌਸਮ ਅਪਡੇਟਸ ਪ੍ਰਾਪਤ ਕਰੋ।" })}
