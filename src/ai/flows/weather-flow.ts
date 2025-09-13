@@ -45,12 +45,15 @@ export type WeatherOutput = z.infer<typeof WeatherOutputSchema>;
 
 async function fetchWeatherDataFromApi(lat: number, lon: number): Promise<any> {
     const apiKey = process.env.OPENWEATHER_API_KEY;
-    if (!apiKey) {
-      throw new Error("OpenWeather API key is not configured.");
+    if (!apiKey || apiKey === "YOUR_OPENWEATHER_API_KEY") {
+      throw new Error("OpenWeather API key is not configured. Please get a free key from openweathermap.org and add it to your .env file.");
     }
     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
     const response = await fetch(url);
     if (!response.ok) {
+        if (response.status === 401) {
+            throw new Error("Failed to fetch weather data: Unauthorized. Your OpenWeather API key is invalid. Please check it in your .env file.");
+        }
         throw new Error(`Failed to fetch weather data: ${response.statusText}`);
     }
     return await response.json();
