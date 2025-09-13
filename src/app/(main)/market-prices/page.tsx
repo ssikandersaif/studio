@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Header } from "@/components/header";
 import {
   Card,
@@ -21,38 +21,14 @@ import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 import { useLanguage } from "@/contexts/language-context";
 import { Search } from "lucide-react";
-import { getMarketPrices } from "@/services/market-price-service";
+import { mockCropPrices } from "@/lib/data";
 import { CropPrice } from "@/lib/types";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/hooks/use-toast";
 
 export default function MarketPricesPage() {
   const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
-  const [prices, setPrices] = useState<CropPrice[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
+  const prices = mockCropPrices;
   const lastUpdated = format(new Date(), "MMMM d, yyyy");
-
-  useEffect(() => {
-    const fetchPrices = async () => {
-      setLoading(true);
-      try {
-        const result = await getMarketPrices();
-        setPrices(result.prices);
-      } catch (error) {
-        console.error("Failed to fetch market prices:", error);
-        toast({
-          variant: "destructive",
-          title: t({ en: "Error", hi: "त्रुटि" }),
-          description: t({ en: "Could not fetch market prices from the AI.", hi: "एआई से बाजार मूल्य प्राप्त नहीं हो सका।" }),
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPrices();
-  }, [toast, t]);
 
   const filteredPrices = useMemo(() => {
     if (!searchTerm) {
@@ -88,7 +64,6 @@ export default function MarketPricesPage() {
                   className="pl-10 w-full sm:w-64"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  disabled={loading}
                 />
               </div>
             </div>
@@ -98,7 +73,7 @@ export default function MarketPricesPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>{t({ en: "Commodity", ml: "ചരക്ക്", hi: "वस्तु", ta: "சரக்கு", te: "వస్తువు", kn: "ಸರಕು", bn: "পণ্য", mr: "वस्तू", gu: "કોમોડિટી", pa: "ਵਸਤੂ" })}</TableHead>
+                    <TableHead>{t({ en: "Commodity", ml: "ചരക്ക്", hi: "वस्तु", ta: "சரக்கு", te: "వస్తువు", kn: "ಸರಕು", bn: "পণ্য", mr: "വस्तू", gu: "કોમોડિટી", pa: "ਵਸਤੂ" })}</TableHead>
                     <TableHead>{t({ en: "Mandi", ml: "മണ്ടി", hi: "मंडी", ta: "மண்டி", te: "మंडी", kn: "ಮಂಡಿ", bn: "मंडी", mr: "मंडी", gu: "મंडी", pa: "ਮੰडी" })}</TableHead>
                     <TableHead className="text-right">{t({ en: "Min Price (₹/Quintal)", ml: "കുറഞ്ഞ വില (₹/ക്വിന്റൽ)", hi: "न्यूनतम मूल्य (₹/क्विंटल)", ta: "குறைந்தபட்ச விலை (₹/ குவிண்டால்)", te: "కనీస ధర (₹/క్వింటాల్)", kn: "ಕನಿಷ್ಠ ಬೆಲೆ (₹/ಕ್ವಿಂಟಾಲ್)", bn: "সর্বনিম্ন মূল্য (₹/কুইন্টাল)", mr: "किमान किंमत (₹/क्विंटल)", gu: "ન્યૂનતમ ભાવ (₹/ક્વિंटલ)", pa: "ਘੱਟੋ-ਘੱਟ ਕੀਮਤ (₹/ਕ्वਿੰਟਲ)" })}</TableHead>
                     <TableHead className="text-right">{t({ en: "Max Price (₹/Quintal)", ml: " കൂടിയ വില (₹/ക്വിന്റൽ)", hi: "अधिकतम मूल्य (₹/क्विंटल)", ta: "அதிகபட்ச விலை (₹/ குவிண்டால்)", te: "గరిష్ట ధర (₹/క్వింటాల్)", kn: "ಗರಿಷ್ಠ ಬೆಲೆ (₹/ಕ್ವಿಂಟಲ್)", bn: "সর্বোচ্চ মূল্য (₹/কুইন্টাল)", mr: "कमाल किंमत (₹/क्uintal)", gu: "મહત્તમ ભાવ (₹/ક્વિंटલ)", pa: "ਵੱਧ ਤੋਂ ਵੱਧ ਕੀਮਤ (₹/ਕ्वਿੰਟਲ)" })}</TableHead>
@@ -106,15 +81,7 @@ export default function MarketPricesPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {loading ? (
-                    Array.from({ length: 10 }).map((_, i) => (
-                        <TableRow key={`skeleton-${i}`}>
-                            <TableCell colSpan={5}>
-                                <Skeleton className="h-8 w-full" />
-                            </TableCell>
-                        </TableRow>
-                    ))
-                  ) : filteredPrices.length > 0 ? (
+                  {filteredPrices.length > 0 ? (
                     filteredPrices.map((price) => (
                       <TableRow key={price.id}>
                         <TableCell>
