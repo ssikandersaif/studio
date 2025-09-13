@@ -47,7 +47,7 @@ export default function FAQPage() {
     <>
       <Header
         title={t({ en: "Frequently Asked Questions", hi: "अक्सर पूछे जाने वाले प्रश्न" })}
-        description={t({ en: "Find answers to common questions about AgriMitra and farming.", hi: "एग्रीमित्रा और खेती के बारे में सामान्य प्रश्नों के उत्तर खोजें।" })}
+        description={t({ en: "Find answers to common questions about Krishi Mitra and farming.", hi: "कृषि मित्र और खेती के बारे में सामान्य प्रश्नों के उत्तर खोजें।" })}
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
         <Card>
@@ -103,3 +103,5 @@ export default function FAQPage() {
     </>
   );
 }
+
+    

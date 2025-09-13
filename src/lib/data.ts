@@ -2,22 +2,9 @@ import {
   CropPrice,
   AgriculturalOfficer,
   GovernmentScheme,
-  User,
   FAQ,
 } from './types';
 import { format } from 'date-fns';
-
-export const mockUsers: User[] = [
-    { id: '1', name: 'Farmer1', email: 'farmer1@example.com', avatarUrl: 'https://picsum.photos/seed/user1/100/100' },
-    { id: '2', name: 'Farmer2', email: 'farmer2@example.com', avatarUrl: 'https://picsum.photos/seed/user2/100/100' },
-    { id: '3', name: 'Farmer3', email: 'farmer3@example.com', avatarUrl: 'https://picsum.photos/seed/user3/100/100' },
-];
-
-export const mockUserPasswords: { [key: string]: string } = {
-    '1': 'password123',
-    '2': 'password123',
-    '3': 'password123',
-};
 
 const generatePrice = (base: number) => {
     const modal = base + Math.floor(Math.random() * 400) - 200;
@@ -217,8 +204,8 @@ export const mockSchemes: GovernmentScheme[] = [
 export const mockFaqs: FAQ[] = [
     {
         category: 'General',
-        question: 'What is AgriMitra?',
-        answer: 'AgriMitra is an AI-powered smart farming assistant designed to help Indian farmers with instant advice, market data, and weather updates.',
+        question: 'What is Krishi Mitra?',
+        answer: 'Krishi Mitra is an AI-powered smart farming assistant designed to help Indian farmers with instant advice, market data, and weather updates.',
     },
     {
         category: 'General',
@@ -458,11 +445,13 @@ export const mockFaqs: FAQ[] = [
     {
         category: 'Account',
         question: 'I forgot my password. How can I reset it?',
-        answer: 'Currently, the app uses mock login data. In a future version, a "Forgot Password" link will be available on the login screen to reset your password via email.',
+        answer: 'This app does not have a password system. Access is open to everyone.',
     },
     {
         category: 'Account',
         question: 'How do I delete my account?',
-        answer: 'Account deletion will be available in the "Privacy & Security" section of the settings in a future update. This will permanently remove all your data from our systems.',
+        answer: 'There are no user accounts in this application, so no personal data is stored.',
     },
 ];
+
+    

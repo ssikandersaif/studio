@@ -15,7 +15,6 @@ import {
   Cloud,
   Users,
   Info,
-  LogOut,
   Settings,
 } from "lucide-react"
 
@@ -40,7 +39,7 @@ import { ThemeSwitcher } from "./theme-switcher"
 
 export function UserNav() {
   const { t } = useLanguage();
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   if (!user) {
     return null;
@@ -278,14 +277,9 @@ export function UserNav() {
 
         <ThemeSwitcher />
 
-        <DropdownMenuSeparator />
-        
-        <DropdownMenuItem onClick={logout}>
-          <LogOut className="mr-2 h-4 w-4" />
-          {t({ en: "Log out", hi: "लॉग आउट" })}
-        </DropdownMenuItem>
-
       </DropdownMenuContent>
     </DropdownMenu>
   )
 }
+
+    

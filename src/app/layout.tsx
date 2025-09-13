@@ -3,11 +3,11 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from '@/contexts/language-context';
 import { ThemeProvider } from '@/contexts/theme-provider';
-import { AuthProvider } from '@/contexts/auth-context';
 import Script from 'next/script';
+import { AuthProvider } from '@/contexts/auth-context';
 
 export const metadata: Metadata = {
-  title: 'AgriMitra',
+  title: 'Krishi Mitra',
   description: 'Your AI-powered farming companion for Indian agriculture.',
 };
 
@@ -42,3 +42,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    

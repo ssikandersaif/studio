@@ -1,47 +1,37 @@
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { User } from '@/lib/types';
-import { mockUsers, mockUserPasswords } from '@/lib/data';
 
 interface AuthContextType {
   user: User | null;
-  login: (username: string, password: string) => Promise<boolean>;
-  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+// A default mock user since login is removed.
+const mockUser: User = {
+  id: '1',
+  name: 'Krishi User',
+  email: 'farmer@krishimitra.app',
+  avatarUrl: 'https://picsum.photos/seed/user1/100/100',
+};
 
-  useEffect(() => {
-    // Check if user is logged in from a previous session
-    const storedUser = localStorage.getItem('agrimitra-user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  // The user is now hardcoded as we removed the login system.
+  const [user] = useState<User | null>(mockUser);
 
   const login = async (username: string, password: string): Promise<boolean> => {
-    const foundUser = mockUsers.find(u => u.name.toLowerCase() === username.toLowerCase());
-    if (foundUser && mockUserPasswords[foundUser.id] === password) {
-      setUser(foundUser);
-      localStorage.setItem('agrimitra-user', JSON.stringify(foundUser));
-      return true;
-    }
-    return false;
+    // This function is no longer used but kept to avoid breaking other parts of the app that might still reference it.
+    return true;
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('agrimitra-user');
-    // also clear session storage for good measure from previous implementation
-    sessionStorage.removeItem('agrimitra-user');
+    // This function is no longer used.
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user }}>
       {children}
     </AuthContext.Provider>
   );
@@ -54,3 +44,5 @@ export const useAuth = () => {
   }
   return context;
 };
+
+    
