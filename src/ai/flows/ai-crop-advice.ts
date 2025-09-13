@@ -15,11 +15,13 @@ import {z} from 'genkit';
 
 const CropAdviceInputSchema = z.object({
   question: z.string().describe('The farming problem question asked by the user.'),
+  language: z.string().describe('The language for the translated advice (e.g., "en" for English, "ml" for Malayalam).'),
 });
 export type CropAdviceInput = z.infer<typeof CropAdviceInputSchema>;
 
 const CropAdviceOutputSchema = z.object({
-  advice: z.string().describe('The AI-driven advice to solve the farming problem.'),
+  englishAdvice: z.string().describe('The AI-driven advice in English.'),
+  translatedAdvice: z.string().describe('The AI-driven advice translated into the specified language.'),
 });
 export type CropAdviceOutput = z.infer<typeof CropAdviceOutputSchema>;
 
@@ -33,9 +35,13 @@ const cropAdvicePrompt = ai.definePrompt({
   output: {schema: CropAdviceOutputSchema},
   prompt: `You are an expert agricultural advisor for Indian farmers. A farmer has asked the following question:
 
-{{question}}
+"{{question}}"
 
-Provide detailed advice to help the farmer solve their problem. Be specific and practical. Include steps that can be taken immediately.`,
+Provide detailed advice to help the farmer solve their problem. Be specific and practical. Include steps that can be taken immediately.
+
+Your primary response (englishAdvice) must be in English.
+Then, translate your English advice into the language specified by the language code '{{language}}' and provide it in the translatedAdvice field.
+`,
 });
 
 const cropAdviceFlow = ai.defineFlow(

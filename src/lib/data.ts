@@ -59,27 +59,6 @@ export const mockCropPrices: CropPrice[] = [
   },
 ];
 
-export const mockWeatherData: WeatherData = {
-  current: {
-    temp: 32,
-    description: 'Partly cloudy',
-    icon: 'CloudSun',
-    humidity: 60,
-    wind: 15,
-    recommendation:
-      'Good conditions for planting. Ensure adequate irrigation due to high temperatures.',
-  },
-  forecast: [
-    { day: format(addDays(new Date(), 1), 'EEE'), temp: 33, description: 'Sunny', icon: 'Sun' },
-    { day: format(addDays(new Date(), 2), 'EEE'), temp: 31, description: 'Chance of rain', icon: 'CloudRain' },
-    { day: format(addDays(new Date(), 3), 'EEE'), temp: 34, description: 'Sunny', icon: 'Sun' },
-    { day: format(addDays(new Date(), 4), 'EEE'), temp: 30, description: 'Thunderstorm', icon: 'CloudLightning' },
-    { day: format(addDays(new Date(), 5), 'EEE'), temp: 29, description: 'Cloudy', icon: 'Cloud' },
-    { day: format(addDays(new Date(), 6), 'EEE'), temp: 32, description: 'Partly cloudy', icon: 'CloudSun' },
-    { day: format(addDays(new Date(), 7), 'EEE'), temp: 33, description: 'Sunny', icon: 'Sun' },
-  ],
-};
-
 export const mockOfficers: AgriculturalOfficer[] = [
   {
     id: '1',
@@ -129,7 +108,7 @@ export const mockSchemes: GovernmentScheme[] = [
       crops: ['All'],
       states: ['All'],
     },
-    link: '#',
+    link: 'https://pmkisan.gov.in/',
   },
   {
     id: '2',
@@ -139,7 +118,7 @@ export const mockSchemes: GovernmentScheme[] = [
       crops: ['All'],
       states: ['All'],
     },
-    link: '#',
+    link: 'https://pmfby.gov.in/',
   },
   {
     id: '3',
@@ -149,7 +128,7 @@ export const mockSchemes: GovernmentScheme[] = [
       crops: ['All'],
       states: ['All'],
     },
-    link: '#',
+    link: 'https://nmsa.dac.gov.in/',
   },
     {
     id: '4',
@@ -159,6 +138,6 @@ export const mockSchemes: GovernmentScheme[] = [
       crops: ['Paddy'],
       states: ['Kerala'],
     },
-    link: '#',
+    link: 'http://www.supplycokerala.com/paddy-procurement',
   },
 ];

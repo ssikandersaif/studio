@@ -5,7 +5,6 @@ import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { mockWeatherData } from "@/lib/data";
 import { WeatherData } from "@/lib/types";
 import {
   Cloud,
@@ -16,30 +15,62 @@ import {
   LocateFixed,
   Sun,
   Wind,
+  Loader2
 } from "lucide-react";
+import { getWeatherData } from "@/services/weather-service";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type IconMap = {
   [key: string]: React.ReactNode;
 };
 
 const iconMap: IconMap = {
-  Sun: <Sun className="h-10 w-10 text-yellow-500" />,
-  CloudSun: <CloudSun className="h-10 w-10 text-gray-500" />,
-  Cloud: <Cloud className="h-10 w-10 text-gray-400" />,
-  CloudRain: <CloudRain className="h-10 w-10 text-blue-500" />,
-  CloudLightning: <CloudLightning className="h-10 w-10 text-purple-500" />,
+  "01d": <Sun className="h-10 w-10 text-yellow-500" />,
+  "01n": <Sun className="h-10 w-10 text-yellow-500" />,
+  "02d": <CloudSun className="h-10 w-10 text-gray-500" />,
+  "02n": <CloudSun className="h-10 w-10 text-gray-500" />,
+  "03d": <Cloud className="h-10 w-10 text-gray-400" />,
+  "03n": <Cloud className="h-10 w-10 text-gray-400" />,
+  "04d": <Cloud className="h-10 w-10 text-gray-400" />,
+  "04n": <Cloud className="h-10 w-10 text-gray-400" />,
+  "09d": <CloudRain className="h-10 w-10 text-blue-500" />,
+  "09n": <CloudRain className="h-10 w-10 text-blue-500" />,
+  "10d": <CloudRain className="h-10 w-10 text-blue-500" />,
+  "10n": <CloudRain className="h-10 w-10 text-blue-500" />,
+  "11d": <CloudLightning className="h-10 w-10 text-purple-500" />,
+  "11n": <CloudLightning className="h-10 w-10 text-purple-500" />,
+  "50d": <Wind className="h-10 w-10 text-gray-500" />,
+  "50n": <Wind className="h-10 w-10 text-gray-500" />,
 };
 
 export default function WeatherPage() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [location, setLocation] = useState<string>("your location");
+  const [locationName, setLocationName] = useState<string>("your location");
   const [loading, setLoading] = useState(true);
+  const [gettingLocation, setGettingLocation] = useState(false);
   const { toast } = useToast();
 
+  const fetchWeather = async (lat: number, lon: number) => {
+    setLoading(true);
+    try {
+      const data = await getWeatherData({ lat, lon });
+      setWeatherData(data.weather);
+      setLocationName(data.locationName);
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        title: "Error fetching weather",
+        description: (error as Error).message || "Could not fetch weather data.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    // Simulate initial data loading
-    setWeatherData(mockWeatherData);
-    setLoading(false);
+    // Default location (e.g., Delhi)
+    fetchWeather(28.6139, 77.2090);
   }, []);
 
   const handleGetLocation = () => {
@@ -52,32 +83,37 @@ export default function WeatherPage() {
       return;
     }
 
-    setLoading(true);
+    setGettingLocation(true);
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        // In a real app, you would use position.coords.latitude and position.coords.longitude
-        // to fetch data from a weather API. Here, we just update the location name.
-        setLocation("current location");
-        setWeatherData(mockWeatherData); // Reload mock data
-        setLoading(false);
+        fetchWeather(position.coords.latitude, position.coords.longitude);
+        setGettingLocation(false);
         toast({
           title: "Location updated!",
           description: "Displaying weather for your current location.",
         });
       },
-      () => {
-        setLoading(false);
+      (error) => {
+        setGettingLocation(false);
+        let description = "Please allow location access in your browser settings.";
+        if (error.code === error.PERMISSION_DENIED) {
+            description = "You denied the request for Geolocation."
+        } else if (error.code === error.POSITION_UNAVAILABLE) {
+            description = "Location information is unavailable."
+        } else if (error.code === error.TIMEOUT) {
+            description = "The request to get user location timed out."
+        }
         toast({
           variant: "destructive",
           title: "Unable to retrieve location",
-          description: "Please allow location access in your browser settings.",
+          description: description,
         });
       }
     );
   };
   
-  const getIcon = (iconName: string) => {
-      return iconMap[iconName] || <CloudSun className="h-10 w-10 text-gray-500" />;
+  const getIcon = (iconCode: string) => {
+      return iconMap[iconCode] || <CloudSun className="h-10 w-10 text-gray-500" />;
   }
 
 
@@ -85,18 +121,42 @@ export default function WeatherPage() {
     <>
       <Header
         title="Weather Forecast"
-        description="Current conditions and 7-day forecast with farming impact analysis."
+        description="Current conditions and 5-day forecast with farming impact analysis."
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
         <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold capitalize">Weather for {location}</h2>
-          <Button onClick={handleGetLocation} disabled={loading}>
-            <LocateFixed className="mr-2 h-4 w-4" />
-            {loading ? "Getting location..." : "Use My Location"}
+            <h2 className="text-xl font-semibold capitalize">Weather for {locationName}</h2>
+          <Button onClick={handleGetLocation} disabled={gettingLocation}>
+            {gettingLocation ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <LocateFixed className="mr-2 h-4 w-4" />
+            )}
+            {gettingLocation ? "Getting location..." : "Use My Location"}
           </Button>
         </div>
 
-        {weatherData ? (
+        {loading ? (
+           <div className="grid gap-6">
+              <Card>
+                  <CardHeader>
+                      <Skeleton className="h-6 w-1/3"/>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                      <Skeleton className="h-16 w-full"/>
+                      <Skeleton className="h-10 w-full"/>
+                  </CardContent>
+              </Card>
+               <Card>
+                  <CardHeader>
+                      <Skeleton className="h-6 w-1/4"/>
+                  </CardHeader>
+                  <CardContent>
+                      <Skeleton className="h-32 w-full"/>
+                  </CardContent>
+              </Card>
+           </div>
+        ) : weatherData ? (
           <div className="grid gap-6">
             <Card className="bg-primary/10">
               <CardHeader>
@@ -109,7 +169,7 @@ export default function WeatherPage() {
                     <p className="text-6xl font-bold">
                       {weatherData.current.temp}°C
                     </p>
-                    <p className="text-lg text-muted-foreground">
+                    <p className="text-lg text-muted-foreground capitalize">
                       {weatherData.current.description}
                     </p>
                   </div>
@@ -135,22 +195,22 @@ export default function WeatherPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>7-Day Forecast</CardTitle>
+                <CardTitle>5-Day Forecast</CardTitle>
               </CardHeader>
-              <CardContent className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4 text-center">
+              <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center">
                 {weatherData.forecast.map((day, index) => (
                   <div key={index} className="flex flex-col items-center p-2 rounded-lg bg-secondary">
                     <p className="font-bold">{day.day}</p>
                     <div className="my-2">{getIcon(day.icon)}</div>
                     <p className="text-xl font-semibold">{day.temp}°C</p>
-                    <p className="text-xs text-muted-foreground">{day.description}</p>
+                    <p className="text-xs text-muted-foreground capitalize">{day.description}</p>
                   </div>
                 ))}
               </CardContent>
             </Card>
           </div>
         ) : (
-          <p>Loading weather data...</p>
+          <p>Could not load weather data.</p>
         )}
       </main>
     </>

@@ -46,3 +46,13 @@ export interface GovernmentScheme {
   };
   link: string;
 }
+
+export type WeatherServiceInput = {
+  lat: number;
+  lon: number;
+};
+
+export type WeatherServiceOutput = {
+  weather: WeatherData;
+  locationName: string;
+};

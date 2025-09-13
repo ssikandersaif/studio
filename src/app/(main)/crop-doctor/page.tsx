@@ -20,10 +20,10 @@ import { useLanguage } from "@/contexts/language-context";
 
 export default function CropDoctorPage() {
   const [question, setQuestion] = useState("");
-  const [advice, setAdvice] = useState("");
+  const [advice, setAdvice] = useState<{ english: string; translated: string } | null>(null);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,10 +36,13 @@ export default function CropDoctorPage() {
       return;
     }
     setLoading(true);
-    setAdvice("");
+    setAdvice(null);
     try {
-      const result = await getCropAdvice({ question });
-      setAdvice(result.advice);
+      const result = await getCropAdvice({ question, language });
+      setAdvice({
+        english: result.englishAdvice,
+        translated: result.translatedAdvice
+      });
     } catch (error) {
       console.error("Error getting crop advice:", error);
       toast({
@@ -69,28 +72,16 @@ export default function CropDoctorPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-sm font-medium">In English:</h3>
-                    <Textarea
-                      placeholder="e.g., 'My tomato plants have yellow leaves with brown spots. What should I do?'"
-                      className="min-h-[100px]"
-                      value={question}
-                      onChange={(e) => setQuestion(e.target.value)}
-                      disabled={loading}
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium">In {t('Malayalam','മലയാളം')}:</h3>
-                     <Textarea
-                      placeholder={t("e.g., 'എന്റെ തക്കാളി ചെടികൾക്ക് മഞ്ഞ ഇലകളും തവിട്ടുനിറത്തിലുള്ള പാടുകളും ഉണ്ട്. ഞാൻ എന്തുചെയ്യണം?'", "ഉദാ: 'എന്റെ തക്കാളി ചെടികൾക്ക് മഞ്ഞ ഇലകളും തവിട്ടുനിറത്തിലുള്ള പാടുകളും ഉണ്ട്. ഞാൻ എന്തുചെയ്യണം?'")}
-                      className="min-h-[100px]"
-                      value={question}
-                      onChange={(e) => setQuestion(e.target.value)}
-                      disabled={loading}
-                    />
-                  </div>
-                </div>
+                <Textarea
+                  placeholder={t(
+                    "e.g., 'My tomato plants have yellow leaves with brown spots. What should I do?'", 
+                    "ഉദാ: 'എന്റെ തക്കാളി ചെടികൾക്ക് മഞ്ഞ ഇലകളും തവിട്ടുനിറത്തിലുള്ള പാടുകളും ഉണ്ട്. ഞാൻ എന്തുചെയ്യണം?'"
+                  )}
+                  className="min-h-[150px]"
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  disabled={loading}
+                />
               </CardContent>
               <CardFooter>
                 <Button type="submit" disabled={loading}>
@@ -111,7 +102,7 @@ export default function CropDoctorPage() {
                 {t("The AI's advice will appear here.", "AI-യുടെ ഉപദേശം ഇവിടെ ദൃശ്യമാകും.")}
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex-grow">
+            <CardContent className="flex-grow space-y-4">
               {loading && (
                 <div className="space-y-4">
                   <Skeleton className="h-4 w-full" />
@@ -122,8 +113,19 @@ export default function CropDoctorPage() {
                 </div>
               )}
               {advice && (
-                <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap rounded-md bg-secondary/50 p-4">
-                  {advice}
+                <div className="grid gap-6">
+                  <div>
+                    <h3 className="font-semibold mb-2">In English:</h3>
+                    <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap rounded-md bg-secondary/50 p-4">
+                      {advice.english}
+                    </div>
+                  </div>
+                   <div>
+                    <h3 className="font-semibold mb-2">In {t('Malayalam', 'മലയാളം')}:</h3>
+                    <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap rounded-md bg-secondary/50 p-4">
+                      {advice.translated}
+                    </div>
+                  </div>
                 </div>
               )}
               {!loading && !advice && (

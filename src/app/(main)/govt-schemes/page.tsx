@@ -95,7 +95,7 @@ export default function GovtSchemesPage() {
                     <div key={scheme.id} className="p-4 border rounded-lg bg-secondary/50">
                         <div className="flex justify-between items-start">
                            <h3 className="font-bold text-lg text-primary">{scheme.name}</h3>
-                           <Link href={scheme.link} target="_blank">
+                           <Link href={scheme.link} target="_blank" rel="noopener noreferrer">
                                 <Button variant="ghost" size="sm"><ExternalLink className="mr-2 h-4 w-4"/>Learn More</Button>
                            </Link>
                         </div>
@@ -107,7 +107,7 @@ export default function GovtSchemesPage() {
                 <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground p-8">
                   <HandHelping className="w-16 h-16 mb-4"/>
                   <p>{t("Your eligible schemes will be shown here.", "നിങ്ങളുടെ യോഗ്യമായ പദ്ധതികൾ ഇവിടെ കാണിക്കും.")}</p>
-                  <p className="text-sm">{t("Please select a state and crop to get started.", "ആരംഭിക്കുന്നതിന് ഒരു സംസ്ഥാനവും വിളയും തിരഞ്ഞെടുക്കുക.")}</p>
+                  <p className="text-sm">{t("Please select a state and crop to get started.", "ആരംഭിക്കുന്നതിന് ഒരു സംസ്ഥാനവും വിളവും തിരഞ്ഞെടുക്കുക.")}</p>
                 </div>
               )}
             </CardContent>
