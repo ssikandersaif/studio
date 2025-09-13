@@ -30,8 +30,8 @@ export default function CropDoctorPage() {
     if (!question.trim()) {
       toast({
         variant: "destructive",
-        title: t({ en: "Question is empty", ml: "ചോദ്യം ശൂന്യമാണ്" }),
-        description: t({ en: "Please enter a question about your farming problem.", ml: "നിങ്ങളുടെ കാർഷിക പ്രശ്നത്തെക്കുറിച്ച് ഒരു ചോദ്യം നൽകുക." }),
+        title: t({ en: "Question is empty", ml: "ചോദ്യം ശൂന്യമാണ്", hi: "प्रश्न खाली है" }),
+        description: t({ en: "Please enter a question about your farming problem.", ml: "നിങ്ങളുടെ കാർഷിക പ്രശ്നത്തെക്കുറിച്ച് ഒരു ചോദ്യം നൽകുക.", hi: "कृपया अपनी खेती की समस्या के बारे में एक प्रश्न दर्ज करें।" }),
       });
       return;
     }
@@ -47,8 +47,8 @@ export default function CropDoctorPage() {
       console.error("Error getting crop advice:", error);
       toast({
         variant: "destructive",
-        title: t({ en: "AI Error", ml: "AI പിശക്" }),
-        description: t({ en: "Failed to get advice from AI. Please try again later.", ml: "AI-യിൽ നിന്ന് ഉപദേശം ലഭിക്കുന്നതിൽ പരാജയപ്പെട്ടു. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക." }),
+        title: t({ en: "AI Error", ml: "AI പിശക്", hi: "एआई त्रुटि" }),
+        description: t({ en: "Failed to get advice from AI. Please try again later.", ml: "AI-യിൽ നിന്ന് ഉപദേശം ലഭിക്കുന്നതിൽ പരാജയപ്പെട്ടു. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക.", hi: "एआई से सलाह लेने में विफल। कृपया बाद में पुन: प्रयास करें।" }),
       });
     } finally {
       setLoading(false);
@@ -58,17 +58,17 @@ export default function CropDoctorPage() {
   return (
     <>
       <Header
-        title={t({ en: "Crop Doctor", ml: "വിള ഡോക്ടർ" })}
-        description={t({ en: "Get AI-driven advice for your farming problems.", ml: "നിങ്ങളുടെ കാർഷിക പ്രശ്നങ്ങൾക്ക് AI-യുടെ സഹായത്തോടെ ഉപദേശം നേടുക." })}
+        title={t({ en: "Crop Doctor", ml: "വിള ഡോക്ടർ", hi: "फ़सल डॉक्टर" })}
+        description={t({ en: "Get AI-driven advice for your farming problems.", ml: "നിങ്ങളുടെ കാർഷിക പ്രശ്നങ്ങൾക്ക് AI-യുടെ സഹായത്തോടെ ഉപദേശം നേടുക.", hi: "अपनी खेती की समस्याओं के लिए AI-संचालित सलाह प्राप्त करें।" })}
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
         <div className="grid gap-8 md:grid-cols-2">
           <Card>
             <form onSubmit={handleSubmit}>
               <CardHeader>
-                <CardTitle>{t({ en: "Ask a Question", ml: "ചോദ്യം ചോദിക്കുക" })}</CardTitle>
+                <CardTitle>{t({ en: "Ask a Question", ml: "ചോദ്യം ചോദിക്കുക", hi: "प्रश्न पूछें" })}</CardTitle>
                 <CardDescription>
-                  {t({ en: "Describe your farming problem, and our AI expert will provide a solution.", ml: "നിങ്ങളുടെ കാർഷിക പ്രശ്നം വിവരിക്കുക, ഞങ്ങളുടെ AI വിദഗ്ദ്ധൻ ഒരു പരിഹാരം നൽകും." })}
+                  {t({ en: "Describe your farming problem, and our AI expert will provide a solution.", ml: "നിങ്ങളുടെ കാർഷിക പ്രശ്നം വിവരിക്കുക, ഞങ്ങളുടെ AI വിദഗ്ദ്ധൻ ഒരു പരിഹാരം നൽകും.", hi: "अपनी खेती की समस्या का वर्णन करें, और हमारा AI विशेषज्ञ समाधान प्रदान करेगा।" })}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -76,7 +76,8 @@ export default function CropDoctorPage() {
                   placeholder={t(
                     {
                       en: "e.g., 'My tomato plants have yellow leaves with brown spots. What should I do?'", 
-                      ml: "ഉദാ: 'എന്റെ തക്കാളി ചെടികൾക്ക് മഞ്ഞ ഇലകളും തവിട്ടുനിറത്തിലുള്ള പാടുകളും ഉണ്ട്. ഞാൻ എന്തുചെയ്യണം?'"
+                      ml: "ഉദാ: 'എന്റെ തക്കാളി ചെടികൾക്ക് മഞ്ഞ ഇലകളും തവിട്ടുനിറത്തിലുള്ള പാടുകളും ഉണ്ട്. ഞാൻ എന്തുചെയ്യണം?'",
+                      hi: "उदा., 'मेरे टमाटर के पौधों में भूरे धब्बों के साथ पीली पत्तियां हैं। मुझे क्या करना चाहिए?'"
                     }
                   )}
                   className="min-h-[150px]"
@@ -88,7 +89,7 @@ export default function CropDoctorPage() {
               <CardFooter>
                 <Button type="submit" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {loading ? t({ en: "Getting Advice...", ml: "ഉപദേശം നേടുന്നു..." }) : t({ en: "Get AI Advice", ml: "AI ഉപദേശം നേടുക" })}
+                  {loading ? t({ en: "Getting Advice...", ml: "ഉപദേശം നേടുന്നു...", hi: "सलाह मिल रही है..." }) : t({ en: "Get AI Advice", ml: "AI ഉപദേശം നേടുക", hi: "AI सलाह प्राप्त करें" })}
                 </Button>
               </CardFooter>
             </form>
@@ -98,10 +99,10 @@ export default function CropDoctorPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Lightbulb className="text-accent" />
-                {t({ en: "AI Recommendation", ml: "AI ശുപാർശ" })}
+                {t({ en: "AI Recommendation", ml: "AI ശുപാർശ", hi: "एआई सिफारिश" })}
               </CardTitle>
               <CardDescription>
-                {t({ en: "The AI's advice will appear here.", ml: "AI-യുടെ ഉപദേശം ഇവിടെ ദൃശ്യമാകും." })}
+                {t({ en: "The AI's advice will appear here.", ml: "AI-യുടെ ഉപദേശം ഇവിടെ ദൃശ്യമാകും.", hi: "एआई की सलाह यहां दिखाई देगी।" })}
               </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow space-y-4">
@@ -134,7 +135,7 @@ export default function CropDoctorPage() {
               )}
               {!loading && !advice && (
                 <div className="flex items-center justify-center h-full text-muted-foreground text-center">
-                    <p>{t({ en: "Your expert advice will be generated here.", ml: "നിങ്ങളുടെ വിദഗ്ദ്ധ ഉപദേശം ഇവിടെ ജനറേറ്റ് ചെയ്യും." })}</p>
+                    <p>{t({ en: "Your expert advice will be generated here.", ml: "നിങ്ങളുടെ വിദഗ്ദ്ധ ഉപദേശം ഇവിടെ ജനറേറ്റ് ചെയ്യും.", hi: "आपकी विशेषज्ञ सलाह यहां उत्पन्न होगी।" })}</p>
                 </div>
               )}
             </CardContent>

@@ -28,7 +28,7 @@ export function MainNav() {
   const menuItems = [
     {
       href: "/dashboard",
-      label: t({en: "Dashboard", ml: "ഡാഷ്ബോർഡ്", hi: "tableau de bord"}),
+      label: t({en: "Dashboard", ml: "ഡാഷ്ബോർഡ്", hi: "डैशबोर्ड"}),
       icon: <LayoutGrid />,
     },
     {
@@ -43,17 +43,17 @@ export function MainNav() {
     },
     {
       href: "/crop-doctor",
-      label: t({en: "Crop Doctor", ml: "വിള ഡോക്ടർ", hi: "फसल चिकित्सक"}),
+      label: t({en: "Crop Doctor", ml: "വിള ഡോക്ടർ", hi: "फ़सल डॉक्टर"}),
       icon: <Stethoscope />,
     },
     {
       href: "/scan-crop",
-      label: t({en: "Scan Crop", ml: "വിള സ്കാൻ", hi: "फसल स्कैन"}),
+      label: t({en: "Scan Crop", ml: "വിള സ്കാൻ", hi: "फ़सल स्कैन"}),
       icon: <ScanLine />,
     },
     {
       href: "/voice-query",
-      label: t({en: "Voice Query", ml: "ശബ്ദ ചോദ്യം", hi: "आवाज क्वेरी"}),
+      label: t({en: "Voice Query", ml: "ശബ്ദ ചോദ്യം", hi: "आवाज प्रश्न"}),
       icon: <Mic />,
     },
     {
