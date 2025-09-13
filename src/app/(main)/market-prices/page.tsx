@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Header } from "@/components/header";
 import {
   Card,
@@ -18,27 +18,53 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { mockCropPrices } from "@/lib/data";
 import { format } from "date-fns";
 import { useLanguage } from "@/contexts/language-context";
 import { Search } from "lucide-react";
+import { getMarketPrices } from "@/services/market-price-service";
+import { CropPrice } from "@/lib/types";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
 
 export default function MarketPricesPage() {
   const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
+  const [prices, setPrices] = useState<CropPrice[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
   const lastUpdated = format(new Date(), "MMMM d, yyyy");
+
+  useEffect(() => {
+    const fetchPrices = async () => {
+      setLoading(true);
+      try {
+        const result = await getMarketPrices();
+        setPrices(result.prices);
+      } catch (error) {
+        console.error("Failed to fetch market prices:", error);
+        toast({
+          variant: "destructive",
+          title: t({ en: "Error", hi: "त्रुटि" }),
+          description: t({ en: "Could not fetch market prices from the AI.", hi: "एआई से बाजार मूल्य प्राप्त नहीं हो सका।" }),
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPrices();
+  }, [toast, t]);
 
   const filteredPrices = useMemo(() => {
     if (!searchTerm) {
-      return mockCropPrices;
+      return prices;
     }
-    return mockCropPrices.filter(
+    return prices.filter(
       (price) =>
         price.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         price.variety.toLowerCase().includes(searchTerm.toLowerCase()) ||
         price.mandi.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  }, [searchTerm]);
+  }, [searchTerm, prices]);
 
   return (
     <>
@@ -62,6 +88,7 @@ export default function MarketPricesPage() {
                   className="pl-10 w-full sm:w-64"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  disabled={loading}
                 />
               </div>
             </div>
@@ -79,7 +106,15 @@ export default function MarketPricesPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredPrices.length > 0 ? (
+                  {loading ? (
+                    Array.from({ length: 10 }).map((_, i) => (
+                        <TableRow key={`skeleton-${i}`}>
+                            <TableCell colSpan={5}>
+                                <Skeleton className="h-8 w-full" />
+                            </TableCell>
+                        </TableRow>
+                    ))
+                  ) : filteredPrices.length > 0 ? (
                     filteredPrices.map((price) => (
                       <TableRow key={price.id}>
                         <TableCell>
