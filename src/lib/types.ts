@@ -64,3 +64,9 @@ export interface User {
   phone?: string;
   avatarUrl: string;
 }
+
+export interface FAQ {
+    category: string;
+    question: string;
+    answer: string;
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   User,
   Tractor,
@@ -16,7 +17,6 @@ import {
   Info,
   LogOut,
   Settings,
-  ChevronRight
 } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -183,17 +183,6 @@ export function UserNav() {
         t({ en: "Consultation History" }),
       ],
     },
-    {
-      icon: <Info className="mr-2 h-4 w-4" />,
-      title: t({ en: "Support & Info", hi: "सहायता और जानकारी" }),
-      options: [
-        t({ en: "Help & Tutorials" }),
-        t({ en: "Contact Support" }),
-        t({ en: "App Version Info" }),
-        t({ en: "Terms & Privacy Policy" }),
-        t({ en: "Feedback & Ratings" }),
-      ],
-    },
   ];
 
 
@@ -266,6 +255,23 @@ export function UserNav() {
                     </DropdownMenuSubContent>
                 </DropdownMenuPortal>
             </DropdownMenuSub>
+            
+            <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                    <Info className="mr-2 h-4 w-4" />
+                    <span>{t({ en: "Support & Info", hi: "सहायता और जानकारी" })}</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="w-56">
+                        <Link href="/faq"><DropdownMenuItem>{t({ en: "Help & Tutorials", hi: "सहायता और ट्यूटोरियल" })}</DropdownMenuItem></Link>
+                        <DropdownMenuItem>{t({ en: "Contact Support", hi: "समर्थन से संपर्क करें" })}</DropdownMenuItem>
+                        <DropdownMenuItem>{t({ en: "App Version Info", hi: "ऐप संस्करण जानकारी" })}</DropdownMenuItem>
+                        <DropdownMenuItem>{t({ en: "Terms & Privacy Policy", hi: "नियम और गोपनीयता नीति" })}</DropdownMenuItem>
+                        <DropdownMenuItem>{t({ en: "Feedback & Ratings", hi: "प्रतिक्रिया और रेटिंग" })}</DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+            </DropdownMenuSub>
+
         </DropdownMenuGroup>
         
         <DropdownMenuSeparator />

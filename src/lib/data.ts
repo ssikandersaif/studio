@@ -3,6 +3,7 @@ import {
   AgriculturalOfficer,
   GovernmentScheme,
   User,
+  FAQ,
 } from './types';
 import { format } from 'date-fns';
 
@@ -211,4 +212,257 @@ export const mockSchemes: GovernmentScheme[] = [
     },
     link: 'http://www.supplycokerala.com/paddy-procurement',
   },
+];
+
+export const mockFaqs: FAQ[] = [
+    {
+        category: 'General',
+        question: 'What is AgriMitra?',
+        answer: 'AgriMitra is an AI-powered smart farming assistant designed to help Indian farmers with instant advice, market data, and weather updates.',
+    },
+    {
+        category: 'General',
+        question: 'How do I change the language in the app?',
+        answer: 'You can change the language by clicking the globe icon in the top header and selecting your preferred language from the dropdown menu.',
+    },
+    {
+        category: 'Crop Doctor',
+        question: 'How does the Crop Doctor work?',
+        answer: 'You can type your farming problem in the text box. Our AI expert will analyze your question and provide a detailed solution.',
+    },
+    {
+        category: 'Crop Doctor',
+        question: 'What kind of questions can I ask the Crop Doctor?',
+        answer: 'You can ask about any farming problem, such as crop diseases, pest control, nutrient deficiencies, or irrigation issues.',
+    },
+    {
+        category: 'Scan Crop',
+        question: 'How do I use the Scan Crop feature?',
+        answer: 'Upload a clear photo of the affected plant part. The AI will analyze the image to identify potential diseases or pests and suggest solutions.',
+    },
+    {
+        category: 'Scan Crop',
+        question: 'What is the maximum image size I can upload?',
+        answer: 'For best performance, please upload images smaller than 4MB.',
+    },
+    {
+        category: 'Weather',
+        question: 'How do I get the weather forecast for my location?',
+        answer: 'The weather page shows a default location forecast. Click "Use My Location" and grant permission to get accurate weather for your current area.',
+    },
+    {
+        category: 'Weather',
+        question: 'What does the farming recommendation on the weather page mean?',
+        answer: 'The AI provides a concise farming tip based on the current weather conditions, like whether it\'s a good day for sowing, irrigating, or applying pesticides.',
+    },
+    {
+        category: 'Market Prices',
+        question: 'Where does the market price data come from?',
+        answer: 'The prices are mock data for demonstration, but in a real-world scenario, they would be sourced from eNAM and local mandis.',
+    },
+    {
+        category: 'Market Prices',
+        question: 'How can I search for a specific crop?',
+        answer: 'Use the search bar on the Market Prices page to filter the list by commodity name, variety, or mandi location.',
+    },
+    {
+        category: 'Soil Health',
+        question: 'How can I test my soil?',
+        answer: 'You can get your soil tested at a local agricultural university or a government soil testing lab. They will provide a soil health card with nutrient information.',
+    },
+    {
+        category: 'Soil Health',
+        question: 'What is a Soil Health Card?',
+        answer: 'A Soil Health Card provides information on the nutrient status of your soil, along with recommendations for fertilizer application to improve its health and fertility.',
+    },
+    {
+        category: 'Irrigation',
+        question: 'What is drip irrigation?',
+        answer: 'Drip irrigation is a water-efficient method where water is dripped slowly to the roots of plants, either from above the soil surface or buried below the surface.',
+    },
+    {
+        category: 'Irrigation',
+        question: 'When is the best time to water my plants?',
+        answer: 'The best time to water plants is early in the morning when temperatures are cooler. This minimizes water loss through evaporation.',
+    },
+    {
+        category: 'Pest Management',
+        question: 'What are some natural pesticides?',
+        answer: 'Neem oil, garlic spray, and solutions made from chili peppers are common natural pesticides that can help control pests without harming the environment.',
+    },
+    {
+        category: 'Pest Management',
+        question: 'What is Integrated Pest Management (IPM)?',
+        answer: 'IPM is an environmentally sensitive approach to pest management that combines various methods, including biological control, habitat manipulation, and the use of resistant varieties.',
+    },
+    {
+        category: 'Fertilizers',
+        question: 'What is the difference between N, P, and K?',
+        answer: 'N (Nitrogen) promotes leaf growth, P (Phosphorus) is vital for root, flower, and fruit development, and K (Potassium) contributes to the overall health and hardiness of the plant.',
+    },
+    {
+        category: 'Fertilizers',
+        question: 'What is compost?',
+        answer: 'Compost is decomposed organic matter. It is a rich, dark material used to improve soil structure, provide nutrients, and increase moisture retention.',
+    },
+    {
+        category: 'Weed Control',
+        question: 'How can I control weeds without chemicals?',
+        answer: 'Mulching, manual removal (hand-pulling), and using cover crops are effective non-chemical methods for controlling weeds in your farm.',
+    },
+    {
+        category: 'Weed Control',
+        question: 'What is mulching?',
+        answer: 'Mulching is the practice of covering the soil around plants with a layer of material (like straw, plastic, or compost) to suppress weeds, conserve moisture, and regulate soil temperature.',
+    },
+    {
+        category: 'Govt. Schemes',
+        question: 'How do I apply for PM-KISAN?',
+        answer: 'You can apply for the PM-KISAN scheme through its official portal or by visiting your nearest Common Service Centre (CSC).',
+    },
+    {
+        category: 'Govt. Schemes',
+        question: 'What is the benefit of PMFBY crop insurance?',
+        answer: 'PMFBY provides insurance coverage and financial support to farmers in the event of crop failure due to natural calamities, pests, or diseases.',
+    },
+    {
+        category: 'Crop Rotation',
+        question: 'Why is crop rotation important?',
+        answer: 'Crop rotation helps to improve soil fertility, control pests and diseases, and reduce soil erosion by not planting the same crop in the same place year after year.',
+    },
+    {
+        category: 'Crop Rotation',
+        question: 'What is a good crop rotation for paddy?',
+        answer: 'A common rotation for paddy (rice) is to follow it with a legume crop like gram or lentil, which helps to fix nitrogen back into the soil.',
+    },
+    {
+        category: 'Harvesting',
+        question: 'When should I harvest my tomatoes?',
+        answer: 'Tomatoes are best harvested when they are firm and fully colored (usually red, but this depends on the variety). They should pull from the vine with a slight twist.',
+    },
+    {
+        category: 'Harvesting',
+        question: 'How can I reduce post-harvest losses?',
+        answer: 'Proper handling, storage in a cool and dry place, and quick transportation to the market can significantly reduce post-harvest losses.',
+    },
+    {
+        category: 'Organic Farming',
+        question: 'What is organic farming?',
+        answer: 'Organic farming is an agricultural system that uses ecologically based pest controls and biological fertilizers derived largely from animal and plant wastes and nitrogen-fixing cover crops.',
+    },
+    {
+        category: 'Organic Farming',
+        question: 'How do I get an organic certification?',
+        answer: 'To get an organic certification in India, you need to follow the standards set by the National Programme for Organic Production (NPOP) and get audited by an accredited certification body.',
+    },
+    {
+        category: 'Farm Machinery',
+        question: 'Where can I rent farm machinery?',
+        answer: 'Many state governments have apps or services for renting farm machinery. You can also check with local Custom Hiring Centers (CHCs).',
+    },
+    {
+        category: 'Farm Machinery',
+        question: 'What is a Custom Hiring Center (CHC)?',
+        answer: 'CHCs are centers that rent out farm machinery and equipment to farmers who cannot afford to buy their own high-value machines.',
+    },
+    {
+        category: 'Livestock',
+        question: 'What is a good feed for dairy cows?',
+        answer: 'A balanced feed for dairy cows includes green fodder, dry fodder (straw), and a concentrate mixture of grains, brans, and mineral supplements.',
+    },
+    {
+        category: 'Livestock',
+        question: 'How can I prevent diseases in my poultry?',
+        answer: 'Regular vaccination, maintaining a clean and dry coop, providing fresh water and feed, and isolating new birds can help prevent poultry diseases.',
+    },
+    {
+        category: 'Horticulture',
+        question: 'How do I grow mango trees?',
+        answer: 'Mango trees require a sunny location and well-drained soil. They need regular watering during their initial years and protection from frost.',
+    },
+    {
+        category: 'Horticulture',
+        question: 'What is pruning and why is it done?',
+        answer: 'Pruning is the selective removal of plant parts (like branches or buds) to improve the plant\'s structure, encourage fruit production, and remove dead or diseased wood.',
+    },
+    {
+        category: 'Agroforestry',
+        question: 'What is agroforestry?',
+        answer: 'Agroforestry is a land-use management system in which trees or shrubs are grown around or among crops or pastureland, creating a more diverse and sustainable ecosystem.',
+    },
+    {
+        category: 'Agroforestry',
+        question: 'What are the benefits of agroforestry?',
+        answer: 'Benefits include increased biodiversity, improved soil fertility and moisture retention, and additional income from timber and other tree products.',
+    },
+    {
+        category: 'Seed Treatment',
+        question: 'Why should I treat seeds before sowing?',
+        answer: 'Seed treatment helps to protect the seeds and seedlings from seed- and soil-borne diseases and pests, leading to better germination and a healthier crop.',
+    },
+    {
+        category: 'Seed Treatment',
+        question: 'How can I treat seeds organically?',
+        answer: 'You can treat seeds with organic solutions like Panchagavya, Beejamrita, or a Trichoderma formulation to protect them from diseases.',
+    },
+    {
+        category: 'Beekeeping',
+        question: 'How does beekeeping help in farming?',
+        answer: 'Bees are excellent pollinators. Having beehives on your farm can significantly increase the yield of many fruit and vegetable crops.',
+    },
+    {
+        category: 'Beekeeping',
+        question: 'What do I need to start beekeeping?',
+        answer: 'To start, you will need a beehive, protective clothing (veil, gloves), a smoker, a hive tool, and a colony of bees from a reputable supplier.',
+    },
+    {
+        category: 'Mushroom Cultivation',
+        question: 'Is mushroom cultivation profitable?',
+        answer: 'Yes, mushroom cultivation can be very profitable as it requires little space and can be harvested multiple times a year. Oyster and button mushrooms are popular choices.',
+    },
+    {
+        category: 'Mushroom Cultivation',
+        question: 'What is needed to grow oyster mushrooms?',
+        answer: 'Oyster mushrooms can be grown on pasteurized straw or sawdust in a dark, humid room with good ventilation. They grow quickly and can be harvested in a few weeks.',
+    },
+    {
+        category: 'Polyhouse Farming',
+        question: 'What is a polyhouse?',
+        answer: 'A polyhouse is a structure made of a polyethylene film cover that allows for the cultivation of crops in a controlled environment, protecting them from adverse weather and pests.',
+    },
+    {
+        category: 'Polyhouse Farming',
+        question: 'What crops can be grown in a polyhouse?',
+        answer: 'High-value crops like colored capsicum, cucumbers, tomatoes, gerbera, and carnations are commonly and profitably grown in polyhouses.',
+    },
+    {
+        category: 'Water Management',
+        question: 'What is rainwater harvesting?',
+        answer: 'Rainwater harvesting is the collection and storage of rain, rather than allowing it to run off. This stored water can be used for irrigation during dry periods.',
+    },
+    {
+        category: 'Water Management',
+        question: 'How can I build a farm pond?',
+        answer: 'You can build a farm pond by excavating a piece of land and, if the soil is porous, lining it with a plastic liner or clay. Government schemes often provide subsidies for this.',
+    },
+    {
+        category: 'Climate Change',
+        question: 'How does climate change affect farming?',
+        answer: 'Climate change can lead to more extreme weather events like droughts and floods, shifts in growing seasons, and increased pressure from pests and diseases.',
+    },
+    {
+        category: 'Climate Change',
+        question: 'What is a climate-resilient crop?',
+        answer: 'A climate-resilient crop is a variety that can better withstand environmental stresses like drought, heat, or salinity. Examples include certain varieties of millets and sorghum.',
+    },
+    {
+        category: 'Account',
+        question: 'I forgot my password. How can I reset it?',
+        answer: 'Currently, the app uses mock login data. In a future version, a "Forgot Password" link will be available on the login screen to reset your password via email.',
+    },
+    {
+        category: 'Account',
+        question: 'How do I delete my account?',
+        answer: 'Account deletion will be available in the "Privacy & Security" section of the settings in a future update. This will permanently remove all your data from our systems.',
+    },
 ];
