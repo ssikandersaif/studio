@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useLanguage } from "@/contexts/language-context"
+import { ThemeSwitcher } from "./theme-switcher"
 
 export function UserNav() {
   const { t } = useLanguage();
@@ -26,7 +27,7 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{t({ en: "Farmer", ml: "കർഷകൻ", hi: "किसान", ta: "விவசாயி", te: "రైతు", kn: "ರైತ", bn: "কৃষক", mr: "शेतकरी", gu: "ખેડૂત", pa: "ਕिसान" })}</p>
+            <p className="text-sm font-medium leading-none">{t({ en: "Farmer", ml: "കർഷകൻ", hi: "किसान", ta: "விவசாயி", te: "రైతు", kn: "ರೈತ", bn: "কৃষক", mr: "शेतकरी", gu: "ખેડૂત", pa: "ਕਿਸਾਨ" })}</p>
             <p className="text-xs leading-none text-muted-foreground">
               farmer@example.com
             </p>
@@ -35,15 +36,17 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            {t({ en: "Profile", ml: "പ്രൊഫൈல்", hi: "प्रोफ़ाइल", ta: "சுயவிவரം", te: "ప్రൊഫൈల్", kn: "ಪ್ರೊಫైಲ್", bn: "প্রোফাইল", mr: "प्रोफाइल", gu: "પ્રોફाइल", pa: "ਪ੍ਰੋਫਾਈਲ" })}
+            {t({ en: "Profile", ml: "പ്രൊഫൈൽ", hi: "प्रोफ़ाइल", ta: "சுயவிவரம்", te: "ప్రొఫైల్", kn: "ಪ್ರೊಫೈಲ್", bn: "প্রোফাইল", mr: "प्रोफाइल", gu: "પ્રોફાઇલ", pa: "ਪ੍ਰੋਫਾਈਲ" })}
           </DropdownMenuItem>
           <DropdownMenuItem>
-            {t({ en: "Settings", ml: "ക്രമീകരണങ്ങൾ", hi: "सेटिंग्स", ta: "அமைப்புகள்", te: "सेटिंग्स", kn: "ಸೆಟ್ಟಿಂಗ್‌ಗಳು", bn: "সেটিংস", mr: "सेटिंग्ज", gu: "સેટિંગ્સ", pa: "ਸੈਟਿੰਗਾਂ" })}
+            {t({ en: "Settings", ml: "ക്രമീകരണങ്ങൾ", hi: "सेटिंग्स", ta: "அமைப்புகள்", te: "సెట్టింగ్స్", kn: "ಸೆಟ್ಟಿಂಗ್‌ಗಳು", bn: "সেটিংস", mr: "सेटिंग्ज", gu: "સેટિંગ્સ", pa: "ਸੈਟਿੰਗਾਂ" })}
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
+        <ThemeSwitcher />
+        <DropdownMenuSeparator />
         <DropdownMenuItem>
-          {t({ en: "Log out", ml: "ലോഗ് ഔട്ട്", hi: "लॉग आउट", ta: "வெளியேறு", te: "లాగ్ అవుట్", kn: "ಲಾಗ് ಔట్", bn: "লగ్ আউট", mr: "लॉग आउट", gu: "લૉગ આઉટ", pa: "ਲਾਗ ਆਊਟ" })}
+          {t({ en: "Log out", ml: "ലോഗ് ഔട്ട്", hi: "लॉग आउट", ta: "வெளியேறு", te: "లాగ్ అవుట్", kn: "ಲಾಗ್ ಔట్", bn: "লగ్ আউট", mr: "लॉग आउट", gu: "લૉગ આઉట్", pa: "ਲਾਗ ਆਊਟ" })}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
