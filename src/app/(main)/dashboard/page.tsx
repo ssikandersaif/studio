@@ -152,7 +152,7 @@ export default function DashboardPage() {
         </div>
       </main>
 
-       <div className="fixed bottom-6 right-6 flex flex-col gap-4">
+       <div className="fixed bottom-6 left-6 flex flex-col gap-4">
         <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
             <DialogTrigger asChild>
                 <Button variant="default" className="rounded-full w-16 h-16 shadow-lg" aria-label="Submit Feedback">
