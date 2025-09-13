@@ -13,17 +13,26 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { identifyDiseaseOrPest } from "@/ai/flows/image-based-disease-id";
+import { identifyDiseaseOrPest, IdentifyDiseaseOrPestOutput } from "@/ai/flows/image-based-disease-id";
 import { Camera, ListChecks, Loader2, Upload } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useLanguage } from "@/contexts/language-context";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
 
 export default function ScanCropPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
-  const [issues, setIssues] = useState<string[]>([]);
+  const [analysisResult, setAnalysisResult] = useState<IdentifyDiseaseOrPestOutput | null>(null);
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+  const { language, t } = useLanguage();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -31,8 +40,8 @@ export default function ScanCropPage() {
       if (file.size > 4 * 1024 * 1024) { // 4MB limit
           toast({
             variant: "destructive",
-            title: "Image too large",
-            description: "Please upload an image smaller than 4MB.",
+            title: t("Image too large", "ചിത്രം വളരെ വലുതാണ്"),
+            description: t("Please upload an image smaller than 4MB.", "4MB-യിൽ താഴെയുള്ള ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യുക."),
           });
           return;
       }
@@ -44,7 +53,7 @@ export default function ScanCropPage() {
         setImageData(dataUri);
       };
       reader.readAsDataURL(file);
-      setIssues([]); // Clear previous results
+      setAnalysisResult(null); // Clear previous results
     }
   };
 
@@ -52,22 +61,22 @@ export default function ScanCropPage() {
     if (!imageData) {
       toast({
         variant: "destructive",
-        title: "No image selected",
-        description: "Please upload an image of your crop to analyze.",
+        title: t("No image selected", "ചിത്രം തിരഞ്ഞെടുത്തിട്ടില്ല"),
+        description: t("Please upload an image of your crop to analyze.", "വിശകലനം ചെയ്യാൻ ദയവായി നിങ്ങളുടെ വിളയുടെ ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യുക."),
       });
       return;
     }
     setLoading(true);
-    setIssues([]);
+    setAnalysisResult(null);
     try {
-      const result = await identifyDiseaseOrPest({ photoDataUri: imageData });
-      setIssues(result.possibleIssues);
+      const result = await identifyDiseaseOrPest({ photoDataUri: imageData, language });
+      setAnalysisResult(result);
     } catch (error) {
       console.error("Error identifying disease:", error);
       toast({
         variant: "destructive",
-        title: "AI Error",
-        description: "Failed to analyze image. Please try again later.",
+        title: t("AI Error", "AI പിശക്"),
+        description: t("Failed to analyze image. Please try again later.", "ചിത്രം വിശകലനം ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക."),
       });
     } finally {
       setLoading(false);
@@ -77,16 +86,16 @@ export default function ScanCropPage() {
   return (
     <>
       <Header
-        title="Scan Crop"
-        description="Upload a crop image for AI-driven disease and pest identification."
+        title={t("Scan Crop", "വിള സ്കാൻ")}
+        description={t("Upload a crop image for AI-driven disease and pest identification.", "AI- ഉപയോഗിച്ചുള്ള രോഗ, കീട തിരിച്ചറിയലിനായി വിളയുടെ ചിത്രം അപ്‌ലോഡ് ചെയ്യുക.")}
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
         <div className="grid gap-8 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Upload Crop Image</CardTitle>
+              <CardTitle>{t("Upload Crop Image", "വിളയുടെ ചിത്രം അപ്‌ലോഡ് ചെയ്യുക")}</CardTitle>
               <CardDescription>
-                Choose a clear photo of the affected plant part.
+                {t("Choose a clear photo of the affected plant part.", "രോഗബാധിതമായ ചെടിയുടെ ഭാഗത്തിന്റെ വ്യക്തമായ ഫോട്ടോ തിരഞ്ഞെടുക്കുക.")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -105,8 +114,8 @@ export default function ScanCropPage() {
                 ) : (
                   <div className="text-center text-muted-foreground">
                     <Camera className="mx-auto h-12 w-12" />
-                    <p>Click to upload or drag & drop</p>
-                    <p className="text-xs">PNG, JPG, WEBP up to 4MB</p>
+                    <p>{t("Click to upload or drag & drop", "അപ്‌ലോഡ് ചെയ്യാൻ ക്ലിക്കുചെയ്യുക അല്ലെങ്കിൽ വലിച്ചിടുക")}</p>
+                    <p className="text-xs">{t("PNG, JPG, WEBP up to 4MB", "PNG, JPG, WEBP 4MB വരെ")}</p>
                   </div>
                 )}
               </div>
@@ -119,7 +128,7 @@ export default function ScanCropPage() {
               />
                <Button onClick={handleAnalyze} disabled={loading || !imagePreview} className="w-full">
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {loading ? "Analyzing..." : "Analyze Crop Image"}
+                {loading ? t("Analyzing...", "വിശകലനം ചെയ്യുന്നു...") : t("Analyze Crop Image", "വിളയുടെ ചിത്രം വിശകലനം ചെയ്യുക")}
               </Button>
             </CardContent>
           </Card>
@@ -128,10 +137,10 @@ export default function ScanCropPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <ListChecks className="text-primary" />
-                Analysis Results
+                {t("Analysis Results", "വിശകലന ഫലങ്ങൾ")}
               </CardTitle>
               <CardDescription>
-                Potential diseases or pests will be listed here.
+                {t("Potential diseases or pests and their solutions will be listed here.", "സാധ്യമായ രോഗങ്ങൾ അല്ലെങ്കിൽ കീടങ്ങളും അവയുടെ പരിഹാരങ്ങളും ഇവിടെ പട്ടികപ്പെടുത്തും.")}
               </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
@@ -142,19 +151,21 @@ export default function ScanCropPage() {
                   <Skeleton className="h-8 w-full" />
                 </div>
               )}
-              {issues.length > 0 && (
-                <ul className="space-y-2">
-                  {issues.map((issue, index) => (
-                    <li key={index} className="flex items-start gap-3 p-3 bg-secondary rounded-md">
-                      <div className="mt-1 flex-shrink-0 h-2 w-2 rounded-full bg-primary" />
-                      <span className="font-medium">{issue}</span>
-                    </li>
+              {analysisResult && analysisResult.possibleIssues.length > 0 && (
+                 <Accordion type="single" collapsible className="w-full">
+                  {analysisResult.possibleIssues.map((item, index) => (
+                    <AccordionItem value={`item-${index}`} key={index}>
+                      <AccordionTrigger className="font-medium text-left">{item.issue}</AccordionTrigger>
+                      <AccordionContent className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap">
+                        {item.recommendation}
+                      </AccordionContent>
+                    </AccordionItem>
                   ))}
-                </ul>
+                </Accordion>
               )}
-              {!loading && issues.length === 0 && (
+              {!loading && (!analysisResult || analysisResult.possibleIssues.length === 0) && (
                  <div className="flex items-center justify-center h-full text-muted-foreground text-center">
-                    <p>Your analysis results will appear here.</p>
+                    <p>{t("Your analysis results will appear here.", "നിങ്ങളുടെ വിശകലന ഫലങ്ങൾ ഇവിടെ ദൃശ്യമാകും.")}</p>
                 </div>
               )}
             </CardContent>
