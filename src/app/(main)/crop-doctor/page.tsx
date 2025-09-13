@@ -14,7 +14,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { getCropAdvice } from "@/ai/flows/ai-crop-advice";
-import { Lightbulb, Loader2 } from "lucide-react";
+import { textToSpeech } from "@/ai/flows/text-to-speech";
+import { Lightbulb, Loader2, Volume2, Play } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLanguage, languageNameMap } from "@/contexts/language-context";
 import { Input } from "@/components/ui/input";
@@ -28,6 +29,32 @@ export default function CropDoctorPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const { language, t } = useLanguage();
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [isReading, setIsReading] = useState(false);
+
+  const handleReadAloud = async (text: string) => {
+    if (isReading) return;
+    setIsReading(true);
+    try {
+      const result = await textToSpeech({ text });
+      setAudioUrl(result.audio);
+      const audio = new Audio(result.audio);
+      audio.play();
+      audio.onended = () => {
+        setIsReading(false);
+        setAudioUrl(null);
+      };
+    } catch (error) {
+      console.error("Error with text-to-speech:", error);
+      toast({
+        variant: "destructive",
+        title: t({ en: "Audio Error", ml: "ഓഡിയോ പിശക്", hi: "ऑडियो त्रुटि" }),
+        description: t({ en: "Failed to generate audio. Please try again.", ml: "ഓഡിയോ ജനറേറ്റ് ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.", hi: "ऑडियो उत्पन्न करने में विफल। कृपया पुन: प्रयास करें।" }),
+      });
+      setIsReading(false);
+    }
+  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -137,7 +164,7 @@ export default function CropDoctorPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Lightbulb className="text-accent" />
-                {t({ en: "AI Recommendation", ml: "AI ശുപാർശ", hi: "एआई सिफारिश", ta: "AI பரிந்துரை", te: "AI సిఫార్సు", kn: "AI ಶಿಫಾರಸು", bn: "এআই সুপারিশ", mr: "एआय शिफारस", gu: "AI ભલામણ", pa: "AI ਸਿਫਾਰਸ਼" })}
+                {t({ en: "AI Recommendation", ml: "AI ശുപാർശ", hi: "एआई सिफारिश", ta: "AI பரிந்துரை", te: "AI సిఫార్సు", kn: "AI ಶಿಫಾರಸು", bn: "এআই সুপারিশ", mr: "एआय शिफारस", gu: "AI ભલામણ", pa: "AI ਸਿఫਾਰਸ਼" })}
               </CardTitle>
               <CardDescription>
                 {t({ en: "The AI's advice will appear here.", ml: "AI-യുടെ ഉപദേശം ഇവിടെ ദൃശ്യമാകും.", hi: "एआई की सलाह यहां दिखाई देगी।", ta: "AI இன் அறிவுரை இங்கே தோன்றும்.", te: "AI యొక్క సలహా ఇక్కడ కనిపిస్తుంది.", kn: "AI ಯ ಸಲಹೆ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.", bn: "এআই-এর পরামর্শ এখানে প্রদর্শিত হবে।", mr: "एआयचा सल्ला येथे दिसेल.", gu: "AI ની સલાહ અહીં દેખાશે.", pa: "AI ਦੀ ਸਲਾਹ ਇੱਥੇ ਦਿਖਾਈ ਦੇਵੇਗੀ।" })}
@@ -156,14 +183,24 @@ export default function CropDoctorPage() {
               {advice && (
                 <div className="grid gap-6">
                   <div>
-                    <h3 className="font-semibold mb-2">In English:</h3>
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="font-semibold">In English:</h3>
+                      <Button variant="ghost" size="icon" onClick={() => handleReadAloud(advice.english)} disabled={isReading}>
+                        {isReading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Volume2 className="h-5 w-5" />}
+                      </Button>
+                    </div>
                     <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap rounded-md bg-secondary/50 p-4">
                       {advice.english}
                     </div>
                   </div>
                    {language !== 'en' && (
                     <div>
-                      <h3 className="font-semibold mb-2">In {languageNameMap[language]}:</h3>
+                      <div className="flex justify-between items-center mb-2">
+                        <h3 className="font-semibold">In {languageNameMap[language]}:</h3>
+                        <Button variant="ghost" size="icon" onClick={() => handleReadAloud(advice.translated)} disabled={isReading}>
+                            {isReading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Volume2 className="h-5 w-5" />}
+                        </Button>
+                      </div>
                       <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap rounded-md bg-secondary/50 p-4">
                         {advice.translated}
                       </div>
