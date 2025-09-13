@@ -16,6 +16,8 @@ import {z} from 'genkit';
 const CropAdviceInputSchema = z.object({
   question: z.string().describe('The farming problem question asked by the user.'),
   language: z.string().describe('The language for the translated advice (e.g., "en" for English, "ml" for Malayalam).'),
+  location: z.string().describe('The user\'s location (e.g., city, state) to provide region-specific advice.'),
+  crop: z.string().describe('The specific crop the user is asking about.'),
 });
 export type CropAdviceInput = z.infer<typeof CropAdviceInputSchema>;
 
@@ -37,7 +39,9 @@ const cropAdvicePrompt = ai.definePrompt({
 
 "{{question}}"
 
-Provide detailed advice to help the farmer solve their problem. Be specific and practical. Include steps that can be taken immediately.
+The farmer is located in '{{location}}' and is asking about their '{{crop}}' crop.
+
+Provide detailed advice to help the farmer solve their problem. Your advice must be context-aware, considering the specified location and crop type. Be specific and practical. Include steps that can be taken immediately.
 
 Your primary response (englishAdvice) must be in English.
 Then, translate your English advice into the language specified by the language code '{{language}}' and provide it in the translatedAdvice field.
