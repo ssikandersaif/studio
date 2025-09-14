@@ -85,12 +85,22 @@ export const getWeather = ai.defineFlow(
     const rawData = await fetchWeatherDataFromApi(lat, lon);
     
     const current = rawData.list[0];
-    const { output: recommendationOutput } = await recommendationPrompt({
-      description: current.weather[0].description,
-      temp: current.main.temp,
-      humidity: current.main.humidity,
-      wind: current.wind.speed * 3.6, // m/s to km/h
-    });
+    let recommendation = "Check local guidelines and weather conditions before starting any farming activities.";
+    try {
+        const { output: recommendationOutput } = await recommendationPrompt({
+            description: current.weather[0].description,
+            temp: current.main.temp,
+            humidity: current.main.humidity,
+            wind: current.wind.speed * 3.6, // m/s to km/h
+        });
+        if (recommendationOutput?.recommendation) {
+            recommendation = recommendationOutput.recommendation;
+        }
+    } catch (error) {
+        console.error("Error getting AI recommendation:", error);
+        // If the AI call fails, we'll just use the default recommendation.
+    }
+
 
     // Process forecast for the next 5 days, one entry per day
     const dailyForecasts: { [key: string]: any } = {};
@@ -117,7 +127,7 @@ export const getWeather = ai.defineFlow(
         icon: current.weather[0].icon,
         humidity: current.main.humidity,
         wind: Math.round(current.wind.speed * 3.6),
-        recommendation: recommendationOutput!.recommendation,
+        recommendation: recommendation,
       },
       forecast,
     };
