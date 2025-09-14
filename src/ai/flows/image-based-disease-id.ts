@@ -71,7 +71,14 @@ const identifyDiseaseOrPestFlow = ai.defineFlow(
     outputSchema: IdentifyDiseaseOrPestOutputSchema,
   },
   async input => {
-    const {output} = await identifyDiseaseOrPestPrompt(input);
-    return output!;
+    try {
+      const {output} = await identifyDiseaseOrPestPrompt(input);
+      // Ensure output is not null, and if it is, return a default value
+      return output || { possibleIssues: [] };
+    } catch (error) {
+      console.error("Error in identifyDiseaseOrPestFlow:", error);
+      // Return an empty array on error to prevent the app from crashing
+      return { possibleIssues: [] };
+    }
   }
 );
