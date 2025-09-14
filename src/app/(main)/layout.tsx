@@ -9,6 +9,7 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import { Sprout } from "lucide-react"
+import { motion } from "framer-motion"
 
 export default function MainLayout({
   children,
@@ -29,11 +30,16 @@ export default function MainLayout({
           <MainNav />
         </SidebarContent>
       </Sidebar>
-      <SidebarInset className="bg-background">
-        {children}
+      <SidebarInset className="bg-background/95">
+         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+        >
+          {children}
+        </motion.div>
       </SidebarInset>
     </SidebarProvider>
   )
 }
-
-    

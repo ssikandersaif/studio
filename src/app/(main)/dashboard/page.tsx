@@ -37,6 +37,7 @@ import {
 } from "lucide-react"
 import { Header } from "@/components/header"
 import { useLanguage } from "@/contexts/language-context"
+import { AnimatedGrid } from "@/components/animated-grid"
 
 declare global {
   interface Window {
@@ -82,7 +83,6 @@ export default function DashboardPage() {
   const handleFeedbackSubmit = () => {
     if (typeof window.tidioChat !== 'undefined' && window.tidioChat) {
         window.tidioChat.open();
-        // A slight delay to ensure the chat widget is open before sending the message
         setTimeout(() => {
           window.tidioChat.message(`Feedback: ${feedback}`);
         }, 500);
@@ -98,7 +98,6 @@ export default function DashboardPage() {
   const handleQuerySubmit = () => {
     if (typeof window.tidioChat !== 'undefined' && window.tidioChat) {
         window.tidioChat.open();
-        // A slight delay to ensure the chat widget is open before sending the message
         setTimeout(() => {
             window.tidioChat.message(`Query: ${query}`);
         }, 500);
@@ -119,8 +118,8 @@ export default function DashboardPage() {
         description={t({ en: "Welcome to Krishi Mitra, your smart farming assistant.", ml: "കൃഷി മിത്രയിലേക്ക് സ്വാഗതം, നിങ്ങളുടെ സ്മാർട്ട് ഫാമിംഗ് അസിസ്റ്റന്റ്.", hi: "कृषि मित्र में आपका स्वागत है, आपका स्मार्ट खेती सहायक।" })}
       />
       <main className="flex flex-1 flex-col gap-4 p-4 sm:px-8 sm:py-6 md:gap-8">
-        <Card className="overflow-hidden shadow-lg">
-          <div className="relative h-60 w-full">
+        <Card className="overflow-hidden shadow-lg border-none">
+          <div className="relative h-60 sm:h-72 md:h-80 w-full">
             {heroImage && (
               <Image
                 src={heroImage.imageUrl}
@@ -131,52 +130,58 @@ export default function DashboardPage() {
                 priority
               />
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            <div className="absolute bottom-0 p-6">
-              <h2 className="text-3xl font-bold text-white font-headline">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+            <div className="absolute bottom-0 p-6 sm:p-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-white font-headline" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
                 {t({ en: "Empowering Indian Farmers with AI", ml: "AI ഉപയോഗിച്ച് ഇന്ത്യൻ കർഷകരെ ശാക്തീകരിക്കുന്നു", hi: "AI के साथ भारतीय किसानों को सशक्त बनाना" })}
               </h2>
-              <p className="text-lg text-gray-200">
+              <p className="mt-2 text-lg text-gray-200" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}>
                 {t({ en: "Get instant advice, market data, and weather updates.", ml: "തൽക്ഷണ ഉപദേശം, മാർക്കറ്റ് ഡാറ്റ, കാലാവസ്ഥാ അപ്‌ഡേറ്റുകൾ എന്നിവ നേടുക.", hi: "तुरंत सलाह, बाजार डेटा और मौसम अपडेट प्राप्त करें।" })}
               </p>
             </div>
           </div>
         </Card>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {features.map((feature) => (
-            <Link href={feature.href} key={feature.title} className="block">
-                <Card className="group h-full flex flex-col hover:border-primary hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <CardHeader>
-                        <div className="flex items-center justify-between">
-                            <CardTitle className="font-headline">{feature.title}</CardTitle>
-                            {feature.icon}
+        <AnimatedGrid className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {features.map((feature, i) => (
+            <Link href={feature.href} key={feature.title} className="block group">
+                <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2">
+                    <CardHeader className="p-4">
+                        <div className="flex items-start justify-between">
+                            <CardTitle className="font-headline text-lg">{feature.title}</CardTitle>
+                            <div className="transform transition-transform duration-300 group-hover:rotate-12">
+                                {feature.icon}
+                            </div>
                         </div>
-                        <CardDescription>{feature.description}</CardDescription>
                     </CardHeader>
-                    <CardContent className="flex-grow flex flex-col justify-end">
-                       <div className="relative aspect-video w-full overflow-hidden rounded-md">
+                    <CardContent className="flex-grow flex flex-col justify-end p-0">
+                       <div className="relative aspect-video w-full overflow-hidden">
                          {feature.image && (
                            <Image
                              src={feature.image.imageUrl}
                              alt={feature.image.description}
                              fill
-                             className="object-cover transition-transform duration-300 group-hover:scale-105"
+                             className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
                              data-ai-hint={feature.image.imageHint}
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                            />
                          )}
+                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70"></div>
+                         <div className="absolute bottom-0 left-0 p-4 transition-transform duration-300 ease-in-out group-hover:translate-y-[-8px]">
+                            <p className="text-sm text-white/90 font-medium">{feature.description}</p>
+                         </div>
                        </div>
                     </CardContent>
                 </Card>
             </Link>
           ))}
-        </div>
+        </AnimatedGrid>
       </main>
 
        <div className="fixed bottom-6 left-6 z-50 flex flex-col gap-4">
         <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
             <DialogTrigger asChild>
-                <Button variant="default" className="rounded-full w-16 h-16 shadow-lg" aria-label="Submit Feedback">
+                <Button variant="default" className="rounded-full w-16 h-16 shadow-lg hover:scale-110 transition-transform" aria-label="Submit Feedback">
                     <MessageSquareHeart className="w-8 h-8" />
                 </Button>
             </DialogTrigger>
@@ -204,7 +209,7 @@ export default function DashboardPage() {
         
         <Dialog open={queryOpen} onOpenChange={setQueryOpen}>
             <DialogTrigger asChild>
-                <Button variant="secondary" className="rounded-full w-16 h-16 shadow-lg" aria-label="Submit a Query">
+                <Button variant="secondary" className="rounded-full w-16 h-16 shadow-lg hover:scale-110 transition-transform" aria-label="Submit a Query">
                     <MessageSquarePlus className="w-8 h-8" />
                 </Button>
             </DialogTrigger>
