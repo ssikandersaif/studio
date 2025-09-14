@@ -11,6 +11,7 @@ import {
   CloudRain,
   CloudSun,
   Droplets,
+  Lightbulb,
   Sun,
   Wind,
 } from "lucide-react";
@@ -56,11 +57,17 @@ export default function WeatherPage() {
       setLocationName(data.locationName);
     } catch (error) {
       console.error(error);
-      toast({
-        variant: "destructive",
-        title: t({ en: "Error fetching weather", ml: "കാലാവസ്ഥ ലഭിക്കുന്നതിൽ പിശക്", hi: "मौसम लाने में त्रुटि" }),
-        description: (error as Error).message || t({ en: "Could not fetch weather data.", ml: "കാലാവസ്ഥാ ഡാറ്റ ലഭ്യമാക്കാൻ കഴിഞ്ഞില്ല.", hi: "मौसम डेटा प्राप्त नहीं किया जा सका।" }),
-      });
+      const errorMessage = (error as Error).message || t({ en: "Could not fetch weather data.", ml: "കാലാവസ്ഥാ ഡാറ്റ ലഭ്യമാക്കാൻ കഴിഞ്ഞില്ല.", hi: "मौसम डेटा प्राप्त नहीं किया जा सका।" });
+      
+      // Only show toast if it's an API key issue, otherwise just log it.
+      if (errorMessage.includes("API key")) {
+        toast({
+          variant: "destructive",
+          title: t({ en: "Weather API Error", ml: "കാലാവസ്ഥാ API പിശക്", hi: "मौसम एपीआई त्रुटि" }),
+          description: errorMessage,
+        });
+      }
+      
       // Set a fallback display
       setLocationName("a default location");
     } finally {
@@ -71,6 +78,7 @@ export default function WeatherPage() {
   useEffect(() => {
     if (!navigator.geolocation) {
        toast({
+        variant: "destructive",
         title: t({ en: "Geolocation not supported", ml: "ജിയോലൊക്കേഷൻ പിന്തുണയ്ക്കുന്നില്ല", hi: "जियोलोकेशन समर्थित नहीं है" }),
         description: t({ en: "Your browser doesn't support geolocation. Showing weather for Delhi.", ml: "നിങ്ങളുടെ ബ്രൗസർ ജിയോലൊക്കേഷൻ പിന്തുണയ്ക്കുന്നില്ല. ഡൽഹിയിലെ കാലാവസ്ഥ കാണിക്കുന്നു.", hi: "आपका ब्राउज़र जियोलोकेशन का समर्थन नहीं करता है। दिल्ली के लिए मौसम दिखा रहा है।" }),
       });
@@ -89,6 +97,7 @@ export default function WeatherPage() {
       (error) => {
         console.warn(`Geolocation error (${error.code}): ${error.message}`);
         toast({
+          variant: "destructive",
           title: t({ en: "Location Access Denied", ml: "ലൊക്കേഷൻ ആക്സസ് നിഷേധിച്ചു", hi: "स्थान पहुंच से इनकार कर दिया" }),
           description: t({ en: "Showing weather for default location (Delhi).", ml: "ഡിഫോൾട്ട് ലൊക്കേഷനായ (ഡൽഹി) കാലാവസ്ഥ കാണിക്കുന്നു.", hi: "डिफ़ॉल्ट स्थान (दिल्ली) के लिए मौसम दिखा रहा है।" }),
         });
@@ -111,7 +120,7 @@ export default function WeatherPage() {
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
         <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold capitalize">{t({ en: "Weather for", ml: "ഇവിടെ കാലാവസ്ഥ", hi: "के लिए मौसम" })} {locationName}</h2>
+            <h2 className="text-xl font-semibold capitalize font-headline">{t({ en: "Weather for", ml: "ഇവിടെ കാലാവസ്ഥ", hi: "के लिए मौसम" })} {locationName}</h2>
         </div>
 
         {loading ? (
@@ -136,9 +145,9 @@ export default function WeatherPage() {
            </div>
         ) : weatherData ? (
           <div className="grid gap-6">
-            <Card className="bg-primary/10">
+            <Card className="bg-secondary/30">
               <CardHeader>
-                <CardTitle>{t({ en: "Current Conditions", ml: "നിലവിലെ അവസ്ഥ", hi: "वर्तमान स्थितियाँ" })}</CardTitle>
+                <CardTitle className="font-headline">{t({ en: "Current Conditions", ml: "നിലവിലെ അവസ്ഥ", hi: "वर्तमान स्थितियाँ" })}</CardTitle>
               </CardHeader>
               <CardContent className="grid md:grid-cols-2 gap-6">
                 <div className="flex items-center gap-6">
@@ -164,20 +173,23 @@ export default function WeatherPage() {
                         <p className="text-sm text-muted-foreground">{t({ en: "Wind", ml: "കാറ്റ്", hi: "हवा" })}</p>
                     </div>
                 </div>
-                <div className="md:col-span-2 p-4 bg-accent/20 text-accent-foreground/80 rounded-lg">
-                    <p className="font-semibold">{t({ en: "Farming Recommendation:", ml: "കാർഷിക ശുപാർശ:", hi: "खेती की सिफारिश:" })}</p>
-                    <p>{weatherData.current.recommendation}</p>
+                <div className="md:col-span-2 p-4 bg-primary/10 text-primary-foreground/90 rounded-lg flex gap-4 items-start">
+                    <Lightbulb className="h-5 w-5 mt-1 shrink-0"/>
+                    <div>
+                        <p className="font-semibold font-headline">{t({ en: "Farming Recommendation:", ml: "കാർഷിക ശുപാർശ:", hi: "खेती की सिफारिश:" })}</p>
+                        <p className="text-sm">{weatherData.current.recommendation}</p>
+                    </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>{t({ en: "5-Day Forecast", ml: "5 ദിവസത്തെ പ്രവചനം", hi: "5-दिवसीय पूर्वानुमान" })}</CardTitle>
+                <CardTitle className="font-headline">{t({ en: "5-Day Forecast", ml: "5 ദിവസത്തെ പ്രവചനം", hi: "5-दिवसीय पूर्वानुमान" })}</CardTitle>
               </CardHeader>
               <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center">
                 {weatherData.forecast.map((day, index) => (
-                  <div key={index} className="flex flex-col items-center p-2 rounded-lg bg-secondary">
+                  <div key={index} className="flex flex-col items-center p-2 rounded-lg bg-secondary/60">
                     <p className="font-bold">{day.day}</p>
                     <div className="my-2">{getIcon(day.icon)}</div>
                     <p className="text-xl font-semibold">{day.temp}°C</p>

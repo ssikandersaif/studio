@@ -21,7 +21,7 @@ body {
     --primary: 142.1 76.2% 36.3%; /* Vibrant Green */
     --primary-foreground: 355.7 100% 97.3%;
 
-    --secondary: 40 5.6% 95.9%; /* Off-white */
+    --secondary: 220 14.3% 95.9%; /* Changed from Off-white to Lighter Gray */
     --secondary-foreground: 222.2 47.4% 11.2%;
     
     --muted: 220 14.3% 95.9%;
@@ -67,7 +67,7 @@ body {
     --muted-foreground: 215 20.2% 65.1%;
 
     --accent: 45 93.4% 47.5%; /* Warm Yellow/Gold */
-    --accent-foreground: 48 95.5% 15.1%;
+    --accent-foreground: 210 40% 98%; /* Changed to a light color for dark mode */
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;

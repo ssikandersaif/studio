@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import { mockFaqs } from "@/lib/data";
 import { useLanguage } from "@/contexts/language-context";
 import { HelpCircle, Search } from "lucide-react";
+import { AnimatedGrid } from "@/components/animated-grid";
+
 
 export default function FAQPage() {
   const { t } = useLanguage();
@@ -50,13 +52,13 @@ export default function FAQPage() {
         description={t({ en: "Find answers to common questions about Krishi Mitra and farming.", hi: "कृषि मित्र और खेती के बारे में सामान्य प्रश्नों के उत्तर खोजें।" })}
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
-        <Card>
+        <Card className="shadow-lg border-none">
           <CardHeader>
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
               <div className="flex items-center gap-3">
                  <HelpCircle className="w-10 h-10 text-primary hidden sm:block" />
                  <div>
-                    <CardTitle>{t({ en: "Help & Support Center", hi: "सहायता और समर्थन केंद्र" })}</CardTitle>
+                    <CardTitle className="font-headline">{t({ en: "Help & Support Center", hi: "सहायता और समर्थन केंद्र" })}</CardTitle>
                     <CardDescription>{t({ en: `Total Questions: ${mockFaqs.length}`, hi: `कुल प्रश्न: ${mockFaqs.length}`})}</CardDescription>
                  </div>
               </div>
@@ -74,15 +76,15 @@ export default function FAQPage() {
           </CardHeader>
           <CardContent>
             {Object.keys(faqsByCategory).length > 0 ? (
-                <Accordion type="multiple" className="w-full space-y-4">
+                <AnimatedGrid>
                 {Object.entries(faqsByCategory).map(([category, faqs]) => (
-                    <div key={category}>
-                        <h2 className="text-xl font-semibold text-primary mb-4 border-b pb-2">{category}</h2>
-                        <Accordion type="single" collapsible className="w-full">
+                    <div key={category} className="mb-8">
+                        <h2 className="text-xl font-bold text-primary mb-4 border-b-2 border-primary/20 pb-2 font-headline">{category}</h2>
+                        <Accordion type="single" collapsible className="w-full space-y-2">
                              {faqs.map((faq, index) => (
-                                <AccordionItem value={`${category}-${index}`} key={`${category}-${index}`}>
-                                <AccordionTrigger>{faq.question}</AccordionTrigger>
-                                <AccordionContent className="prose prose-sm dark:prose-invert max-w-none">
+                                <AccordionItem value={`${category}-${index}`} key={`${category}-${index}`} className="bg-secondary/50 rounded-lg px-4 border-none">
+                                <AccordionTrigger className="text-left font-semibold hover:no-underline">{faq.question}</AccordionTrigger>
+                                <AccordionContent className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground">
                                     {faq.answer}
                                 </AccordionContent>
                                 </AccordionItem>
@@ -90,7 +92,7 @@ export default function FAQPage() {
                         </Accordion>
                     </div>
                 ))}
-                </Accordion>
+                </AnimatedGrid>
             ): (
                 <div className="text-center text-muted-foreground py-16">
                     <p>{t({ en: "No matching questions found.", hi: "कोई मेल खाने वाला प्रश्न नहीं मिला।" })}</p>
@@ -103,5 +105,3 @@ export default function FAQPage() {
     </>
   );
 }
-
-    
