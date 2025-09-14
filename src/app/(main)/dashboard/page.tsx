@@ -57,7 +57,7 @@ export default function DashboardPage() {
   const [feedback, setFeedback] = useState("");
   const [query, setQuery] = useState("");
 
-  const PlaceHolderImages = PlaceHolderImagesData;
+  const { placeholderImages: PlaceHolderImages } = PlaceHolderImagesData;
 
   const heroImage = PlaceHolderImages.find((img) => img.id === "farmer-hero")
   const featureImages = {
