@@ -7,4 +7,5 @@ export type ImagePlaceholder = {
   imageHint: string;
 };
 
+// This is now redundant as we import directly in the component, but we'll keep it for structural consistency
 export const PlaceHolderImages: ImagePlaceholder[] = placeholderImages;

@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
-import { PlaceHolderImages } from "@/lib/placeholder-images"
+import { placeholderImages as PlaceHolderImagesData } from "@/lib/placeholder-images.json"
 import {
   Card,
   CardHeader,
@@ -56,6 +56,8 @@ export default function DashboardPage() {
   const [queryOpen, setQueryOpen] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [query, setQuery] = useState("");
+
+  const PlaceHolderImages = PlaceHolderImagesData;
 
   const heroImage = PlaceHolderImages.find((img) => img.id === "farmer-hero")
   const featureImages = {
