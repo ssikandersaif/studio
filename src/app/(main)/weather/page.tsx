@@ -76,34 +76,37 @@ export default function WeatherPage() {
   };
 
   useEffect(() => {
-    if (!navigator.geolocation) {
-       toast({
-        variant: "destructive",
-        title: t({ en: "Geolocation not supported", ml: "ജിയോലൊക്കേഷൻ പിന്തുണയ്ക്കുന്നില്ല", hi: "जियोलोकेशन समर्थित नहीं है" }),
-        description: t({ en: "Your browser doesn't support geolocation. Showing weather for Delhi.", ml: "നിങ്ങളുടെ ബ്രൗസർ ജിയോലൊക്കേഷൻ പിന്തുണയ്ക്കുന്നില്ല. ഡൽഹിയിലെ കാലാവസ്ഥ കാണിക്കുന്നു.", hi: "आपका ब्राउज़र जियोलोकेशन का समर्थन नहीं करता है। दिल्ली के लिए मौसम दिखा रहा है।" }),
-      });
-      fetchWeather(28.6139, 77.2090); // Default to Delhi
-      return;
-    }
+    const getLocation = () => {
+        if (!navigator.geolocation) {
+            toast({
+                variant: "destructive",
+                title: t({ en: "Geolocation not supported", ml: "ജിയോലൊക്കേഷൻ പിന്തുണയ്ക്കുന്നില്ല", hi: "जियोलोकेशन समर्थित नहीं है" }),
+                description: t({ en: "Your browser doesn't support geolocation. Showing weather for Delhi.", ml: "നിങ്ങളുടെ ബ്രൗസർ ജിയോലൊക്കേഷൻ പിന്തുണയ്ക്കുന്നില്ല. ഡൽഹിയിലെ കാലാവസ്ഥ കാണിക്കുന്നു.", hi: "आपका ब्राउज़र जियोलोकेशन का समर्थन नहीं करता है। दिल्ली के लिए मौसम दिखा रहा है।" }),
+            });
+            fetchWeather(28.6139, 77.2090); // Default to Delhi
+            return;
+        }
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        fetchWeather(position.coords.latitude, position.coords.longitude);
-        toast({
-          title: t({ en: "Location detected!", ml: "ലൊക്കേഷൻ കണ്ടെത്തി!", hi: "स्थान का पता चला!" }),
-          description: t({ en: "Displaying weather for your current location.", ml: "നിങ്ങളുടെ ప్రస్తుത ലൊക്കേഷനിലെ കാലാവസ്ഥ പ്രദർശിപ്പിക്കുന്നു.", hi: "आपके वर्तमान स्थान के लिए मौसम प्रदर्शित कर रहा है।" }),
-        });
-      },
-      (error) => {
-        console.warn(`Geolocation error (${error.code}): ${error.message}`);
-        toast({
-          variant: "destructive",
-          title: t({ en: "Location Access Denied", ml: "ലൊക്കേഷൻ ആക്സസ് നിഷേധിച്ചു", hi: "स्थान पहुंच से इनकार कर दिया" }),
-          description: t({ en: "Showing weather for default location (Delhi).", ml: "ഡിഫോൾട്ട് ലൊക്കേഷനായ (ഡൽഹി) കാലാവസ്ഥ കാണിക്കുന്നു.", hi: "डिफ़ॉल्ट स्थान (दिल्ली) के लिए मौसम दिखा रहा है।" }),
-        });
-        fetchWeather(28.6139, 77.2090); // Fallback to Delhi
-      }
-    );
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                fetchWeather(position.coords.latitude, position.coords.longitude);
+                toast({
+                    title: t({ en: "Location detected!", ml: "ലൊക്കേഷൻ കണ്ടെത്തി!", hi: "स्थान का पता चला!" }),
+                    description: t({ en: "Displaying weather for your current location.", ml: "നിങ്ങളുടെ ప్రస్తుത ലൊക്കേഷനിലെ കാലാവസ്ഥ പ്രദർശിപ്പിക്കുന്നു.", hi: "आपके वर्तमान स्थान के लिए मौसम प्रदर्शित कर रहा है।" }),
+                });
+            },
+            (error) => {
+                console.warn(`Geolocation error (${error.code}): ${error.message}`);
+                toast({
+                    variant: "default",
+                    title: t({ en: "Location Access Denied", ml: "ലൊക്കേഷൻ ആക്സസ് നിഷേധിച്ചു", hi: "स्थान पहुंच से इनकार कर दिया" }),
+                    description: t({ en: "Showing weather for default location (Delhi).", ml: "ഡിഫോൾട്ട് ലൊക്കേഷനായ (ഡൽഹി) കാലാവസ്ഥ കാണിക്കുന്നു.", hi: "डिफ़ॉल्ट स्थान (दिल्ली) के लिए मौसम दिखा रहा है।" }),
+                });
+                fetchWeather(28.6139, 77.2090); // Fallback to Delhi
+            }
+        );
+    };
+    getLocation();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
@@ -173,7 +176,7 @@ export default function WeatherPage() {
                         <p className="text-sm text-muted-foreground">{t({ en: "Wind", ml: "കാറ്റ്", hi: "हवा" })}</p>
                     </div>
                 </div>
-                <div className="md:col-span-2 p-4 bg-primary/10 text-primary-foreground/90 rounded-lg flex gap-4 items-start">
+                <div className="md:col-span-2 p-4 bg-primary text-primary-foreground rounded-lg flex gap-4 items-start">
                     <Lightbulb className="h-5 w-5 mt-1 shrink-0"/>
                     <div>
                         <p className="font-semibold font-headline">{t({ en: "Farming Recommendation:", ml: "കാർഷിക ശുപാർശ:", hi: "खेती की सिफारिश:" })}</p>
