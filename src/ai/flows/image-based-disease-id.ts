@@ -77,8 +77,8 @@ const identifyDiseaseOrPestFlow = ai.defineFlow(
       return output || { possibleIssues: [] };
     } catch (error) {
       console.error("Error in identifyDiseaseOrPestFlow:", error);
-      // Return an empty array on error to prevent the app from crashing
-      return { possibleIssues: [] };
+      // Re-throw the error so the client can handle it and show a message.
+      throw error;
     }
   }
 );
