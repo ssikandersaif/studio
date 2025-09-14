@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
-import { placeholderImages as PlaceHolderImagesData } from "@/lib/placeholder-images.json"
+import PlaceHolderImagesData from "@/lib/placeholder-images.json"
 import {
   Card,
   CardHeader,
@@ -240,3 +240,5 @@ export default function DashboardPage() {
     </>
   )
 }
+
+    
