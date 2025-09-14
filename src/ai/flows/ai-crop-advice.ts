@@ -56,7 +56,13 @@ const cropAdviceFlow = ai.defineFlow(
     outputSchema: CropAdviceOutputSchema,
   },
   async input => {
-    const {output} = await cropAdvicePrompt(input);
-    return output!;
+    try {
+      const {output} = await cropAdvicePrompt(input);
+      return output!;
+    } catch (error) {
+      console.error("Error in cropAdviceFlow:", error);
+      // Re-throw the error so the client can handle it and show a message.
+      throw error;
+    }
   }
 );
