@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { identifyDiseaseOrPest, IdentifyDiseaseOrPestOutput } from "@/ai/flows/image-based-disease-id";
-import { Camera, ListChecks, Loader2, Upload } from "lucide-react";
+import { Camera, ListChecks, Loader2, Upload, Leaf, TestTube2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLanguage } from "@/contexts/language-context";
 import {
@@ -23,6 +23,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 
 export default function ScanCropPage() {
@@ -40,7 +41,7 @@ export default function ScanCropPage() {
       if (file.size > 4 * 1024 * 1024) { // 4MB limit
           toast({
             variant: "destructive",
-            title: t({ en: "Image too large", ml: "ചിത്രം വളരെ വലുതാണ്", hi: "छवि बहुत बड़ी है", ta: "படம் 너무 വലുതാണ്", te: "చిత్రం చాలా పెద్దది", kn: "ಚಿತ್ರ 너무 ದೊಡ್ಡದಾಗಿದೆ", bn: "ছবি খুব বড়", mr: "प्रतिमा खूप मोठी आहे", gu: "છબી ખૂબ મોટી છે", pa: "ਚਿੱਤਰ ਬਹੁਤ ਵੱਡਾ ਹੈ" }),
+            title: t({ en: "Image too large", ml: "ചിത്രം വളരെ വലുതാണ്", hi: "छवि बहुत बड़ी है", ta: "படம் 너무 വലുതാണ്", te: "చిత్రం చాలా పెద్దది", kn: "ಚಿತ್ರ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ", bn: "ছবি খুব বড়", mr: "प्रतिमा खूप मोठी आहे", gu: "છબી ખૂબ મોટી છે", pa: "ਚਿੱਤਰ ਬਹੁਤ ਵੱਡਾ ਹੈ" }),
             description: t({ en: "Please upload an image smaller than 4MB.", ml: "4MB-യിൽ താഴെയുള്ള ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യുക.", hi: "कृपया 4MB से छोटी छवि अपलोड करें।", ta: "దయచేసి 4MB కంటే చిన్న చిత్రాన్ని అప్‌లోడ్ చేయండి.", te: "దయచేసి 4MB కంటే చిన్న చిత్రాన్ని అప్‌లోడ్ చేయండి.", kn: "దయವಿಟ್ಟು 4MB ಗಿಂತ ಚಿಕ್ಕದಾದ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.", bn: "অনুগ্রহ করে 4MB এর চেয়ে ছোট একটি ছবি আপলোড করুন।", mr: "कृपया 4MB पेक्षा लहान प्रतिमा अपलोड करा.", gu: "કૃપા કરીને 4MB કરતાં નાની છબી અપલોડ કરો.", pa: "ਕਿਰਪਾ ਕਰਕੇ 4MB ਤੋਂ چھوٹی ਇੱਕ ਚਿੱਤਰ ਅੱਪਲੋਡ ਕਰੋ।" }),
           });
           return;
@@ -62,7 +63,7 @@ export default function ScanCropPage() {
       toast({
         variant: "destructive",
         title: t({ en: "No image selected", ml: "ചിത്രം തിരഞ്ഞെടുത്തിട്ടില്ല", hi: "कोई छवि चयनित नहीं", ta: "படம் தேர்ந்தெடுக்கப்படவில்லை", te: "చిత్రం ఎంచుకోబడలేదు", kn: "ಯಾವುದೇ ಚಿತ್ರವನ್ನು ಆಯ್ಕೆ ಮಾಡಿಲ್ಲ", bn: "কোনো ছবি নির্বাচন করা হয়নি", mr: "कोणतीही प्रतिमा निवडली नाही", gu: "કોઈ છબી પસંદ નથી", pa: "ਕੋਈ ਚਿੱਤਰ ਨਹੀਂ ਚੁਣਿਆ ਗਿਆ" }),
-        description: t({ en: "Please upload an image of your crop to analyze.", ml: "വിശകലനം ചെയ്യാൻ ദയവായി നിങ്ങളുടെ വിളയുടെ ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യുക.", hi: "विश्लेषण के लिए कृपया अपनी फसल की एक छवि अपलोड करें।", ta: "பகுப்பாய்வு ಮಾಡಲು உங்கள் பயிரின் படத்தை பதிவேற்றவும்.", te: "विश्लेषण చేయడానికి దయచేసి మీ పంట యొక్క చిత్రాన్ని అప్‌లోడ్ చేయండి.", kn: "ವಿಶ್ಲೇಷಣೆಗಾಗಿ ದಯವಿಟ್ಟು ನಿಮ್ಮ ಬೆಳೆಯ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.", bn: "تحليل করার জন্য আপনার ফসলের একটি ছবি আপলোড করুন।", mr: "विश्लेषण करण्यासाठी कृपया तुमच्या पिकाची प्रतिमा अपलोड करा.", gu: "વિશ્લેષણ કરવા માટે કૃપા કરીને તમારા પાકની છબી અપલોడ్ કરો.", pa: "ਵਿਸ਼ਲੇਸ਼ਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਫਸਲ ਦੀ ਇੱਕ છબી ਅੱਪਲੋਡ ਕਰੋ।" }),
+        description: t({ en: "Please upload an image of your crop to analyze.", ml: "വിശകലനം ചെയ്യാൻ ദയവായി നിങ്ങളുടെ വിളയുടെ ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യുക.", hi: "विश्लेषण के लिए कृपया अपनी फसल की एक छवि अपलोड करें।", ta: "பகுப்பாய்வு ಮಾಡಲು உங்கள் பயிரின் படத்தை பதிவேற்றவும்.", te: "विश्लेषण చేయడానికి దయచేసి మీ పంట యొక్క చిత్రాన్ని అప్‌లోడ్ చేయండి.", kn: "ವಿಶ್ಲೇಷಣೆಗಾಗಿ ದಯವಿಟ್ಟು ನಿಮ್ಮ ಬೆಳೆಯ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.", bn: "تحليل করার জন্য আপনার ফসলের একটি ছবি আপলোড করুন।", mr: "विश्लेषण करण्यासाठी कृपया तुमच्या पिकाची प्रतिमा अपलोड करा.", gu: "વિશ્લેષણ કરવા માટે કૃપા કરીને તમારા પાકની છબી અપલોડ કરો.", pa: "ਵਿਸ਼ਲੇਸ਼ਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਫਸਲ ਦੀ ਇੱਕ છબી ਅੱਪਲੋਡ ਕਰੋ।" }),
       });
       return;
     }
@@ -93,7 +94,7 @@ export default function ScanCropPage() {
         <div className="grid gap-8 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>{t({ en: "Upload Crop Image", ml: "വിളയുടെ ചിത്രം അപ്‌ലോഡ് ചെയ്യുക", hi: "फसल की छवि अपलोड करें", ta: "பயிர் படத்தை பதிவேற்றவும்", te: "పంట చిత్రాన్ని అప్‌లోడ్ చేయండి", kn: "ಬೆಳೆ ಚಿತ್ರವನ್ನು അപ്‌ಲೋಡ್ ಮಾಡಿ", bn: "ফসলের ছবি আপলোড করুন", mr: "पीक प्रतिमा अपलोड करा", gu: "પાકની છબી અપલોഡ് કરો", pa: "ਫਸਲ ਦੀ ਤਸਵੀਰ ਅੱਪਲੋਡ ਕਰੋ" })}</CardTitle>
+              <CardTitle>{t({ en: "Upload Crop Image", ml: "വിളയുടെ ചിത്രം അപ്‌लोड് ചെയ്യുക", hi: "फसल की छवि अपलोड करें", ta: "பயிர் படத்தை பதிவேற்றவும்", te: "పంట చిత్రాన్ని అప్‌లోడ్ చేయండి", kn: "ಬೆಳೆ ಚಿತ್ರವನ್ನು അപ്‌ಲೋಡ್ ಮಾಡಿ", bn: "ফসলের ছবি আপলোড করুন", mr: "पीक प्रतिमा अपलोड करा", gu: "પાકની છબી અપલોഡ് કરો", pa: "ਫਸਲ ਦੀ ਤਸਵੀਰ ਅੱਪਲੋਡ ਕਰੋ" })}</CardTitle>
               <CardDescription>
                 {t({ en: "Choose a clear photo of the affected plant part.", ml: "രോഗബാധിതമായ ചെടിയുടെ ഭാഗത്തിന്റെ വ്യക്തമായ ഫോട്ടോ തിരഞ്ഞെടുക്കുക.", hi: "प्रभावित पौधे के हिस्से की एक स्पष्ट तस्वीर चुनें।", ta: "பாதிக்கப்பட்ட தாவரப் பகுதியின் தெளிவான புகைப்படத்தைத் தேர்ந்தெடுக்கவும்.", te: "ప్రభావితమైన మొక్క యొక్క தெளிவான ఫోటోను ఎంచుకోండి.", kn: "ಬಾధిత ಸಸ್ಯದ ભાગದ ಸ್ಪಷ್ಟವಾದ ಫೋಟೋವನ್ನು ಆಯ್ಕೆಮಾಡಿ.", bn: "प्रभावित উদ্ভিদের অংশের একটি સ્પષ્ટ ছবি પસંદ করুন।", mr: "बाधित वनस्पतीच्या भागाचा स्पष्ट फोटो निवडा.", gu: "અસરગ્રस्त છોડના ભાગનો સ્પष्ट ફોટો પસંદ કરો.", pa: "ਪ੍ਰਭਾਵਿਤ ਪੌਦੇ ਦੇ ਹਿੱਸੇ ਦੀ ਇੱਕ ਸਾਫ਼ ਤਸਵੀਰ ਚੁਣੋ।" })}
               </CardDescription>
@@ -152,12 +153,42 @@ export default function ScanCropPage() {
                 </div>
               )}
               {analysisResult && analysisResult.possibleIssues.length > 0 && (
-                 <Accordion type="single" collapsible className="w-full">
+                 <Accordion type="single" collapsible className="w-full space-y-2">
                   {analysisResult.possibleIssues.map((item, index) => (
-                    <AccordionItem value={`item-${index}`} key={index}>
-                      <AccordionTrigger className="font-medium text-left">{item.issue}</AccordionTrigger>
-                      <AccordionContent className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap">
-                        {item.recommendation}
+                    <AccordionItem value={`item-${index}`} key={index} className="bg-secondary/50 rounded-lg px-4 border-none">
+                      <AccordionTrigger className="text-left font-semibold hover:no-underline">{item.issue}</AccordionTrigger>
+                      <AccordionContent className="prose prose-sm dark:prose-invert max-w-none">
+                        <p className="mb-4 whitespace-pre-wrap">{item.recommendation}</p>
+                        
+                        <Tabs defaultValue="organic">
+                          <TabsList className="grid w-full grid-cols-2">
+                            <TabsTrigger value="organic">
+                              <Leaf className="mr-2 h-4 w-4" />
+                              {t({en: "Organic", hi: "जैविक"})}
+                            </TabsTrigger>
+                            <TabsTrigger value="chemical">
+                               <TestTube2 className="mr-2 h-4 w-4" />
+                               {t({en: "Chemical", hi: "रासायनिक"})}
+                            </TabsTrigger>
+                          </TabsList>
+                          <TabsContent value="organic" className="mt-4 space-y-3">
+                             {item.organic_solutions.map((sol, i) => (
+                               <div key={`org-${i}`}>
+                                 <h4 className="font-semibold">{sol.name}</h4>
+                                 <p className="whitespace-pre-wrap">{sol.instructions}</p>
+                               </div>
+                             ))}
+                          </TabsContent>
+                           <TabsContent value="chemical" className="mt-4 space-y-3">
+                             {item.chemical_solutions.map((sol, i) => (
+                               <div key={`chem-${i}`}>
+                                 <h4 className="font-semibold">{sol.name}</h4>
+                                 <p className="whitespace-pre-wrap">{sol.instructions}</p>
+                               </div>
+                             ))}
+                           </TabsContent>
+                        </Tabs>
+
                       </AccordionContent>
                     </AccordionItem>
                   ))}

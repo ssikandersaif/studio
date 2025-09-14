@@ -21,9 +21,16 @@ const IdentifyDiseaseOrPestInputSchema = z.object({
 });
 export type IdentifyDiseaseOrPestInput = z.infer<typeof IdentifyDiseaseOrPestInputSchema>;
 
+const SolutionSchema = z.object({
+  name: z.string().describe('The name of the recommended product or method.'),
+  instructions: z.string().describe('Step-by-step application instructions.'),
+});
+
 const DiseaseOrPestIssueSchema = z.object({
   issue: z.string().describe('The name of the identified disease or pest.'),
-  recommendation: z.string().describe('The recommended treatment or solution for the identified issue.'),
+  recommendation: z.string().describe('A general description of the issue and why it occurs.'),
+  organic_solutions: z.array(SolutionSchema).describe('A list of organic solutions or medicines.'),
+  chemical_solutions: z.array(SolutionSchema).describe('A list of chemical solutions or medicines.'),
 });
 
 const IdentifyDiseaseOrPestOutputSchema = z.object({
@@ -43,11 +50,14 @@ const identifyDiseaseOrPestPrompt = ai.definePrompt({
   name: 'identifyDiseaseOrPestPrompt',
   input: {schema: IdentifyDiseaseOrPestInputSchema},
   output: {schema: IdentifyDiseaseOrPestOutputSchema},
-  prompt: `You are an expert in identifying crop diseases and pests for Indian farmers.
+  prompt: `You are an expert agronomist for Indian farmers.
 
   Analyze the image provided and identify potential diseases or pests affecting the crop.
 
-  For each potential issue you identify, provide a practical, actionable recommendation for how to solve it.
+  For each potential issue you identify:
+  1.  Provide a general 'recommendation' that explains what the issue is and why it might be happening.
+  2.  List at least one 'organic_solutions'. For each, provide a 'name' (e.g., "Neem Oil Spray") and 'instructions' for application.
+  3.  List at least one 'chemical_solutions'. For each, provide a 'name' (e.g., a common brand name like "Tata M-45" and its chemical name "Mancozeb 75% WP") and detailed 'instructions' for application, including dosage per liter of water and when to apply it.
 
   Provide the response in the following language: {{{language}}}.
 
