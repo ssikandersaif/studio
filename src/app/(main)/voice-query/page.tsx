@@ -117,12 +117,14 @@ export default function VoiceQueryPage() {
   };
 
   const handleGetAdvice = async () => {
-    if (!transcribedText.trim()) {
-      toast({
-        variant: "destructive",
-        title: t({ en: "No text to analyze", ml: "വിശകലനം ചെയ്യാൻ ടെക്സ്റ്റ് ഇല്ല", hi: "विश्लेषण के लिए कोई पाठ नहीं" }),
-        description: t({ en: "Please record your question first.", ml: "ദയവായി ആദ്യം നിങ്ങളുടെ ചോദ്യം റെക്കോർഡ് ചെയ്യുക.", hi: "कृपया पहले अपना प्रश्न रिकॉर्ड करें।" }),
-      });
+    if (!transcribedText.trim() || loading || gettingAdvice) {
+      if(!transcribedText.trim()) {
+        toast({
+            variant: "destructive",
+            title: t({ en: "No text to analyze", ml: "വിശകലനം ചെയ്യാൻ ടെക്സ്റ്റ് ഇല്ല", hi: "विश्लेषण के लिए कोई पाठ नहीं" }),
+            description: t({ en: "Please record your question first.", ml: "ദയവായി ആദ്യം നിങ്ങളുടെ ചോദ്യം റെക്കോർഡ് ചെയ്യുക.", hi: "कृपया पहले अपना प्रश्न रिकॉर्ड करें।" }),
+        });
+      }
       return;
     }
     setGettingAdvice(true);
@@ -210,9 +212,9 @@ export default function VoiceQueryPage() {
                     placeholder={t({ en: "Transcribed text will appear here...", ml: "ട്രാൻസ്ക്രൈബ് ചെയ്ത വാചകം ഇവിടെ ദൃശ്യമാകും...", hi: "प्रतिलेखित पाठ यहां दिखाई देगा..." })}
                     className="min-h-[100px] mb-4"
                     value={loading ? t({ en: "Transcribing...", ml: "ട്രാൻസ്ക്രൈബ് ചെയ്യുന്നു...", hi: "प्रतिलेखन..." }) : transcribedText}
-                    readOnly={loading || gettingAdvice}
                     onChange={(e) => setTranscribedText(e.target.value)}
                     onKeyDown={handleKeyDown}
+                    disabled={loading || gettingAdvice}
                   />
                </CardContent>
                <CardFooter>
@@ -281,5 +283,3 @@ export default function VoiceQueryPage() {
     </>
   );
 }
-
-    
