@@ -3,50 +3,56 @@
     {
       "id": "farmer-hero",
       "description": "A vibrant image of an Indian farmer in a lush green field, symbolizing prosperity.",
-      "imageUrl": "https://picsum.photos/seed/farmer-hero/1200/600",
+      "imageUrl": "https://images.unsplash.com/photo-1620252495148-a4a5b608a243?q=80&w=1200&h=600&fit=crop",
       "imageHint": "indian farmer"
     },
     {
       "id": "market-prices",
-      "description": "A bustling agricultural market scene.",
-      "imageUrl": "https://picsum.photos/seed/market-prices/400/300",
+      "description": "A bustling agricultural market scene with fresh produce.",
+      "imageUrl": "https://images.unsplash.com/photo-1574345439562-431b816a7599?q=80&w=400&h=300&fit=crop",
       "imageHint": "agricultural market"
     },
     {
       "id": "weather-forecast",
-      "description": "A clear sky with a sun, representing good weather.",
-      "imageUrl": "https://picsum.photos/seed/weather-forecast/400/300",
-      "imageHint": "clear sky"
+      "description": "A dramatic sky with clouds and sun breaking through.",
+      "imageUrl": "https://images.unsplash.com/photo-1601297183305-6df142704ea2?q=80&w=400&h=300&fit=crop",
+      "imageHint": "sky clouds"
     },
     {
       "id": "crop-doctor",
-      "description": "A close-up of a healthy green leaf.",
-      "imageUrl": "https://picsum.photos/seed/crop-doctor/400/300",
+      "description": "A close-up of a healthy, vibrant green leaf with water droplets.",
+      "imageUrl": "https://images.unsplash.com/photo-1596755690222-38f613349666?q=80&w=400&h=300&fit=crop",
       "imageHint": "green leaf"
     },
     {
       "id": "scan-crop",
-      "description": "A person holding a smartphone to scan a plant.",
-      "imageUrl": "https://picsum.photos/seed/scan-crop/400/300",
-      "imageHint": "phone scanning plant"
+      "description": "A person holding a smartphone to scan a leaf on a plant.",
+      "imageUrl": "https://images.unsplash.com/photo-1619454018022-54d43644951a?q=80&w=400&h=300&fit=crop",
+      "imageHint": "phone scanning"
     },
      {
       "id": "voice-query",
-      "description": "Sound waves illustration for voice query.",
-      "imageUrl": "https://picsum.photos/seed/voice-query/400/300",
+      "description": "An abstract illustration of colorful sound waves.",
+      "imageUrl": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=400&h=300&fit=crop",
       "imageHint": "sound waves"
     },
      {
       "id": "govt-schemes",
-      "description": "An official government building.",
-      "imageUrl": "https://picsum.photos/seed/govt-schemes/400/300",
+      "description": "The Indian Parliament building in New Delhi.",
+      "imageUrl": "https://images.unsplash.com/photo-1598481488601-780975da65ea?q=80&w=400&h=300&fit=crop",
       "imageHint": "government building"
     },
     {
       "id": "officer-directory",
-      "description": "A group of professionals in a meeting.",
-      "imageUrl": "https://picsum.photos/seed/officer-directory/400/300",
-      "imageHint": "professional meeting"
+      "description": "A group of diverse professionals in a discussion.",
+      "imageUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&h=300&fit=crop",
+      "imageHint": "professionals discussion"
+    },
+    {
+      "id": "faq",
+      "description": "Colorful question mark blocks.",
+      "imageUrl": "https://images.unsplash.com/photo-1584307833261-293f7ff5241f?q=80&w=400&h=300&fit=crop",
+      "imageHint": "question marks"
     }
   ]
 }
