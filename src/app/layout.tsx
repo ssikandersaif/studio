@@ -5,6 +5,9 @@ import { LanguageProvider } from '@/contexts/language-context';
 import { ThemeProvider } from '@/contexts/theme-provider';
 import Script from 'next/script';
 import { AuthProvider } from '@/contexts/auth-context';
+import { inter } from '@/app/fonts';
+import { cn } from '@/lib/utils';
+
 
 export const metadata: Metadata = {
   title: 'Krishi Mitra',
@@ -18,12 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased">
+      <body className={cn("font-body antialiased", inter.variable)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
