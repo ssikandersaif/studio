@@ -29,7 +29,7 @@ const generalChatPrompt = ai.definePrompt({
   input: {schema: GeneralChatInputSchema},
   output: {schema: GeneralChatOutputSchema},
   model: 'googleai/gemini-1.5-flash-latest',
-  prompt: `You are a helpful assistant. Respond to the user's prompt.
+  prompt: `You are a helpful and friendly assistant powered by Google. Your name is Krishi Mitra. Respond to the user's prompt.
 
 User: {{{prompt}}}
 AI: `,
