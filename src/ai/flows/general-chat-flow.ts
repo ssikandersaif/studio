@@ -1,8 +1,8 @@
 'use server';
 /**
- * @fileOverview A general purpose chat flow.
+ * @fileOverview A general purpose chat flow that connects to a local LLM.
  *
- * - generalChat - A function that takes a user's prompt and returns an AI response.
+ * - generalChat - A function that takes a user's prompt and returns an AI response from a local model.
  * - GeneralChatInput - The input type for the generalChat function.
  * - GeneralChatOutput - The return type for the generalChat function.
  */
@@ -24,30 +24,40 @@ export async function generalChat(input: GeneralChatInput): Promise<GeneralChatO
   return generalChatFlow(input);
 }
 
-const generalChatPrompt = ai.definePrompt({
-  name: 'generalChatPrompt',
-  input: {schema: GeneralChatInputSchema},
-  output: {schema: GeneralChatOutputSchema},
-  model: 'googleai/gemini-1.5-flash-latest',
-  prompt: `You are a helpful and friendly assistant powered by Google. Your name is Krishi Mitra. Respond to the user's prompt.
-
-User: {{{prompt}}}
-AI: `,
-});
-
 const generalChatFlow = ai.defineFlow(
   {
     name: 'generalChatFlow',
     inputSchema: GeneralChatInputSchema,
     outputSchema: GeneralChatOutputSchema,
   },
-  async input => {
+  async (input) => {
     try {
-      const {output} = await generalChatPrompt(input);
-      return output!;
+      const ngrokUrl = 'https://ae7f5db5d14e.ngrok-free.app/predict';
+      
+      const response = await fetch(ngrokUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
+        body: JSON.stringify({ input: input.prompt }),
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        throw new Error(`Request to local model failed with status ${response.status}: ${errorBody}`);
+      }
+
+      const data = await response.json();
+      
+      // Assuming the local model's response is in a 'response' field.
+      // If the field name is different, this needs to be adjusted.
+      return { response: data.response || "No response field found in local model output." };
+
     } catch (error) {
-      console.error("Error in generalChatFlow:", error);
-      throw error;
+      console.error("Error in generalChatFlow connecting to local model:", error);
+      // Let the user know the connection failed
+      return { response: `Error connecting to your local model: ${(error as Error).message}` };
     }
   }
 );
