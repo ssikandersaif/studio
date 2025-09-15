@@ -32,13 +32,12 @@ const generalChatFlow = ai.defineFlow(
   },
   async (input) => {
     try {
-      const ngrokUrl = 'https://ae7f5db5d14e.ngrok-free.app/predict';
+      const localUrl = 'http://localhost:5000/predict';
       
-      const response = await fetch(ngrokUrl, {
+      const response = await fetch(localUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'ngrok-skip-browser-warning': 'true'
         },
         body: JSON.stringify({ input: input.prompt }),
       });
