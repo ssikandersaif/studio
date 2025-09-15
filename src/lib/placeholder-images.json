@@ -53,6 +53,12 @@
       "description": "Colorful question mark blocks.",
       "imageUrl": "https://picsum.photos/seed/faq/400/300",
       "imageHint": "question marks"
+    },
+    {
+      "id": "talk-to-llm",
+      "description": "Abstract network of nodes and connections representing AI.",
+      "imageUrl": "https://picsum.photos/seed/talk-to-llm/400/300",
+      "imageHint": "artificial intelligence"
     }
   ]
 }

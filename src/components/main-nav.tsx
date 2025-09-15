@@ -14,6 +14,7 @@ import {
   ScrollText,
   Stethoscope,
   Users,
+  MessageCircle,
 } from "lucide-react"
 import {
   SidebarMenu,
@@ -55,6 +56,11 @@ export function MainNav() {
       href: "/voice-query",
       label: t({en: "Voice Query", ml: "ശബ്ദ ചോദ്യം", hi: "आवाज प्रश्न"}),
       icon: <Mic />,
+    },
+     {
+      href: "/talk-to-llm",
+      label: t({en: "Talk to LLM", hi: "एलएलएम से बात करें"}),
+      icon: <MessageCircle />,
     },
     {
       href: "/govt-schemes",
