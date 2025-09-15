@@ -132,9 +132,9 @@ export default function CropDoctorPage() {
                     id="question"
                     placeholder={t(
                       {
-                        en: "e.g., 'My tomato plants have yellow leaves with brown spots. What should I do?'", 
-                        ml: "ഉദാ: 'എന്റെ തക്കാളി ചെടികൾക്ക് മഞ്ഞ ഇലകളും തവിട്ടുനിറത്തിലുള്ള പാടുകളും ഉണ്ട്. ഞാൻ എന്തുചെയ്യണം?'",
-                        hi: "उदा., 'मेरे टमाटर के पौधों में भूरे धब्बों के साथ पीली पत्तियां हैं। मुझे क्या करना चाहिए?'"
+                        en: "Ask a question related to agriculture", 
+                        ml: "കാർഷിക സംബന്ധമായ ചോദ്യം ചോദിക്കുക",
+                        hi: "कृषि से संबंधित प्रश्न पूछें"
                       }
                     )}
                     className="min-h-[150px]"
