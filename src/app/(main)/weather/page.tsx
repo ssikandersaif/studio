@@ -12,6 +12,7 @@ import {
   CloudSun,
   Droplets,
   Lightbulb,
+  MapPinOff,
   Sun,
   Wind,
 } from "lucide-react";
@@ -44,7 +45,7 @@ const iconMap: IconMap = {
 
 export default function WeatherPage() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [locationName, setLocationName] = useState<string>("your location");
+  const [locationName, setLocationName] = useState<string | null>(null);
   const [loading, setLoading]  = useState(true);
   const { toast } = useToast();
   const { t } = useLanguage();
@@ -59,7 +60,6 @@ export default function WeatherPage() {
       console.error(error);
       const errorMessage = (error as Error).message || t({ en: "Could not fetch weather data.", ml: "കാലാവസ്ഥാ ഡാറ്റ ലഭ്യമാക്കാൻ കഴിഞ്ഞില്ല.", hi: "मौसम डेटा प्राप्त नहीं किया जा सका।" });
       
-      // Only show toast if it's an API key issue, otherwise just log it.
       if (errorMessage.includes("API key")) {
         toast({
           variant: "destructive",
@@ -67,9 +67,8 @@ export default function WeatherPage() {
           description: errorMessage,
         });
       }
-      
-      // Set a fallback display
-      setLocationName("a default location");
+      setWeatherData(null);
+      setLocationName(null);
     } finally {
       setLoading(false);
     }
@@ -81,28 +80,26 @@ export default function WeatherPage() {
             toast({
                 variant: "destructive",
                 title: t({ en: "Geolocation not supported", ml: "ജിയോലൊക്കേഷൻ പിന്തുണയ്ക്കുന്നില്ല", hi: "जियोलोकेशन समर्थित नहीं है" }),
-                description: t({ en: "Your browser doesn't support geolocation. Showing weather for Delhi.", ml: "നിങ്ങളുടെ ബ്രൗസർ ജിയോലൊക്കേഷൻ പിന്തുണയ്ക്കുന്നില്ല. ഡൽഹിയിലെ കാലാവസ്ഥ കാണിക്കുന്നു.", hi: "आपका ब्राउज़र जियोलोकेशन का समर्थन नहीं करता है। दिल्ली के लिए मौसम दिखा रहा है।" }),
+                description: t({ en: "Your browser doesn't support geolocation.", ml: "നിങ്ങളുടെ ബ്രൗസർ ജിയോലൊക്കേഷൻ പിന്തുണയ്ക്കുന്നില്ല.", hi: "आपका ब्राउज़र जियोलोकेशन का समर्थन नहीं करता है।" }),
             });
-            fetchWeather(28.6139, 77.2090); // Default to Delhi
+            setLoading(false);
+            setLocationName(null);
             return;
         }
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 fetchWeather(position.coords.latitude, position.coords.longitude);
-                toast({
-                    title: t({ en: "Location detected!", ml: "ലൊക്കേഷൻ കണ്ടെത്തി!", hi: "स्थान का पता चला!" }),
-                    description: t({ en: "Displaying weather for your current location.", ml: "നിങ്ങളുടെ ప్రస్తుത ലൊക്കേഷനിലെ കാലാവസ്ഥ പ്രദർശിപ്പിക്കുന്നു.", hi: "आपके वर्तमान स्थान के लिए मौसम प्रदर्शित कर रहा है।" }),
-                });
             },
             (error) => {
                 console.warn(`Geolocation error (${error.code}): ${error.message}`);
                 toast({
                     variant: "default",
                     title: t({ en: "Location Access Denied", ml: "ലൊക്കേഷൻ ആക്സസ് നിഷേധിച്ചു", hi: "स्थान पहुंच से इनकार कर दिया" }),
-                    description: t({ en: "Showing weather for default location (Delhi).", ml: "ഡിഫോൾട്ട് ലൊക്കേഷനായ (ഡൽഹി) കാലാവസ്ഥ കാണിക്കുന്നു.", hi: "डिफ़ॉल्ट स्थान (दिल्ली) के लिए मौसम दिखा रहा है।" }),
+                    description: t({ en: "Please enable location services in your browser settings to see local weather.", ml: "പ്രാദേശിക കാലാവസ്ഥ കാണുന്നതിന് നിങ്ങളുടെ ബ്രൗസർ ക്രമീകരണങ്ങളിൽ ലൊക്കേഷൻ സേവനങ്ങൾ പ്രവർത്തനക്ഷമമാക്കുക.", hi: "स्थानीय मौसम देखने के लिए कृपया अपनी ब्राउज़र सेटिंग्स में स्थान सेवाओं को सक्षम करें।" }),
                 });
-                fetchWeather(28.6139, 77.2090); // Fallback to Delhi
+                setLoading(false);
+                setLocationName(null);
             }
         );
     };
@@ -123,7 +120,9 @@ export default function WeatherPage() {
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
         <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold capitalize font-headline">{t({ en: "Weather for", ml: "ഇവിടെ കാലാവസ്ഥ", hi: "के लिए मौसम" })} {locationName}</h2>
+            <h2 className="text-xl font-semibold capitalize font-headline">
+              {locationName ? `${t({ en: "Weather for", ml: "ഇവിടെ കാലാവസ്ഥ", hi: "के लिए मौसम" })} ${locationName}` : t({ en: "Weather", ml: "കാലാവസ്ഥ", hi: "मौसम" })}
+            </h2>
         </div>
 
         {loading ? (
@@ -146,7 +145,7 @@ export default function WeatherPage() {
                   </CardContent>
               </Card>
            </div>
-        ) : weatherData ? (
+        ) : weatherData && locationName ? (
           <div className="grid gap-6">
             <Card className="bg-secondary/30">
               <CardHeader>
@@ -203,7 +202,17 @@ export default function WeatherPage() {
             </Card>
           </div>
         ) : (
-          <p>{t({ en: "Could not load weather data.", ml: "കാലാവസ്ഥാ ഡാറ്റ ലഭ്യമാക്കാൻ കഴിഞ്ഞില്ല.", hi: "मौसम डेटा लोड नहीं किया जा सका।" })}</p>
+          <Card className="flex flex-col items-center justify-center text-center p-12 text-muted-foreground">
+            <MapPinOff className="w-16 h-16 mb-4 text-primary" />
+            <h3 className="text-xl font-semibold mb-2">{t({ en: "Could not determine your location", ml: "നിങ്ങളുടെ ലൊക്കേഷൻ നിർണ്ണയിക്കാൻ കഴിഞ്ഞില്ല", hi: "आपके स्थान का निर्धारण नहीं किया जा सका" })}</h3>
+            <p className="max-w-md">
+                {t({ 
+                    en: "Please ensure you have enabled location services in your browser and operating system settings. Some privacy-focused browsers or extensions might also block this feature.",
+                    ml: "നിങ്ങളുടെ ബ്രൗസറിലും ഓപ്പറേറ്റിംഗ് സിസ്റ്റം ക്രമീകരണങ്ങളിലും ലൊക്കേഷൻ സേവനങ്ങൾ പ്രവർത്തനക്ഷമമാക്കിയിട്ടുണ്ടെന്ന് ഉറപ്പാക്കുക. ചില സ്വകാര്യത കേന്ദ്രീകരിച്ചുള്ള ബ്രൗസറുകളോ എക്സ്റ്റൻഷനുകളോ ഈ ഫീച്ചർ ബ്ലോക്ക് ചെയ്തേക്കാം.",
+                    hi: "कृपया सुनिश्चित करें कि आपने अपने ब्राउज़र और ऑपरेटिंग सिस्टम सेटिंग्स में स्थान सेवाओं को सक्षम किया है। कुछ गोपनीयता-केंद्रित ब्राउज़र या एक्सटेंशन भी इस सुविधा को अवरुद्ध कर सकते हैं।"
+                })}
+            </p>
+          </Card>
         )}
       </main>
     </>
