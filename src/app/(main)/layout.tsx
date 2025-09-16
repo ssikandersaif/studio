@@ -11,7 +11,6 @@ import {
 import { Sprout } from "lucide-react"
 import { motion } from "framer-motion"
 import { WelcomeDialog } from "@/components/welcome-dialog";
-import { Footer } from "@/components/footer";
 
 export default function MainLayout({
   children,
@@ -32,7 +31,7 @@ export default function MainLayout({
           <MainNav />
         </SidebarContent>
       </Sidebar>
-      <SidebarInset className="flex flex-col bg-background/95">
+      <SidebarInset className="flex flex-col bg-background/95 supports-[backdrop-filter]:bg-background/60 supports-[backdrop-filter]:backdrop-blur-xl">
          <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,7 +42,6 @@ export default function MainLayout({
           <WelcomeDialog />
           {children}
         </motion.div>
-        <Footer />
       </SidebarInset>
     </SidebarProvider>
   )
