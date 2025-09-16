@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -27,68 +28,67 @@ export function Footer() {
   return (
     <footer className="bg-secondary text-secondary-foreground border-t border-border mt-auto">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1 sm:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <Sprout className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-primary font-headline">
-                Krishi Mitra
-              </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-1 space-y-4">
+              <div className="flex items-center gap-2">
+                <Sprout className="h-8 w-8 text-primary" />
+                <h1 className="text-2xl font-bold text-primary font-headline">
+                  Krishi Mitra
+                </h1>
+              </div>
+              <p className="text-sm text-muted-foreground max-w-sm">
+                {t({
+                  en: "Empowering Indian farmers with AI-driven insights and real-time data for a prosperous future.",
+                  hi: "एआई-संचालित अंतर्दृष्टि और वास्तविक समय डेटा के साथ भारतीय किसानों को एक समृद्ध भविष्य के लिए सशक्त बनाना।",
+                })}
+              </p>
+              <div className="flex space-x-1">
+                {socialIcons.map((social) => (
+                  <Link key={social.name} href={social.href} passHref>
+                    <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary hover:bg-primary/10">
+                      <i className={social.icon}></i>
+                      <span className="sr-only">{social.name}</span>
+                    </Button>
+                  </Link>
+                ))}
+              </div>
+          </div>
+          <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
+            <div>
+              <h3 className="font-semibold mb-3 text-sm tracking-wide">
+                {t({ en: "Quick Links", hi: "त्वरित लिंक" })}
+              </h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/dashboard" className="text-muted-foreground hover:text-primary transition-colors">{t({ en: "Dashboard", hi: "डैशबोर्ड" })}</Link></li>
+                <li><Link href="/market-prices" className="text-muted-foreground hover:text-primary transition-colors">{t({ en: "Market Prices", hi: "बाजार मूल्य" })}</Link></li>
+                <li><Link href="/weather" className="text-muted-foreground hover:text-primary transition-colors">{t({ en: "Weather", hi: "मौसम" })}</Link></li>
+                <li><Link href="/faq" className="text-muted-foreground hover:text-primary transition-colors">{links.faq}</Link></li>
+              </ul>
             </div>
-            <p className="text-sm">
-              {t({
-                en: "Empowering Indian farmers with AI-driven insights and real-time data.",
-                hi: "एआई-संचालित अंतर्दृष्टि और वास्तविक समय डेटा के साथ भारतीय किसानों को सशक्त बनाना।",
-              })}
-            </p>
-             <div className="mt-4 flex space-x-2">
-              {socialIcons.map((social) => (
-                <Link key={social.name} href={social.href} passHref>
-                   <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
-                    <i className={social.icon}></i>
-                    <span className="sr-only">{social.name}</span>
-                  </Button>
-                </Link>
-              ))}
+            <div>
+               <h3 className="font-semibold mb-3 text-sm tracking-wide">
+                {t({ en: "Legal", hi: "कानूनी" })}
+              </h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors">{links.terms}</Link></li>
+                <li><Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">{links.privacy}</Link></li>
+              </ul>
             </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold uppercase tracking-wider mb-4 text-sm">
-              {t({ en: "Quick Links", hi: "त्वरित लिंक" })}
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/about" className="hover:text-primary transition-colors">{links.about}</Link></li>
-              <li><Link href="/#features" className="hover:text-primary transition-colors">{links.features}</Link></li>
-              <li><Link href="/contact" className="hover:text-primary transition-colors">{links.contact}</Link></li>
-              <li><Link href="/faq" className="hover:text-primary transition-colors">{links.faq}</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold uppercase tracking-wider mb-4 text-sm">
-              {t({ en: "Legal", hi: "कानूनी" })}
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/terms" className="hover:text-primary transition-colors">{links.terms}</Link></li>
-              <li><Link href="/privacy" className="hover:text-primary transition-colors">{links.privacy}</Link></li>
-            </ul>
-          </div>
-
-          <div>
-             <h3 className="font-semibold uppercase tracking-wider mb-4 text-sm">
-              {t({ en: "Contact Us", hi: "हमसे संपर्क करें" })}
-            </h3>
-            <ul className="space-y-3 text-sm">
-                <li className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-primary shrink-0"/>
-                    <span>+91 12345 67890</span>
-                </li>
-                 <li className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-primary shrink-0"/>
-                    <span>contact@krishimitra.app</span>
-                </li>
-            </ul>
+            <div>
+               <h3 className="font-semibold mb-3 text-sm tracking-wide">
+                {t({ en: "Contact Us", hi: "हमसे संपर्क करें" })}
+              </h3>
+              <ul className="space-y-3 text-sm">
+                  <li className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                      <Phone className="w-4 h-4 shrink-0"/>
+                      <a href="tel:+911234567890">+91 12345 67890</a>
+                  </li>
+                  <li className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                      <Mail className="w-4 h-4 shrink-0"/>
+                      <a href="mailto:contact@krishimitra.app">contact@krishimitra.app</a>
+                  </li>
+              </ul>
+            </div>
           </div>
         </div>
 
