@@ -16,6 +16,7 @@ import {
   Stethoscope,
   Users,
   MessageCircle,
+  NotebookPen,
 } from "lucide-react"
 import {
   SidebarMenu,
@@ -64,6 +65,11 @@ export function MainNav() {
       icon: <MessageCircle />,
     },
     {
+      href: "/farm-diary",
+      label: t({en: "Farm Diary", hi: "फार्म डायरी"}),
+      icon: <NotebookPen />,
+    },
+    {
       href: "/govt-schemes",
       label: t({en: "Govt. Schemes", ml: "സർക്കാർ പദ്ധതികൾ", hi: "सरकारी योजनाएं"}),
       icon: <ScrollText />,
@@ -91,10 +97,12 @@ export function MainNav() {
             tooltip={item.label}
           >
             <Link href={item.href}>
-              {item.icon}
-              <span className="min-w-0 flex-1 overflow-hidden whitespace-nowrap transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200">
-                {item.label}
-              </span>
+              <>
+                {item.icon}
+                <span className="min-w-0 flex-1 overflow-hidden whitespace-nowrap transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200">
+                  {item.label}
+                </span>
+              </>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>

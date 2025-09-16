@@ -1,3 +1,4 @@
+
 {
   "placeholderImages": [
     {
@@ -59,6 +60,12 @@
       "description": "Abstract network of nodes and connections representing AI.",
       "imageUrl": "https://picsum.photos/seed/talk-to-ai/400/300",
       "imageHint": "artificial intelligence"
+    },
+    {
+      "id": "farm-diary",
+      "description": "A rustic notebook and pen on a wooden table with farm produce in the background.",
+      "imageUrl": "https://picsum.photos/seed/farm-diary/400/300",
+      "imageHint": "notebook farm"
     }
   ]
 }

@@ -1,3 +1,4 @@
+
 export interface CropPrice {
   id: string;
   name: string;
@@ -69,4 +70,16 @@ export interface FAQ {
     category: string;
     question: string;
     answer: string;
+}
+
+export type DiaryActivity = 'Planting' | 'Spraying' | 'Harvesting' | 'General';
+
+export interface DiaryEntry {
+  id: string;
+  date: Date;
+  activity: DiaryActivity;
+  crop: string;
+  details: string;
+  quantity?: number;
+  unit?: string;
 }
