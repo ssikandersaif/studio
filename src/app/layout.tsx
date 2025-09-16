@@ -5,7 +5,7 @@ import { LanguageProvider } from '@/contexts/language-context';
 import { ThemeProvider } from '@/contexts/theme-provider';
 import Script from 'next/script';
 import { AuthProvider } from '@/contexts/auth-context';
-import { inter } from '@/app/fonts';
+import { inter, ptSans } from '@/app/fonts';
 import { cn } from '@/lib/utils';
 
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("font-body antialiased", inter.variable)}>
+      <body className={cn("font-body antialiased", inter.variable, ptSans.variable)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
