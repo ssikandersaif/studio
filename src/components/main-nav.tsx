@@ -30,7 +30,7 @@ export function MainNav() {
 
   const menuItems = [
     {
-      href: "/dashboard",
+      href: "/",
       label: t({en: "Dashboard", ml: "ഡാഷ്ബോർഡ്", hi: "डैशबोर्ड"}),
       icon: <LayoutGrid />,
     },
@@ -110,3 +110,5 @@ export function MainNav() {
     </SidebarMenu>
   )
 }
+
+    
