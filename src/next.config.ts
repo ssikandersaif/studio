@@ -32,11 +32,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // {
-      //   source: '/',
-      //   destination: '/dashboard',
-      //   permanent: true,
-      // },
+      {
+        source: '/dashboard',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
 };
