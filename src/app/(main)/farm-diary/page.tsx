@@ -36,6 +36,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/language-context";
+import { useAuth } from "@/contexts/auth-context";
 import { mockDiaryEntries } from "@/lib/diary-data";
 import { DiaryEntry, DiaryActivity } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -81,6 +82,7 @@ type DiaryFormValues = z.infer<typeof diarySchema>;
 export default function FarmDiaryPage() {
   const { t } = useLanguage();
   const { toast } = useToast();
+  const { user, openAuthDialog } = useAuth();
   const [entries, setEntries] = useState<DiaryEntry[]>(diaryEntries.sort((a, b) => b.date.getTime() - a.date.getTime()));
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -96,6 +98,7 @@ export default function FarmDiaryPage() {
   const addEntry = async (data: DiaryEntry) => {
     return new Promise<DiaryEntry>((resolve) => {
       setTimeout(() => {
+        // In a real app, this would be an API call to your backend
         diaryEntries = [data, ...diaryEntries];
         resolve(data);
       }, 500); // Simulate network delay
@@ -103,6 +106,11 @@ export default function FarmDiaryPage() {
   };
 
   const onSubmit = async (data: DiaryFormValues) => {
+    if (!user) {
+      openAuthDialog();
+      return;
+    }
+
     setIsSubmitting(true);
     const newEntry: DiaryEntry = {
       id: new Date().toISOString(),
@@ -236,7 +244,7 @@ export default function FarmDiaryPage() {
               <CardFooter>
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {t({ en: "Save Entry", hi: "प्रविष्टि सहेजें" })}
+                  {user ? t({ en: "Save Entry", hi: "प्रविष्टि सहेजें" }) : t({ en: "Sign In to Save", hi: "सहेजने के लिए साइन इन करें" })}
                 </Button>
               </CardFooter>
             </form>

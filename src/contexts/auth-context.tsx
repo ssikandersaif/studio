@@ -19,6 +19,9 @@ interface AuthContextType {
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
+  isAuthDialogOpen: boolean;
+  setAuthDialogOpen: (isOpen: boolean) => void;
+  openAuthDialog: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,6 +30,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthDialogOpen, setAuthDialogOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -49,41 +53,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signInWithGoogle = async () => {
-    setLoading(true);
+    // No need to set loading here as the onAuthStateChanged will handle UI updates
     try {
       await signInWithPopup(auth, googleProvider);
-      // onAuthStateChanged will handle setting the user
+      // onAuthStateChanged will handle setting the user state
     } catch (error) {
       console.error("Error during Google sign-in:", error);
-      setLoading(false);
-      throw error;
+      throw error; // Re-throw to be caught by the calling component
     }
   };
 
   const signOut = async () => {
-    setLoading(true);
     try {
       await firebaseSignOut(auth);
       setUser(null);
-      router.push('/login');
+      router.push('/login'); // Redirect to login after sign out
     } catch (error) {
       console.error("Error signing out:", error);
       throw error;
-    } finally {
-        setLoading(false);
     }
   };
-  
-  if (loading) {
-     return (
-       <div className="flex h-screen w-full items-center justify-center">
-        <Loader2 className="h-12 w-12 animate-spin text-primary" />
-       </div>
-    );
-  }
+
+  const openAuthDialog = () => setAuthDialogOpen(true);
+
+  // No full-page loader needed for this progressive auth model
+  // Loading state is still useful for components that need to wait for auth status
+  // if (loading) {
+  //    return (
+  //      <div className="flex h-screen w-full items-center justify-center">
+  //       <Loader2 className="h-12 w-12 animate-spin text-primary" />
+  //      </div>
+  //   );
+  // }
 
   return (
-    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut, isAuthDialogOpen, setAuthDialogOpen, openAuthDialog }}>
       {children}
     </AuthContext.Provider>
   );
