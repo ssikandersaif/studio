@@ -20,16 +20,22 @@ export function WelcomeDialog() {
   const { t } = useLanguage();
 
   useEffect(() => {
+    // This effect should only run on the client-side
     const welcomeShown = sessionStorage.getItem(WELCOME_KEY);
     if (!welcomeShown) {
-      // Use a short delay to allow the page to render before showing the dialog
       const timer = setTimeout(() => {
         setIsOpen(true);
         sessionStorage.setItem(WELCOME_KEY, "true");
-      }, 500);
+      }, 500); // Delay to allow the page to render first
+      
+      // Cleanup the timer if the component unmounts
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, []); // Empty dependency array ensures this runs only once on mount
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

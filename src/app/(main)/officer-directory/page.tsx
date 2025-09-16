@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { mockOfficers } from "@/lib/data";
 import { Mail, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
+import { AnimatedGrid } from "@/components/animated-grid";
 
 export default function OfficerDirectoryPage() {
   const officers = mockOfficers;
@@ -21,7 +22,7 @@ export default function OfficerDirectoryPage() {
   return (
     <>
       <Header
-        title={t({ en: "Officer Directory", ml: "ഓഫീസർ ഡയറക്ടറി", hi: "अधिकारी निर्देशिका", ta: "அதிகாரி డైరెక్టరీ", te: "అధికారి డైరెక్టరీ", kn: "ಅధికಾರಿ ಡೈರೆಕ್ಟರಿ", bn: "কর্মকর্তা निर्देशिका", mr: "अधिकारी निर्देशिका", gu: "અધિકारी નિર્દેશિકા", pa: "ਅਧਿਕਾਰੀ ਡਾਇਰੈਕਟਰੀ" })}
+        title={t({ en: "Officer Directory", ml: "ഓഫീസർ ഡയറക്ടറി", hi: "अधिकारी निर्देशिका", ta: "அதிகாரி డైరెక్టరీ", te: "అధికారి డైరెక్టరీ", kn: "ಅಧಿಕಾರಿ ಡೈರೆಕ್ಟರಿ", bn: "কর্মকর্তা निर्देशिका", mr: "अधिकारी निर्देशिका", gu: "અધિકારી નિર્દેશિકા", pa: "ਅਧਿਕਾਰੀ ਡਾਇਰੈਕਟਰੀ" })}
         description={t({ en: "Connect with local agricultural officers for expert guidance.", ml: "വിദഗ്ദ്ധ മാർഗ്ഗനിർദ്ദേശത്തിനായി പ്രാദേശിക കാർഷിക ഉദ്യോഗസ്ഥരുമായി ബന്ധപ്പെടുക.", hi: "विशेषज्ञ मार्गदर्शन के लिए स्थानीय कृषि अधिकारियों से जुड़ें।", ta: "நிபுணர் வழிகாட்டுதலுக்காக உள்ளூர் nông nghiệp அதிகாரிகளுடன் இணையுங்கள்.", te: "నిపుణుల మార్గదర్శకత్వం కోసం స్థానిక వ్యవసాయ అధికారులతో కనెక్ట్ అవ్వండి.", kn: "ತಜ್ಞರ ಮಾರ್ಗದರ್ಶನಕ್ಕಾಗಿ ಸ್ಥಳೀಯ ಕೃಷಿ ಅಧಿಕಾರಿಗಳೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸಿ.", bn: "বিশেষজ্ঞদের मार्गदर्शনের জন্য স্থানীয় কৃষি அதிகாரীদের সাথে সংযোগ করুন।", mr: "तज्ञ मार्गदर्शनासाठी स्थानिक कृषी अधिकाऱ्यांशी संपर्क साधा.", gu: "નિષ્ણાત માર્ગદર્શન માટે સ્થાનિક કૃષિ અધિકારીઓ સાથે જોડાઓ.", pa: "ਮਾਹਰ ਮਾਰਗਦਰਸ਼ਨ ਲਈ ਸਥਾਨਕ ਖੇਤੀਬਾੜੀ ਅਧਿਕਾਰੀਆਂ ਨਾਲ ਜੁੜੋ।" })}
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
@@ -33,9 +34,9 @@ export default function OfficerDirectoryPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <AnimatedGrid className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {officers.map((officer) => (
-                <Card key={officer.id} className="p-4">
+                <Card key={officer.id} className="p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                   <div className="flex items-center gap-4">
                     <Avatar className="h-20 w-20 border-2 border-primary">
                       <AvatarImage
@@ -72,7 +73,7 @@ export default function OfficerDirectoryPage() {
                   </div>
                 </Card>
               ))}
-            </div>
+            </AnimatedGrid>
           </CardContent>
         </Card>
       </main>

@@ -150,7 +150,7 @@ export default function DashboardPage() {
         <AnimatedGrid className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {features.map((feature, i) => (
             <Link href={feature.href} key={feature.title} className="block group">
-                <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2">
+                <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
                     <CardHeader className="p-4">
                         <div className="flex items-start justify-between">
                             <CardTitle className="font-headline text-lg">{feature.title}</CardTitle>
@@ -172,7 +172,7 @@ export default function DashboardPage() {
                            />
                          )}
                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70"></div>
-                         <div className="absolute bottom-0 left-0 p-4 transition-transform duration-300 ease-in-out group-hover:translate-y-[-8px]">
+                         <div className="absolute bottom-0 left-0 p-4 transition-transform duration-300 ease-in-out group-hover:-translate-y-2">
                             <p className="text-sm text-white/90 font-medium">{feature.description}</p>
                          </div>
                        </div>
