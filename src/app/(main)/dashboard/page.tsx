@@ -40,6 +40,7 @@ import { Header } from "@/components/header"
 import { useLanguage } from "@/contexts/language-context"
 import { AnimatedGrid } from "@/components/animated-grid"
 import { Footer } from "@/components/footer"
+import { DashboardChart } from "@/components/dashboard-chart"
 
 declare global {
   interface Window {
@@ -125,29 +126,40 @@ export default function DashboardPage() {
           description={t({ en: "Welcome to Krishi Mitra, your smart farming assistant.", ml: "കൃഷി മിത്രയിലേക്ക് സ്വാഗതം, നിങ്ങളുടെ സ്മാർട്ട് ഫാമിംഗ് അസിസ്റ്റന്റ്.", hi: "कृषि मित्र में आपका स्वागत है, आपका स्मार्ट खेती सहायक।" })}
         />
         <main className="flex flex-1 flex-col gap-4 p-4 sm:px-8 sm:py-6 md:gap-8">
-          <Card className="overflow-hidden shadow-lg border-none">
-            <div className="relative h-60 sm:h-72 md:h-80 w-full">
-              {heroImage && (
-                <Image
-                  src={heroImage.imageUrl}
-                  alt={heroImage.description}
-                  fill
-                  className="object-cover"
-                  data-ai-hint={heroImage.imageHint}
-                  priority
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-0 p-4 sm:p-6 md:p-8">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white font-headline" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
-                  {t({ en: "Empowering Indian Farmers with AI", ml: "AI ഉപയോഗിച്ച് ഇന്ത്യൻ കർഷകരെ ശാക്തീകരിക്കുന്നു", hi: "AI के साथ भारतीय किसानों को सशक्त बनाना" })}
-                </h2>
-                <p className="mt-2 text-sm sm:text-base text-gray-200" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}>
-                  {t({ en: "Get instant advice, market data, and weather updates.", ml: "തൽക്ഷണ ഉപദേശം, മാർക്കറ്റ് ഡാറ്റ, കാലാവസ്ഥാ അപ്‌ഡേറ്റുകൾ എന്നിവ നേടുക.", hi: "तुरंत सलाह, बाजार डेटा और मौसम अपडेट प्राप्त करें।" })}
-                </p>
-              </div>
-            </div>
-          </Card>
+           <div className="grid gap-6 md:grid-cols-5">
+            <Card className="overflow-hidden shadow-lg border-none md:col-span-3">
+                <div className="relative h-60 sm:h-72 md:h-full w-full">
+                {heroImage && (
+                    <Image
+                    src={heroImage.imageUrl}
+                    alt={heroImage.description}
+                    fill
+                    className="object-cover"
+                    data-ai-hint={heroImage.imageHint}
+                    priority
+                    />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                <div className="absolute bottom-0 p-4 sm:p-6 md:p-8">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white font-headline" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
+                    {t({ en: "Empowering Indian Farmers with AI", ml: "AI ഉപയോഗിച്ച് ഇന്ത്യൻ കർഷകരെ ശാക്തീകരിക്കുന്നു", hi: "AI के साथ भारतीय किसानों को सशक्त बनाना" })}
+                    </h2>
+                    <p className="mt-2 text-sm sm:text-base text-gray-200" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}>
+                    {t({ en: "Get instant advice, market data, and weather updates.", ml: "തൽക്ഷണ ഉപദേശം, മാർക്കറ്റ് ഡാറ്റ, കാലാവസ്ഥാ അപ്‌ഡേറ്റുകൾ എന്നിവ നേടുക.", hi: "तुरंत सलाह, बाजार डेटा और मौसम अपडेट प्राप्त करें।" })}
+                    </p>
+                </div>
+                </div>
+            </Card>
+             <Card className="md:col-span-2 flex flex-col">
+                <CardHeader>
+                    <CardTitle className="font-headline">{t({ en: "Crop Yield Analytics", hi: "फसल उपज विश्लेषण" })}</CardTitle>
+                    <CardDescription>{t({ en: "Yield data from the last 5 years", hi: "पिछले 5 वर्षों का उपज डेटा" })}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1 flex items-center justify-center">
+                    <DashboardChart />
+                </CardContent>
+            </Card>
+          </div>
 
           <AnimatedGrid className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {features.map((feature, i) => (
