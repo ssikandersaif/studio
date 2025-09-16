@@ -36,7 +36,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/language-context";
-import { useAuth } from "@/contexts/auth-context";
 import { mockDiaryEntries } from "@/lib/diary-data";
 import { DiaryEntry, DiaryActivity } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -82,7 +81,6 @@ type DiaryFormValues = z.infer<typeof diarySchema>;
 export default function FarmDiaryPage() {
   const { t } = useLanguage();
   const { toast } = useToast();
-  const { user } = useAuth();
   const [entries, setEntries] = useState<DiaryEntry[]>(diaryEntries.sort((a, b) => b.date.getTime() - a.date.getTime()));
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -106,15 +104,6 @@ export default function FarmDiaryPage() {
   };
 
   const onSubmit = async (data: DiaryFormValues) => {
-    if (!user) {
-      toast({
-        variant: "destructive",
-        title: t({ en: "Authentication Required", hi: "प्रमाणीकरण आवश्यक है" }),
-        description: t({ en: "Please sign in to save your diary entries.", hi: "कृपया अपनी डायरी प्रविष्टियों को सहेजने के लिए साइन इन करें।" }),
-      });
-      return;
-    }
-
     setIsSubmitting(true);
     const newEntry: DiaryEntry = {
       id: new Date().toISOString(),
@@ -246,9 +235,9 @@ export default function FarmDiaryPage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" className="w-full" disabled={isSubmitting || !user}>
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {user ? t({ en: "Save Entry", hi: "प्रविष्टि सहेजें" }) : t({ en: "Sign In to Save", hi: "सहेजने के लिए साइन इन करें" })}
+                  {t({ en: "Save Entry", hi: "प्रविष्टि सहेजें" })}
                 </Button>
               </CardFooter>
             </form>
@@ -300,5 +289,3 @@ export default function FarmDiaryPage() {
     </>
   );
 }
-
-    

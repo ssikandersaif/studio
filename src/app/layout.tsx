@@ -4,7 +4,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from '@/contexts/language-context';
 import { ThemeProvider } from '@/contexts/theme-provider';
 import Script from 'next/script';
-import { AuthProvider } from '@/contexts/auth-context';
 import { inter, ptSans } from '@/app/fonts';
 import { cn } from '@/lib/utils';
 
@@ -32,10 +31,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
-            <AuthProvider>
               <main>{children}</main>
               <Toaster />
-            </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
         <Script src="//code.tidio.co/gktpkpuf8khohc1mzzs8fe6zzdff1y9e.js" strategy="lazyOnload" />
