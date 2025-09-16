@@ -24,8 +24,8 @@ export default function MainLayout({
   const pathname = usePathname();
 
   return (
-    <SidebarProvider>
-      <Sidebar collapsible="icon" variant="floating" defaultOpen={false}>
+    <SidebarProvider defaultOpen={false}>
+      <Sidebar collapsible="icon" variant="floating">
         <SidebarHeader>
            <div className="flex items-center gap-2 p-2">
             <Sprout className="h-8 w-8 text-primary" />
