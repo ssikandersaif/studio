@@ -8,7 +8,6 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {generate} from 'genkit/ai';
 import {z} from 'genkit';
 
 const GeneralChatInputSchema = z.object({
@@ -33,12 +32,12 @@ const generalChatFlow = ai.defineFlow(
   },
   async (input) => {
     try {
-      const llmResponse = await generate({
+      const llmResponse = await ai.generate({
         prompt: input.prompt,
         model: 'googleai/gemini-2.5-flash', // Using the default Gemini model configured in genkit.ts
       });
 
-      return { response: llmResponse.text() };
+      return { response: llmResponse.text };
 
     } catch (error) {
       console.error("Error in generalChatFlow:", error);
