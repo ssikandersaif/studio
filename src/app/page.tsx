@@ -4,33 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Sprout, BarChart, CloudSun, Stethoscope, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/contexts/auth-context";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import PlaceHolderImagesData from "@/lib/placeholder-images.json";
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
 export default function LandingPage() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
-
   const { placeholderImages: PlaceHolderImages } = PlaceHolderImagesData;
   const heroImage = PlaceHolderImages.find((img) => img.id === "farmer-hero");
-
-  useEffect(() => {
-    if (!loading && user) {
-      router.replace('/dashboard');
-    }
-  }, [user, loading, router]);
-  
-  if (loading || user) {
-    return (
-       <div className="flex h-screen items-center justify-center">
-          <Sprout className="h-12 w-12 animate-spin text-primary" />
-       </div>
-    );
-  }
 
   const features = [
     {
@@ -61,8 +40,8 @@ export default function LandingPage() {
               </h1>
             </div>
             <nav className="flex items-center space-x-2">
-              <Link href="/login">
-                <Button>Get Started</Button>
+              <Link href="/dashboard">
+                <Button>Go to App</Button>
               </Link>
             </nav>
         </div>
@@ -86,9 +65,9 @@ export default function LandingPage() {
               Krishi Mitra is your AI-powered companion for modern Indian agriculture. Get instant advice, weather updates, and market prices to boost your yield.
             </p>
             <div className="mt-8">
-              <Link href="/login">
+              <Link href="/dashboard">
                 <Button size="lg">
-                  Join the Future of Farming <ArrowRight className="ml-2 h-5 w-5" />
+                  Launch Krishi Mitra <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </div>

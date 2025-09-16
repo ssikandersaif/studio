@@ -14,7 +14,6 @@ import {
 import { Sprout } from "lucide-react"
 import { motion } from "framer-motion"
 import { WelcomeDialog } from "@/components/welcome-dialog";
-import { Footer } from "@/components/footer";
 import { AuthDialog } from "@/components/auth-dialog";
 
 export default function MainLayout({
@@ -36,7 +35,7 @@ export default function MainLayout({
         <SidebarHeader>
            <div className="flex items-center gap-2 p-2">
             <Sprout className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold text-primary font-headline transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200">
+            <span className="min-w-0 flex-1 overflow-hidden whitespace-nowrap transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200 text-2xl font-bold text-primary font-headline">
               Krishi Mitra
             </span>
           </div>
@@ -57,7 +56,6 @@ export default function MainLayout({
             {isClient && <WelcomeDialog />}
             {children}
           </motion.div>
-        {pathname === '/dashboard' && <Footer />}
         <AuthDialog />
       </SidebarInset>
     </SidebarProvider>
