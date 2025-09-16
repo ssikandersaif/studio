@@ -1,7 +1,8 @@
 
 "use client";
 
-import { usePathname } from "next/navigation"
+import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation"
 import { MainNav } from "@/components/main-nav"
 import {
   Sidebar,
@@ -11,10 +12,11 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Sprout } from "lucide-react"
+import { Sprout, Loader2 } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { WelcomeDialog } from "@/components/welcome-dialog";
 import { Footer } from "@/components/footer";
+import { useAuth } from "@/contexts/auth-context";
 
 export default function MainLayout({
   children,
@@ -22,6 +24,22 @@ export default function MainLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname();
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace(`/login?next=${pathname}`);
+    }
+  }, [user, loading, router, pathname]);
+
+  if (loading || !user) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <SidebarProvider defaultOpen={false}>

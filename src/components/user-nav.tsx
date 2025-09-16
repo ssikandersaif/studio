@@ -32,21 +32,34 @@ import { useToast } from "@/hooks/use-toast";
 
 export function UserNav() {
   const { t } = useLanguage();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { toast } = useToast();
+  
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      toast({
+        title: t({ en: "Logged Out", hi: "लॉग आउट" }),
+        description: t({ en: "You have been successfully logged out.", hi: "आप सफलतापूर्वक लॉग आउट हो गए हैं।" }),
+      });
+    } catch (error) {
+       toast({
+        variant: "destructive",
+        title: t({ en: "Logout Failed", hi: "लॉगआउट विफल" }),
+        description: t({ en: "Could not log out. Please try again.", hi: "लॉग आउट नहीं हो सका। कृपया पुनः प्रयास करें।" }),
+      });
+    }
+  };
 
   if (!user) {
-    return null;
+    return (
+       <Link href="/login">
+          <Button variant="outline">
+            {t({ en: "Log In", hi: "लॉग इन करें" })}
+          </Button>
+       </Link>
+    );
   }
-  
-  const handleLogout = () => {
-    // In a real app, you'd call your auth context's logout function.
-    // For now, we'll just show a toast notification.
-    toast({
-      title: t({ en: "Logged Out", hi: "लॉग आउट" }),
-      description: t({ en: "You have been successfully logged out.", hi: "आप सफलतापूर्वक लॉग आउट हो गए हैं।" }),
-    });
-  };
 
 
   return (
