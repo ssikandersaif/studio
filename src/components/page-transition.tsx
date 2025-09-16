@@ -27,7 +27,7 @@ export function PageTransition() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                transition={{ delay: 0.2, duration: 0.6, ease: 'easeInOut' }}
+                transition={{ delay: 0.2, duration: 0.4, ease: 'easeInOut' }}
             />
             <motion.div 
                 className="fixed top-0 bottom-0 right-full w-screen h-screen z-[98] bg-background"
@@ -35,7 +35,7 @@ export function PageTransition() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                transition={{ delay: 0.4, duration: 0.6, ease: 'easeInOut' }}
+                transition={{ delay: 0.3, duration: 0.4, ease: 'easeInOut' }}
             />
             <motion.div 
                 className="fixed top-0 bottom-0 right-full w-screen h-screen z-[97] bg-muted"
@@ -43,7 +43,7 @@ export function PageTransition() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                transition={{ delay: 0.6, duration: 0.6, ease: 'easeInOut' }}
+                transition={{ delay: 0.4, duration: 0.4, ease: 'easeInOut' }}
             />
         </>
     )

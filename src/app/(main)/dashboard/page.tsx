@@ -126,14 +126,14 @@ export default function DashboardPage() {
         />
         <main className="flex flex-1 flex-col gap-4 p-4 sm:px-8 sm:py-6 md:gap-8">
            <div className="grid gap-6 md:grid-cols-5">
-            <Card className="overflow-hidden shadow-lg border-none md:col-span-3">
+            <Card className="group overflow-hidden shadow-lg border-none md:col-span-3 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
                 <div className="relative h-60 sm:h-72 md:h-full w-full">
                 {heroImage && (
                     <Image
                     src={heroImage.imageUrl}
                     alt={heroImage.description}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
                     data-ai-hint={heroImage.imageHint}
                     priority
                     />
@@ -149,12 +149,12 @@ export default function DashboardPage() {
                 </div>
                 </div>
             </Card>
-             <Card className="md:col-span-2 flex flex-col">
+             <Card className="group md:col-span-2 flex flex-col transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
                 <CardHeader>
                     <CardTitle className="font-headline">{t({ en: "Crop Yield Analytics", hi: "फसल उपज विश्लेषण" })}</CardTitle>
                     <CardDescription>{t({ en: "Yield data from the last 5 years", hi: "पिछले 5 वर्षों का उपज डेटा" })}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-1 flex items-center justify-center">
+                <CardContent className="flex-1 flex items-center justify-center transition-transform duration-500 ease-in-out group-hover:scale-105">
                     <DashboardChart />
                 </CardContent>
             </Card>
