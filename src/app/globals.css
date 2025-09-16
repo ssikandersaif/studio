@@ -9,7 +9,7 @@ body {
 @layer base {
   :root {
     --radius: 0.75rem;
-    --background: 220 20% 98%; /* Lighter Gray */
+    --background: 220 20% 98%;
     --foreground: 224 71.4% 4.1%;
     
     --card: 0 0% 100%;
@@ -18,16 +18,16 @@ body {
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
     
-    --primary: 142.1 76.2% 36.3%; /* Vibrant Green */
+    --primary: 142.1 76.2% 36.3%;
     --primary-foreground: 355.7 100% 97.3%;
 
-    --secondary: 220 14.3% 95.9%; /* Changed from Off-white to Lighter Gray */
+    --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     
     --muted: 220 14.3% 95.9%;
     --muted-foreground: 220 8.9% 46.1%;
     
-    --accent: 45 93.4% 47.5%; /* Warm Yellow/Gold */
+    --accent: 45 93.4% 47.5%;
     --accent-foreground: 48 95.5% 15.1%;
     
     --destructive: 0 84.2% 60.2%;
@@ -48,7 +48,7 @@ body {
   }
 
   .dark {
-    --background: 220 20% 10%; /* Darker Gray */
+    --background: 220 20% 10%;
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
@@ -57,7 +57,7 @@ body {
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 142.1 70.6% 45.3%; /* Vibrant Green */
+    --primary: 142.1 70.6% 45.3%;
     --primary-foreground: 144.9 80.4% 10%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -66,8 +66,8 @@ body {
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 45 93.4% 47.5%; /* Warm Yellow/Gold */
-    --accent-foreground: 210 40% 98%; /* Changed to a light color for dark mode */
+    --accent: 45 93.4% 47.5%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
