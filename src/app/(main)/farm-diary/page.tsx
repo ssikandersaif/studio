@@ -45,7 +45,7 @@ import {
   Loader2,
   List,
   Leaf,
-  Spray,
+  SprayCan,
   Carrot,
   NotebookText,
 } from "lucide-react";
@@ -55,7 +55,7 @@ let diaryEntries: DiaryEntry[] = [...mockDiaryEntries];
 
 const activityIcons: Record<DiaryActivity, React.ReactNode> = {
     Planting: <Leaf className="h-5 w-5 text-green-500" />,
-    Spraying: <Spray className="h-5 w-5 text-blue-500" />,
+    Spraying: <SprayCan className="h-5 w-5 text-blue-500" />,
     Harvesting: <Carrot className="h-5 w-5 text-orange-500" />,
     General: <NotebookText className="h-5 w-5 text-gray-500" />,
 };
