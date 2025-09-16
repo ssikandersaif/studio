@@ -137,10 +137,10 @@ export default function DashboardPage() {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-0 p-4 sm:p-6 md:p-8">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-headline" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white font-headline" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
                 {t({ en: "Empowering Indian Farmers with AI", ml: "AI ഉപയോഗിച്ച് ഇന്ത്യൻ കർഷകരെ ശാക്തീകരിക്കുന്നു", hi: "AI के साथ भारतीय किसानों को सशक्त बनाना" })}
               </h2>
-              <p className="mt-2 text-md sm:text-lg text-gray-200" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}>
+              <p className="mt-2 text-sm sm:text-base text-gray-200" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}>
                 {t({ en: "Get instant advice, market data, and weather updates.", ml: "തൽക്ഷണ ഉപദേശം, മാർക്കറ്റ് ഡാറ്റ, കാലാവസ്ഥാ അപ്‌ഡേറ്റുകൾ എന്നിവ നേടുക.", hi: "तुरंत सलाह, बाजार डेटा और मौसम अपडेट प्राप्त करें।" })}
               </p>
             </div>
@@ -172,8 +172,8 @@ export default function DashboardPage() {
                            />
                          )}
                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70"></div>
-                         <div className="absolute bottom-0 left-0 p-4 transition-transform duration-300 ease-in-out group-hover:-translate-y-1">
-                            <p className="text-sm text-white/90 font-medium">{feature.description}</p>
+                         <div className="absolute bottom-0 left-0 p-4 transition-all duration-300 ease-in-out group-hover:-translate-y-1">
+                            <p className="text-sm text-white/90 font-medium transform-gpu translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">{feature.description}</p>
                          </div>
                        </div>
                     </CardContent>
@@ -183,11 +183,11 @@ export default function DashboardPage() {
         </AnimatedGrid>
       </main>
 
-       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col gap-4">
+       <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 flex flex-col gap-3">
         <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
             <DialogTrigger asChild>
-                <Button variant="default" className="rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-lg hover:scale-110 transition-transform" aria-label="Submit Feedback">
-                    <MessageSquareHeart className="w-7 h-7 sm:w-8 sm:h-8" />
+                <Button variant="default" className="rounded-full w-12 h-12 sm:w-14 sm:h-14 shadow-lg hover:scale-110 transition-transform" aria-label="Submit Feedback">
+                    <MessageSquareHeart className="w-6 h-6 sm:w-7 sm:h-7" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
@@ -214,8 +214,8 @@ export default function DashboardPage() {
         
         <Dialog open={queryOpen} onOpenChange={setQueryOpen}>
             <DialogTrigger asChild>
-                <Button variant="secondary" className="rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-lg hover:scale-110 transition-transform" aria-label="Submit a Query">
-                    <MessageSquarePlus className="w-7 h-7 sm:w-8 sm:h-8" />
+                <Button variant="secondary" className="rounded-full w-12 h-12 sm:w-14 sm:h-14 shadow-lg hover:scale-110 transition-transform" aria-label="Submit a Query">
+                    <MessageSquarePlus className="w-6 h-6 sm:w-7 sm:h-7" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
