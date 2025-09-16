@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/sidebar"
 import { Sprout } from "lucide-react"
 import { motion } from "framer-motion"
-import { WelcomeDialog } from "@/components/welcome-dialog";
 
 export default function MainLayout({
   children,
@@ -52,7 +51,6 @@ export default function MainLayout({
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="flex-grow flex flex-col"
           >
-            {isClient && <WelcomeDialog />}
             {children}
           </motion.div>
       </SidebarInset>
