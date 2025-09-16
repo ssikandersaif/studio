@@ -89,7 +89,6 @@ export function MainNav() {
             className="font-semibold"
             isActive={pathname === item.href}
             tooltip={item.label}
-            title={item.label}
           >
             <Link href={item.href}>
               {item.icon}
