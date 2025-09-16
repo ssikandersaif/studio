@@ -40,6 +40,7 @@ import { Header } from "@/components/header"
 import { useLanguage } from "@/contexts/language-context"
 import { AnimatedGrid } from "@/components/animated-grid"
 import { DashboardChart } from "@/components/dashboard-chart"
+import { Footer } from "@/components/footer"
 
 declare global {
   interface Window {
@@ -254,6 +255,7 @@ export default function DashboardPage() {
             </DialogContent>
         </Dialog>
       </div>
+      <Footer />
     </>
   )
 }

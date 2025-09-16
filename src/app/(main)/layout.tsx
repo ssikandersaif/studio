@@ -15,7 +15,6 @@ import { Sprout } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { WelcomeDialog } from "@/components/welcome-dialog";
 import { PageTransition } from "@/components/page-transition";
-import { Footer } from "@/components/footer";
 
 export default function MainLayout({
   children,
@@ -58,7 +57,6 @@ export default function MainLayout({
               </motion.div>
             </motion.div>
          </AnimatePresence>
-         {pathname !== '/dashboard' && <Footer />}
       </SidebarInset>
     </SidebarProvider>
   )
