@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -88,10 +89,13 @@ export function MainNav() {
             className="font-semibold"
             isActive={pathname === item.href}
             tooltip={item.label}
+            title={item.label}
           >
             <Link href={item.href}>
               {item.icon}
-              <span>{item.label}</span>
+              <span className="min-w-0 flex-1 overflow-hidden whitespace-nowrap transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200">
+                {item.label}
+              </span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
