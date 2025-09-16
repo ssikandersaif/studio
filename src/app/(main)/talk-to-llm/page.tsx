@@ -23,7 +23,7 @@ interface Message {
     text: string;
 }
 
-export default function TalkToLlmPage() {
+export default function TalkToAiPage() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
@@ -73,7 +73,7 @@ export default function TalkToLlmPage() {
   return (
     <>
       <Header
-        title={t({ en: "Talk to LLM", hi: "एलएलएम से बात करें" })}
+        title={t({ en: "Talk to AI", hi: "एआई से बात करें" })}
         description={t({ en: "Have a general conversation with our AI assistant.", hi: "हमारे एआई सहायक के साथ एक सामान्य बातचीत करें।" })}
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6 flex justify-center">

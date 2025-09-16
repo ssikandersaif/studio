@@ -1,22 +1,23 @@
 'use server';
 /**
- * @fileOverview A general purpose chat flow that connects to a local LLM.
+ * @fileOverview A general purpose chat flow that connects to the Gemini model.
  *
- * - generalChat - A function that takes a user's prompt and returns an AI response from a local model.
+ * - generalChat - A function that takes a user's prompt and returns an AI response.
  * - GeneralChatInput - The input type for the generalChat function.
  * - GeneralChatOutput - The return type for the generalChat function.
  */
 
 import {ai} from '@/ai/genkit';
+import {generate} from 'genkit/ai';
 import {z} from 'genkit';
 
 const GeneralChatInputSchema = z.object({
-  prompt: z.string().describe('The user\'s message.'),
+  prompt: z.string().describe("The user's message."),
 });
 export type GeneralChatInput = z.infer<typeof GeneralChatInputSchema>;
 
 const GeneralChatOutputSchema = z.object({
-  response: z.string().describe('The AI\'s response.'),
+  response: z.string().describe("The AI's response."),
 });
 export type GeneralChatOutput = z.infer<typeof GeneralChatOutputSchema>;
 
@@ -32,31 +33,17 @@ const generalChatFlow = ai.defineFlow(
   },
   async (input) => {
     try {
-      const localUrl = 'http://localhost:5000/predict';
-      
-      const response = await fetch(localUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ input: input.prompt }),
+      const llmResponse = await generate({
+        prompt: input.prompt,
+        model: 'googleai/gemini-2.5-flash', // Using the default Gemini model configured in genkit.ts
       });
 
-      if (!response.ok) {
-        const errorBody = await response.text();
-        throw new Error(`Request to local model failed with status ${response.status}: ${errorBody}`);
-      }
-
-      const data = await response.json();
-      
-      // Assuming the local model's response is in a 'response' field.
-      // If the field name is different, this needs to be adjusted.
-      return { response: data.response || "No response field found in local model output." };
+      return { response: llmResponse.text() };
 
     } catch (error) {
-      console.error("Error in generalChatFlow connecting to local model:", error);
-      // Let the user know the connection failed
-      return { response: `Error connecting to your local model: ${(error as Error).message}` };
+      console.error("Error in generalChatFlow:", error);
+      // Let the user know there was an issue
+      return { response: `Error connecting to the AI model: ${(error as Error).message}` };
     }
   }
 );

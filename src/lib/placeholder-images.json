@@ -55,9 +55,9 @@
       "imageHint": "question marks"
     },
     {
-      "id": "talk-to-llm",
+      "id": "talk-to-ai",
       "description": "Abstract network of nodes and connections representing AI.",
-      "imageUrl": "https://picsum.photos/seed/talk-to-llm/400/300",
+      "imageUrl": "https://picsum.photos/seed/talk-to-ai/400/300",
       "imageHint": "artificial intelligence"
     }
   ]

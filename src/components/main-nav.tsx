@@ -58,8 +58,8 @@ export function MainNav() {
       icon: <Mic />,
     },
      {
-      href: "/talk-to-llm",
-      label: t({en: "Talk to LLM", hi: "एलएलएम से बात करें"}),
+      href: "/talk-to-ai",
+      label: t({en: "Talk to AI", hi: "एआई से बात करें"}),
       icon: <MessageCircle />,
     },
     {

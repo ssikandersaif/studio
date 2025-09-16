@@ -70,7 +70,7 @@ export default function DashboardPage() {
       schemes: PlaceHolderImages.find((img) => img.id === "govt-schemes"),
       directory: PlaceHolderImages.find((img) => img.id === "officer-directory"),
       faq: PlaceHolderImages.find((img) => img.id === "faq"),
-      llm: PlaceHolderImages.find((img) => img.id === "talk-to-llm"),
+      ai: PlaceHolderImages.find((img) => img.id === "talk-to-ai"),
   }
 
   const features = [
@@ -80,7 +80,7 @@ export default function DashboardPage() {
     { title: t({ en: "Scan Crop", ml: "വിള സ്കാൻ", hi: "फ़सल स्कैन" }), description: t({ en: "Identify diseases with your camera", ml: "നിങ്ങളുടെ ക്യാമറ ഉപയോഗിച്ച് രോഗങ്ങൾ തിരിച്ചറിയുക", hi: " अपने कैमरे से बीमारियों की पहचान करें" }), href: "/scan-crop", icon: <ScanLine className="w-8 h-8 text-primary" />, image: featureImages.scan },
     { title: t({ en: "Voice Query", ml: "ശബ്ദ ചോദ്യം", hi: "आवाज प्रश्न" }), description: t({ en: "Ask questions in your language", ml: "നിങ്ങളുടെ ഭാഷയിൽ ചോദ്യങ്ങൾ ചോദിക്കുക", hi: "अपनी भाषा में प्रश्न पूछें" }), href: "/voice-query", icon: <Mic className="w-8 h-8 text-primary" />, image: featureImages.voice },
     { title: t({ en: "Govt. Schemes", ml: "സർക്കാർ പദ്ധതികൾ", hi: "सरकारी योजनाएं" }), description: t({ en: "Check your eligibility for schemes", ml: "പദ്ധതികൾക്ക് നിങ്ങളുടെ യോഗ്യത പരിശോധിക്കുക", hi: "योजनाओं के लिए अपनी पात्रता जांचें" }), href: "/govt-schemes", icon: <ScrollText className="w-8 h-8 text-primary" />, image: featureImages.schemes },
-    { title: t({ en: "Talk to LLM", en: "Talk to LLM", hi: "एलएलएम से बात करें" }), description: t({ en: "Have a general chat with the AI", hi: "एआई के साथ सामान्य चैट करें" }), href: "/talk-to-llm", icon: <MessageCircle className="w-8 h-8 text-primary" />, image: featureImages.llm },
+    { title: t({ en: "Talk to AI", hi: "एआई से बात करें" }), description: t({ en: "Have a general chat with the AI", hi: "एआई के साथ सामान्य चैट करें" }), href: "/talk-to-ai", icon: <MessageCircle className="w-8 h-8 text-primary" />, image: featureImages.ai },
     { title: t({ en: "Officer Directory", ml: "ഓഫീസർ ഡയറക്ടറി", hi: "अधिकारी निर्देशिका" }), description: t({ en: "Connect with local officers", ml: "പ്രാദേശിക ഉദ്യോഗസ്ഥരുമായി ബന്ധപ്പെടുക", hi: "स्थानीय अधिकारियों से जुड़ें" }), href: "/officer-directory", icon: <Users className="w-8 h-8 text-primary" />, image: featureImages.directory },
     { title: t({ en: "FAQ", ml: "പതിവുചോദ്യങ്ങൾ", hi: "सामान्य प्रश्न" }), description: t({ en: "Find answers to common questions", ml: "സാധാരണ ചോദ്യങ്ങൾക്ക് ഉത്തരം കണ്ടെത്തുക", hi: "सामान्य प्रश्नों के उत्तर खोजें" }), href: "/faq", icon: <HelpCircle className="w-8 h-8 text-primary" />, image: featureImages.faq },
   ]
