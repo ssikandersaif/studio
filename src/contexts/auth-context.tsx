@@ -19,9 +19,6 @@ interface AuthContextType {
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
-  isAuthDialogOpen: boolean;
-  setAuthDialogOpen: (isOpen: boolean) => void;
-  openAuthDialog: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -30,7 +27,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isAuthDialogOpen, setAuthDialogOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -74,7 +70,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const openAuthDialog = () => setAuthDialogOpen(true);
 
   // No full-page loader needed for this progressive auth model
   // Loading state is still useful for components that need to wait for auth status
@@ -87,7 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // }
 
   return (
-    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut, isAuthDialogOpen, setAuthDialogOpen, openAuthDialog }}>
+    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   );
@@ -100,3 +95,5 @@ export const useAuth = () => {
   }
   return context;
 };
+
+    

@@ -82,7 +82,7 @@ type DiaryFormValues = z.infer<typeof diarySchema>;
 export default function FarmDiaryPage() {
   const { t } = useLanguage();
   const { toast } = useToast();
-  const { user, openAuthDialog } = useAuth();
+  const { user } = useAuth();
   const [entries, setEntries] = useState<DiaryEntry[]>(diaryEntries.sort((a, b) => b.date.getTime() - a.date.getTime()));
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -107,7 +107,11 @@ export default function FarmDiaryPage() {
 
   const onSubmit = async (data: DiaryFormValues) => {
     if (!user) {
-      openAuthDialog();
+      toast({
+        variant: "destructive",
+        title: t({ en: "Authentication Required", hi: "प्रमाणीकरण आवश्यक है" }),
+        description: t({ en: "Please sign in to save your diary entries.", hi: "कृपया अपनी डायरी प्रविष्टियों को सहेजने के लिए साइन इन करें।" }),
+      });
       return;
     }
 
@@ -242,7 +246,7 @@ export default function FarmDiaryPage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                <Button type="submit" className="w-full" disabled={isSubmitting || !user}>
                   {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   {user ? t({ en: "Save Entry", hi: "प्रविष्टि सहेजें" }) : t({ en: "Sign In to Save", hi: "सहेजने के लिए साइन इन करें" })}
                 </Button>
@@ -296,3 +300,5 @@ export default function FarmDiaryPage() {
     </>
   );
 }
+
+    

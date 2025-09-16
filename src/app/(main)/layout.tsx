@@ -14,7 +14,6 @@ import {
 import { Sprout } from "lucide-react"
 import { motion } from "framer-motion"
 import { WelcomeDialog } from "@/components/welcome-dialog";
-import { AuthDialog } from "@/components/auth-dialog";
 
 export default function MainLayout({
   children,
@@ -56,8 +55,9 @@ export default function MainLayout({
             {isClient && <WelcomeDialog />}
             {children}
           </motion.div>
-        <AuthDialog />
       </SidebarInset>
     </SidebarProvider>
   )
 }
+
+    
