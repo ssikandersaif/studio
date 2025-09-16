@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Sprout } from "lucide-react"
 import { motion } from "framer-motion"
+import { WelcomeDialog } from "@/components/welcome-dialog";
 
 export default function MainLayout({
   children,
@@ -37,6 +38,7 @@ export default function MainLayout({
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
+          <WelcomeDialog />
           {children}
         </motion.div>
       </SidebarInset>
