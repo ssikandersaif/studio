@@ -34,7 +34,7 @@ const generalChatFlow = ai.defineFlow(
     try {
       const llmResponse = await ai.generate({
         prompt: input.prompt,
-        model: 'googleai/gemini-2.5-flash', // Using the default Gemini model configured in genkit.ts
+        model: 'googleai/gemini-pro',
       });
 
       return { response: llmResponse.text };
