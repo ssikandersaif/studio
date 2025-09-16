@@ -33,7 +33,7 @@ export default function RootLayout({
         >
           <LanguageProvider>
             <AuthProvider>
-              {children}
+              <main>{children}</main>
               <Toaster />
             </AuthProvider>
           </LanguageProvider>

@@ -1,5 +1,7 @@
+
 "use client";
 
+import { usePathname } from "next/navigation"
 import { MainNav } from "@/components/main-nav"
 import {
   Sidebar,
@@ -9,14 +11,16 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import { Sprout } from "lucide-react"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { WelcomeDialog } from "@/components/welcome-dialog";
+import { PageTransition } from "@/components/page-transition";
 
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname();
 
   return (
     <SidebarProvider>
@@ -32,16 +36,22 @@ export default function MainLayout({
         </SidebarContent>
       </Sidebar>
       <SidebarInset className="flex flex-col bg-background/95 supports-[backdrop-filter]:bg-background/60 supports-[backdrop-filter]:backdrop-blur-xl">
-         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-          className="flex-grow"
-        >
-          <WelcomeDialog />
-          {children}
-        </motion.div>
+         <AnimatePresence mode="wait">
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="flex-grow flex flex-col"
+            >
+              <PageTransition />
+              <WelcomeDialog />
+              <div className="flex-grow">
+                {children}
+              </div>
+            </motion.div>
+         </AnimatePresence>
       </SidebarInset>
     </SidebarProvider>
   )
