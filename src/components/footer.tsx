@@ -27,8 +27,8 @@ export function Footer() {
 
   return (
     <footer className="bg-secondary text-secondary-foreground border-t border-border mt-auto">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-1 space-y-4">
               <div className="flex items-center gap-2">
                 <Sprout className="h-8 w-8 text-primary" />
@@ -53,7 +53,7 @@ export function Footer() {
                 ))}
               </div>
           </div>
-          <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-6">
             <div>
               <h3 className="font-semibold mb-3 text-sm tracking-wide">
                 {t({ en: "Quick Links", hi: "त्वरित लिंक" })}
@@ -92,7 +92,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-border pt-6 text-center text-xs text-muted-foreground">
+        <div className="mt-6 border-t border-border pt-6 text-center text-xs text-muted-foreground">
           <p>
             &copy; {new Date().getFullYear()} Krishi Mitra.{" "}
             {t({ en: "All rights reserved.", hi: "सर्वाधिकार सुरक्षित।" })}
