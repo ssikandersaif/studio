@@ -22,6 +22,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuPortal,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useLanguage } from "@/contexts/language-context"
 import { useAuth } from "@/contexts/auth-context"
