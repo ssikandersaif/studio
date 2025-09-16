@@ -126,7 +126,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Thrissur, Kerala',
     phone: '+91-9876543210',
     email: 'ramesh.kumar@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=RK',
+    avatarUrl: 'https://picsum.photos/seed/rk/100/100',
   },
   {
     id: '2',
@@ -135,7 +135,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Pune, Maharashtra',
     phone: '+91-9876543211',
     email: 'sunita.sharma@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=SS',
+    avatarUrl: 'https://picsum.photos/seed/ss/100/100',
   },
   {
     id: '3',
@@ -144,7 +144,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Ludhiana, Punjab',
     phone: '+91-9876543212',
     email: 'anil.singh@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=AS',
+    avatarUrl: 'https://picsum.photos/seed/as/100/100',
   },
   {
     id: '4',
@@ -153,7 +153,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Anand, Gujarat',
     phone: '+91-9876543213',
     email: 'priya.patel@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=PP',
+    avatarUrl: 'https://picsum.photos/seed/pp/100/100',
   },
   {
     id: '5',
@@ -162,7 +162,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Kottayam, Kerala',
     phone: '+91-9876543214',
     email: 'binu.jacob@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=BJ',
+    avatarUrl: 'https://picsum.photos/seed/bj/100/100',
   },
   {
     id: '6',
@@ -171,7 +171,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Ernakulam, Kerala',
     phone: '+91-9876543215',
     email: 'asha.menon@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=AM',
+    avatarUrl: 'https://picsum.photos/seed/am/100/100',
   },
   {
     id: '7',
@@ -180,7 +180,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Alappuzha, Kerala',
     phone: '+91-9876543216',
     email: 'suresh.pillai@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=SP',
+    avatarUrl: 'https://picsum.photos/seed/sp/100/100',
   },
   {
     id: '8',
@@ -189,7 +189,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Kozhikode, Kerala',
     phone: '+91-9876543217',
     email: 'fatima.beevi@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=FB',
+    avatarUrl: 'https://picsum.photos/seed/fb/100/100',
   },
   {
     id: '9',
@@ -198,7 +198,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Idukki, Kerala',
     phone: '+91-9876543218',
     email: 'manoj.varghese@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=MV',
+    avatarUrl: 'https://picsum.photos/seed/mv/100/100',
   },
   {
     id: '10',
@@ -207,7 +207,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Palakkad, Kerala',
     phone: '+91-9876543219',
     email: 'lakshmi.nair@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=LN',
+    avatarUrl: 'https://picsum.photos/seed/ln/100/100',
   },
   {
     id: '11',
@@ -216,7 +216,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Pathanamthitta, Kerala',
     phone: '+91-9876543220',
     email: 'rajesh.pn@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=RPN',
+    avatarUrl: 'https://picsum.photos/seed/rpn/100/100',
   },
   {
     id: '12',
@@ -225,7 +225,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Malappuram, Kerala',
     phone: '+91-9876543221',
     email: 'deepa.krishnan@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=DK',
+    avatarUrl: 'https://picsum.photos/seed/dk/100/100',
   },
   {
     id: '13',
@@ -234,7 +234,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Wayanad, Kerala',
     phone: '+91-9876543222',
     email: 'vinod.kumar@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=VK',
+    avatarUrl: 'https://picsum.photos/seed/vk/100/100',
   },
    {
     id: '14',
@@ -243,7 +243,7 @@ export const mockOfficers: AgriculturalOfficer[] = [
     district: 'Thiruvananthapuram, Kerala',
     phone: '+91-9876543223',
     email: 'jayasree.tvm@gov.in',
-    avatarUrl: 'https://placehold.co/100x100/EFEFEF/AAAAAA&text=JS',
+    avatarUrl: 'https://picsum.photos/seed/js/100/100',
   }
 ];
 
