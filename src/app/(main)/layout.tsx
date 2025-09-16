@@ -14,7 +14,7 @@ import {
 import { Sprout } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { WelcomeDialog } from "@/components/welcome-dialog";
-import { PageTransition } from "@/components/page-transition";
+import { Footer } from "@/components/footer";
 
 export default function MainLayout({
   children,
@@ -42,21 +42,17 @@ export default function MainLayout({
          <AnimatePresence mode="wait">
             <motion.div
               key={pathname}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 15 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
               className="flex-grow flex flex-col"
             >
-              <PageTransition />
               <WelcomeDialog />
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 15 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                className="flex-grow flex flex-col"
-              >
-                {children}
-              </motion.div>
+              {children}
             </motion.div>
          </AnimatePresence>
+        {pathname === '/dashboard' && <Footer />}
       </SidebarInset>
     </SidebarProvider>
   )
