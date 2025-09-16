@@ -9,6 +9,7 @@ import {
   SidebarHeader,
   SidebarInset,
   SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Sprout } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
@@ -25,11 +26,13 @@ export default function MainLayout({
 
   return (
     <SidebarProvider>
-      <Sidebar>
+      <Sidebar collapsible="icon" variant="floating" defaultOpen={false}>
         <SidebarHeader>
-          <div className="flex items-center gap-2 p-2">
+           <div className="flex items-center gap-2 p-2">
             <Sprout className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl font-bold text-primary font-headline">Krishi Mitra</h1>
+            <h1 className="text-2xl font-bold text-primary font-headline group-data-[collapsible=icon]:hidden">
+              Krishi Mitra
+            </h1>
           </div>
         </SidebarHeader>
         <SidebarContent>
@@ -53,7 +56,7 @@ export default function MainLayout({
               </div>
             </motion.div>
          </AnimatePresence>
-         {pathname === '/dashboard' && <Footer />}
+         {pathname !== '/dashboard' && <Footer />}
       </SidebarInset>
     </SidebarProvider>
   )

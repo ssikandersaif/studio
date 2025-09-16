@@ -39,7 +39,6 @@ import {
 import { Header } from "@/components/header"
 import { useLanguage } from "@/contexts/language-context"
 import { AnimatedGrid } from "@/components/animated-grid"
-import { Footer } from "@/components/footer"
 import { DashboardChart } from "@/components/dashboard-chart"
 
 declare global {
@@ -197,7 +196,6 @@ export default function DashboardPage() {
           </AnimatedGrid>
         </main>
       </div>
-      <Footer />
 
        <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 flex flex-col gap-3">
         <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
