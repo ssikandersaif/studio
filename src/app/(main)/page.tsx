@@ -160,12 +160,24 @@ export default function DashboardPage() {
             <CardContent>
                  <AnimatedGrid className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {features.map((feature) => (
-                  <Link href={feature.href} key={feature.href}>
-                    <div className="flex flex-col items-center justify-center p-4 border rounded-lg h-full text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-secondary">
-                        <feature.icon className="h-8 w-8 mb-2 text-primary" />
-                        <span className="font-semibold text-sm">{t(feature.title)}</span>
-                        <span className="text-xs text-muted-foreground mt-1">{t(feature.description)}</span>
-                    </div>
+                   <Link href={feature.href} key={feature.href} className="block group">
+                    <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                      {feature.image && (
+                        <div className="relative h-24">
+                          <Image
+                            src={feature.image.imageUrl}
+                            alt={feature.image.description}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            data-ai-hint={feature.image.imageHint}
+                          />
+                        </div>
+                      )}
+                      <div className="p-3 text-center">
+                        <h3 className="font-semibold text-sm">{t(feature.title)}</h3>
+                        <p className="text-xs text-muted-foreground mt-1">{t(feature.description)}</p>
+                      </div>
+                    </Card>
                   </Link>
                 ))}
               </AnimatedGrid>
@@ -188,3 +200,5 @@ export default function DashboardPage() {
     </>
   );
 }
+
+    

@@ -4,15 +4,19 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation"
 import { MainNav } from "@/components/main-nav"
+import { Footer } from "@/components/footer";
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
   SidebarInset,
   SidebarProvider,
+  SidebarFooter
 } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button";
 import { Sprout } from "lucide-react"
 import { motion } from "framer-motion"
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export default function MainLayout({
   children,
@@ -41,6 +45,9 @@ export default function MainLayout({
         <SidebarContent>
           <MainNav />
         </SidebarContent>
+        <SidebarFooter>
+          {/* UserNav was here */}
+        </SidebarFooter>
       </Sidebar>
       <SidebarInset className="flex min-h-screen flex-col bg-background/95 supports-[backdrop-filter]:bg-background/60 supports-[backdrop-filter]:backdrop-blur-xl">
          <motion.div
@@ -53,9 +60,8 @@ export default function MainLayout({
           >
             {children}
           </motion.div>
+        <Footer />
       </SidebarInset>
     </SidebarProvider>
   )
 }
-
-    

@@ -4,67 +4,67 @@
     {
       "id": "farmer-hero",
       "description": "A vibrant image of an Indian farmer in a lush green field, symbolizing prosperity.",
-      "imageUrl": "https://picsum.photos/seed/farmer-hero/1200/600",
+      "imageUrl": "https://picsum.photos/seed/farmer/1200/600",
       "imageHint": "indian farmer"
     },
     {
       "id": "market-prices",
       "description": "A bustling agricultural market scene with fresh produce.",
-      "imageUrl": "https://picsum.photos/seed/market-prices/400/300",
+      "imageUrl": "https://picsum.photos/seed/market/400/300",
       "imageHint": "agricultural market"
     },
     {
       "id": "weather-forecast",
       "description": "A dramatic sky with clouds and sun breaking through.",
-      "imageUrl": "https://picsum.photos/seed/weather-forecast/400/300",
+      "imageUrl": "https://picsum.photos/seed/sky/400/300",
       "imageHint": "sky clouds"
     },
     {
       "id": "crop-doctor",
       "description": "A close-up of a healthy, vibrant green leaf with water droplets.",
-      "imageUrl": "https://picsum.photos/seed/crop-doctor/400/300",
+      "imageUrl": "https://picsum.photos/seed/leaf/400/300",
       "imageHint": "green leaf"
     },
     {
       "id": "scan-crop",
       "description": "A person holding a smartphone to scan a leaf on a plant.",
-      "imageUrl": "https://picsum.photos/seed/scan-crop/400/300",
+      "imageUrl": "https://picsum.photos/seed/scan/400/300",
       "imageHint": "phone scanning"
     },
      {
       "id": "voice-query",
       "description": "An abstract illustration of colorful sound waves.",
-      "imageUrl": "https://picsum.photos/seed/voice-query/400/300",
+      "imageUrl": "https://picsum.photos/seed/sound/400/300",
       "imageHint": "sound waves"
     },
      {
       "id": "govt-schemes",
       "description": "The Indian Parliament building in New Delhi.",
-      "imageUrl": "https://picsum.photos/seed/govt-schemes/400/300",
+      "imageUrl": "https://picsum.photos/seed/government/400/300",
       "imageHint": "government building"
     },
     {
       "id": "officer-directory",
       "description": "A group of diverse professionals in a discussion.",
-      "imageUrl": "https://picsum.photos/seed/officer-directory/400/300",
+      "imageUrl": "https://picsum.photos/seed/professionals/400/300",
       "imageHint": "professionals discussion"
     },
     {
       "id": "faq",
       "description": "Colorful question mark blocks.",
-      "imageUrl": "https://picsum.photos/seed/faq/400/300",
+      "imageUrl": "https://picsum.photos/seed/question/400/300",
       "imageHint": "question marks"
     },
     {
       "id": "talk-to-ai",
       "description": "Abstract network of nodes and connections representing AI.",
-      "imageUrl": "https://picsum.photos/seed/talk-to-ai/400/300",
+      "imageUrl": "https://picsum.photos/seed/ai/400/300",
       "imageHint": "artificial intelligence"
     },
     {
       "id": "farm-diary",
       "description": "A rustic notebook and pen on a wooden table with farm produce in the background.",
-      "imageUrl": "https://picsum.photos/seed/farm-diary/400/300",
+      "imageUrl": "https://picsum.photos/seed/diary/400/300",
       "imageHint": "notebook farm"
     }
   ]

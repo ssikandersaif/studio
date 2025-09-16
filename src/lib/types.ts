@@ -58,13 +58,6 @@ export type WeatherServiceOutput = {
   locationName: string;
 };
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  avatarUrl: string;
-}
-
 export interface FAQ {
     category: string;
     question: string;
