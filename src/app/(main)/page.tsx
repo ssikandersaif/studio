@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -37,36 +38,42 @@ const secondaryFeatures = [
     description: { en: "Ask questions in your language.", ml: "നിങ്ങളുടെ ഭാഷയിൽ ചോദ്യങ്ങൾ ചോദിക്കുക.", hi: "अपनी भाषा में प्रश्न पूछें।" },
     href: "/voice-query",
     icon: Mic,
+    imageId: "voice-query"
   },
   {
     title: { en: "Talk to AI", hi: "एआई से बात करें" },
     description: { en: "General chat with AI assistant.", hi: "एआई सहायक के साथ सामान्य चैट।" },
     href: "/talk-to-ai",
     icon: MessageCircle,
+    imageId: "talk-to-ai"
   },
    {
     title: { en: "Farm Diary", hi: "फार्म डायरी" },
     description: { en: "Log your farming activities.", hi: "अपनी खेती की गतिविधियों को लॉग करें।" },
     href: "/farm-diary",
     icon: NotebookPen,
+    imageId: "farm-diary"
   },
   {
     title: { en: "Govt. Schemes", ml: "സർക്കാർ പദ്ധതികൾ", hi: "सरकारी योजनाएं" },
     description: { en: "Find eligible government schemes.", ml: "യോഗ്യമായ സർക്കാർ പദ്ധതികൾ കണ്ടെത്തുക.", hi: "योग्य सरकारी योजनाएं खोजें।" },
     href: "/govt-schemes",
     icon: ScrollText,
+    imageId: "govt-schemes"
   },
   {
     title: { en: "Officer Directory", ml: "ഓഫീസർ ഡയറക്ടറി", hi: "अधिकारी निर्देशिका" },
     description: { en: "Connect with local officers.", ml: "പ്രാദേശിക ഉദ്യോഗസ്ഥരുമായി ബന്ധപ്പെടുക.", hi: "स्थानीय अधिकारियों से जुड़ें।" },
     href: "/officer-directory",
     icon: Users,
+    imageId: "officer-directory"
   },
   {
     title: { en: "FAQ", ml: "പതിവുചോദ്യങ്ങൾ", hi: "सामान्य प्रश्न" },
     description: { en: "Find answers to common questions.", ml: "പൊതുവായ ചോദ്യങ്ങൾക്ക് ഉത്തരം കണ്ടെത്തുക.", hi: "सामान्य प्रश्नों के उत्तर खोजें।" },
     href: "/faq",
     icon: HelpCircle,
+    imageId: "faq"
   },
 ];
 
@@ -74,6 +81,7 @@ const secondaryFeatures = [
 export default function DashboardPage() {
   const { t } = useLanguage();
   const heroImage = placeholderImages.find(img => img.id === 'farmer-hero');
+  const featureImages = new Map(placeholderImages.map(img => [img.id, img]));
 
 
   return (
@@ -150,31 +158,43 @@ export default function DashboardPage() {
                  </Link>
             </AnimatedGrid>
 
-
-            <Card>
-                <CardHeader>
-                    <CardTitle className="font-headline">{t({ en: "More Tools & Resources", hi: "और उपकरण और संसाधन" })}</CardTitle>
-                    <CardDescription>{t({ en: "Explore other features to help you on your farm.", hi: "अपने खेत में आपकी मदद करने के लिए अन्य सुविधाओं का अन्वेषण करें।" })}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {secondaryFeatures.map((feature) => (
-                           <Link href={feature.href} key={feature.href}>
-                            <div className="flex items-center p-3 rounded-lg hover:bg-secondary transition-colors">
-                                <div className="p-2 rounded-md bg-secondary mr-4 text-primary">
-                                    <feature.icon size={20} />
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold">{t(feature.title)}</h3>
-                                    <p className="text-xs text-muted-foreground">{t(feature.description)}</p>
-                                </div>
-                                <ArrowRight className="ml-auto h-5 w-5 text-muted-foreground"/>
-                            </div>
+            <div>
+                <div className="mb-6">
+                    <h2 className="text-2xl font-bold font-headline text-primary">{t({ en: "More Tools & Resources", hi: "और उपकरण और संसाधन" })}</h2>
+                    <p className="text-muted-foreground">{t({ en: "Explore other features to help you on your farm.", hi: "अपने खेत में आपकी मदद करने के लिए अन्य सुविधाओं का अन्वेषण करें।" })}</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {secondaryFeatures.map((feature) => {
+                       const image = featureImages.get(feature.imageId);
+                       return (
+                           <Link href={feature.href} key={feature.href} className="block group">
+                                <Card className="relative overflow-hidden h-40 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                                    {image && (
+                                        <Image
+                                            src={image.imageUrl}
+                                            alt={image.description}
+                                            fill
+                                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                            data-ai-hint={image.imageHint}
+                                        />
+                                    )}
+                                    <div className="absolute inset-0 bg-black/50" />
+                                    <div className="absolute inset-0 p-4 flex flex-col justify-between text-white">
+                                        <div>
+                                            <div className="p-2 rounded-full bg-white/20 w-fit mb-2">
+                                                <feature.icon size={20} />
+                                            </div>
+                                            <h3 className="font-bold text-lg">{t(feature.title)}</h3>
+                                        </div>
+                                        <p className="text-xs text-white/80">{t(feature.description)}</p>
+                                    </div>
+                                    <ArrowRight className="absolute top-4 right-4 h-5 w-5 text-white/50 transition-transform duration-300 group-hover:translate-x-1" />
+                                </Card>
                            </Link>
-                        ))}
-                    </div>
-                </CardContent>
-            </Card>
+                       )
+                    })}
+                </div>
+            </div>
           
             <Card>
                 <CardHeader>
