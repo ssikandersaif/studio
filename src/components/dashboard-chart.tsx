@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
@@ -39,7 +40,7 @@ export function DashboardChart() {
   const { t } = useLanguage();
 
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+    <ChartContainer config={chartConfig} className="w-full h-full">
       <BarChart 
         accessibilityLayer 
         data={chartData}

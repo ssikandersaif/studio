@@ -125,7 +125,7 @@ export default function DashboardPage() {
                   <CardTitle className="font-headline">{t({ en: "Major Crop Production Trends (India)", hi: "प्रमुख फसल उत्पादन रुझान (भारत)"})}</CardTitle>
                   <CardDescription>{t({en: "Production data in million tonnes for key crops over the last 5 years.", hi: "पिछले 5 वर्षों में प्रमुख फसलों के लिए मिलियन टन में उत्पादन डेटा।"})}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="h-[350px]">
                   <DashboardChart />
               </CardContent>
           </Card>
