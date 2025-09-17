@@ -125,35 +125,43 @@ export default function DashboardPage() {
                  <WeatherSummaryCard />
                  <PriceTrendCard />
                  <Link href="/scan-crop" className="block group">
-                    <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between">
-                         <CardHeader>
-                            <div className="flex items-center gap-4">
-                                <div className="p-3 rounded-full bg-primary/10 text-primary"><ScanLine size={24} /></div>
+                    <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between relative">
+                        <Image
+                            src={featureImages.get("scan-crop")?.imageUrl || ''}
+                            alt={featureImages.get("scan-crop")?.description || ''}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105 z-0"
+                            data-ai-hint={featureImages.get("scan-crop")?.imageHint}
+                        />
+                         <div className="absolute inset-0 bg-black/50 z-10" />
+                         <div className="relative z-20 flex flex-col justify-between h-full p-6 text-white">
+                            <div>
+                                <div className="p-3 rounded-full bg-white/20 w-fit mb-2"><ScanLine size={24} /></div>
                                 <CardTitle className="font-headline">{t({ en: "Scan Crop", ml: "വിള സ്കാൻ", hi: "फ़सल स्कैन" })}</CardTitle>
+                                <p className="text-white/80 mt-1">{t({ en: "Identify crop diseases and pests instantly using your phone's camera.", hi: "अपने फोन के कैमरे का उपयोग करके फसल रोगों और कीटों की तुरंत पहचान करें।"})}</p>
                             </div>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-muted-foreground">{t({ en: "Identify crop diseases and pests instantly using your phone's camera.", hi: "अपने फोन के कैमरे का उपयोग करके फसल रोगों और कीटों की तुरंत पहचान करें।"})}</p>
-                        </CardContent>
-                        <CardFooter>
-                            <Button variant="link" className="p-0 h-auto">{t({en: "Scan Now", hi: "अभी स्कैन करें"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
-                        </CardFooter>
+                            <Button variant="link" className="p-0 h-auto text-white justify-start">{t({en: "Scan Now", hi: "अभी स्कैन करें"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
+                        </div>
                     </Card>
                  </Link>
                  <Link href="/crop-doctor" className="block group">
-                    <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between">
-                         <CardHeader>
-                            <div className="flex items-center gap-4">
-                                <div className="p-3 rounded-full bg-primary/10 text-primary"><Stethoscope size={24} /></div>
+                    <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between relative">
+                         <Image
+                            src={featureImages.get("crop-doctor")?.imageUrl || ''}
+                            alt={featureImages.get("crop-doctor")?.description || ''}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105 z-0"
+                            data-ai-hint={featureImages.get("crop-doctor")?.imageHint}
+                        />
+                         <div className="absolute inset-0 bg-black/50 z-10" />
+                         <div className="relative z-20 flex flex-col justify-between h-full p-6 text-white">
+                            <div>
+                                <div className="p-3 rounded-full bg-white/20 w-fit mb-2"><Stethoscope size={24} /></div>
                                 <CardTitle className="font-headline">{t({ en: "Crop Doctor", ml: "വിള ഡോക്ടർ", hi: "फ़सल डॉक्टर" })}</CardTitle>
+                                <p className="text-white/80 mt-1">{t({ en: "Get expert AI advice for any farming problem or question you have.", hi: "अपनी किसी भी कृषि समस्या या प्रश्न के लिए विशेषज्ञ एआई सलाह प्राप्त करें।"})}</p>
                             </div>
-                        </CardHeader>
-                        <CardContent>
-                             <p className="text-muted-foreground">{t({ en: "Get expert AI advice for any farming problem or question you have.", hi: "अपनी किसी भी कृषि समस्या या प्रश्न के लिए विशेषज्ञ एआई सलाह प्राप्त करें।"})}</p>
-                        </CardContent>
-                        <CardFooter>
-                           <Button variant="link" className="p-0 h-auto">{t({en: "Ask Question", hi: "प्रश्न पूछें"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
-                        </CardFooter>
+                           <Button variant="link" className="p-0 h-auto text-white justify-start">{t({en: "Ask Question", hi: "प्रश्न पूछें"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
+                        </div>
                     </Card>
                  </Link>
             </AnimatedGrid>
