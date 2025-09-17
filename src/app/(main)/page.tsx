@@ -16,6 +16,7 @@ import { placeholderImages } from '@/lib/placeholder-images.json';
 import { DashboardChart } from "@/components/dashboard-chart";
 import { AnimatedGrid } from "@/components/animated-grid";
 import { WelcomeDialog } from "@/components/welcome-dialog";
+import { Footer } from "@/components/footer";
 import {
     CloudSun,
     DollarSign,
@@ -196,6 +197,7 @@ export default function DashboardPage() {
 
         </div>
       </main>
+      <Footer />
       <WelcomeDialog />
     </>
   );

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation"
 import { MainNav } from "@/components/main-nav"
-import { Footer } from "@/components/footer";
 import {
   Sidebar,
   SidebarContent,
@@ -59,7 +58,6 @@ export default function MainLayout({
           >
             {children}
           </motion.div>
-        <Footer />
       </SidebarInset>
     </SidebarProvider>
   )
