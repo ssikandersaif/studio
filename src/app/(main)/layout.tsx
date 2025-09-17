@@ -34,7 +34,7 @@ export default function MainLayout({
       <Sidebar collapsible="icon" variant="floating">
         <SidebarHeader>
            <div className="flex items-center gap-3 p-2">
-            <Sprout className="h-20 w-20 text-primary" />
+            <Sprout className="h-24 w-24 text-primary" />
             <span className="min-w-0 flex-1 overflow-hidden whitespace-nowrap transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200 text-4xl font-bold text-primary font-headline">
               Krishi Mitra
             </span>
