@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -32,9 +33,9 @@ export default function MainLayout({
     <SidebarProvider defaultOpen={false}>
       <Sidebar collapsible="icon" variant="floating">
         <SidebarHeader>
-           <div className="flex items-center gap-2 p-2">
-            <Sprout className="h-8 w-8 text-primary" />
-            <span className="min-w-0 flex-1 overflow-hidden whitespace-nowrap transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200 text-2xl font-bold text-primary font-headline">
+           <div className="flex items-center gap-3 p-2">
+            <Sprout className="h-10 w-10 text-primary" />
+            <span className="min-w-0 flex-1 overflow-hidden whitespace-nowrap transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200 text-3xl font-bold text-primary font-headline">
               Krishi Mitra
             </span>
           </div>

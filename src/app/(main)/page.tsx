@@ -119,6 +119,16 @@ export default function DashboardPage() {
                 </div>
             </Card>
            )}
+
+          <Card>
+              <CardHeader>
+                  <CardTitle className="font-headline">{t({ en: "Major Crop Production Trends (India)", hi: "प्रमुख फसल उत्पादन रुझान (भारत)"})}</CardTitle>
+                  <CardDescription>{t({en: "Production data in million tonnes for key crops over the last 5 years.", hi: "पिछले 5 वर्षों में प्रमुख फसलों के लिए मिलियन टन में उत्पादन डेटा।"})}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                  <DashboardChart />
+              </CardContent>
+          </Card>
            
             <AnimatedGrid className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <WeatherSummaryCard />
@@ -202,16 +212,6 @@ export default function DashboardPage() {
                     })}
                 </div>
             </div>
-          
-            <Card>
-                <CardHeader>
-                    <CardTitle className="font-headline">{t({ en: "Major Crop Production Trends (India)", hi: "प्रमुख फसल उत्पादन रुझान (भारत)"})}</CardTitle>
-                    <CardDescription>{t({en: "Production data in million tonnes for key crops over the last 5 years.", hi: "पिछले 5 वर्षों में प्रमुख फसलों के लिए मिलियन टन में उत्पादन डेटा।"})}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <DashboardChart />
-                </CardContent>
-            </Card>
 
         </div>
       </main>
