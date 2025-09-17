@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -7,6 +6,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -15,92 +15,58 @@ import { useLanguage } from "@/contexts/language-context";
 import { placeholderImages } from '@/lib/placeholder-images.json';
 import { DashboardChart } from "@/components/dashboard-chart";
 import { AnimatedGrid } from "@/components/animated-grid";
-import { WelcomeDialog } from "@/components/welcome-dialog";
 import { Footer } from "@/components/footer";
 import {
-    CloudSun,
-    DollarSign,
-    Stethoscope,
-    ScanLine,
     Mic,
     MessageCircle,
     ScrollText,
     Users,
     HelpCircle,
-    NotebookPen
+    NotebookPen,
+    ArrowRight,
+    Stethoscope,
+    ScanLine
 } from "lucide-react";
+import { WeatherSummaryCard } from "@/components/weather-summary-card";
+import { PriceTrendCard } from "@/components/price-trend-card";
+import { Button } from "@/components/ui/button";
 
-
-const features = [
-  {
-    title: { en: "Market Prices", ml: "വിപണി വിലകൾ", hi: "बाजार मूल्य" },
-    description: { en: "Get real-time crop prices.", ml: "തത്സമയ വിള വിലകൾ നേടുക.", hi: "वास्तविक समय में फसल की कीमतें प्राप्त करें।" },
-    href: "/market-prices",
-    icon: DollarSign,
-    image: placeholderImages.find(img => img.id === 'market-prices'),
-  },
-  {
-    title: { en: "Weather", ml: "കാലാവസ്ഥ", hi: "मौसम" },
-    description: { en: "5-day forecast & advice.", ml: "5 ദിവസത്തെ പ്രവചനവും ഉപദേശവും.", hi: "5-दिन का पूर्वानुमान और सलाह।" },
-    href: "/weather",
-    icon: CloudSun,
-    image: placeholderImages.find(img => img.id === 'weather-forecast'),
-  },
-  {
-    title: { en: "Crop Doctor", ml: "വിള ഡോക്ടർ", hi: "फ़सल डॉक्टर" },
-    description: { en: "AI advice for crop issues.", ml: "വിള പ്രശ്നങ്ങൾക്ക് AI ഉപദേശം.", hi: "फसल की समस्याओं के लिए एआई सलाह।" },
-    href: "/crop-doctor",
-    icon: Stethoscope,
-    image: placeholderImages.find(img => img.id === 'crop-doctor'),
-  },
-  {
-    title: { en: "Scan Crop", ml: "വിള സ്കാൻ", hi: "फ़सल स्कैन" },
-    description: { en: "Identify diseases with your camera.", ml: "ക്യാമറ ഉപയോഗിച്ച് രോഗങ്ങൾ കണ്ടെത്തുക.", hi: "अपने कैमरे से बीमारियों की पहचान करें।" },
-    href: "/scan-crop",
-    icon: ScanLine,
-    image: placeholderImages.find(img => img.id === 'scan-crop'),
-  },
+const secondaryFeatures = [
    {
     title: { en: "Voice Query", ml: "ശബ്ദ ചോദ്യം", hi: "आवाज प्रश्न" },
     description: { en: "Ask questions in your language.", ml: "നിങ്ങളുടെ ഭാഷയിൽ ചോദ്യങ്ങൾ ചോദിക്കുക.", hi: "अपनी भाषा में प्रश्न पूछें।" },
     href: "/voice-query",
     icon: Mic,
-    image: placeholderImages.find(img => img.id === 'voice-query'),
   },
   {
     title: { en: "Talk to AI", hi: "एआई से बात करें" },
     description: { en: "General chat with AI assistant.", hi: "एआई सहायक के साथ सामान्य चैट।" },
     href: "/talk-to-ai",
     icon: MessageCircle,
-    image: placeholderImages.find(img => img.id === 'talk-to-ai'),
   },
    {
     title: { en: "Farm Diary", hi: "फार्म डायरी" },
     description: { en: "Log your farming activities.", hi: "अपनी खेती की गतिविधियों को लॉग करें।" },
     href: "/farm-diary",
     icon: NotebookPen,
-    image: placeholderImages.find(img => img.id === 'farm-diary'),
   },
   {
     title: { en: "Govt. Schemes", ml: "സർക്കാർ പദ്ധതികൾ", hi: "सरकारी योजनाएं" },
     description: { en: "Find eligible government schemes.", ml: "യോഗ്യമായ സർക്കാർ പദ്ധതികൾ കണ്ടെത്തുക.", hi: "योग्य सरकारी योजनाएं खोजें।" },
     href: "/govt-schemes",
     icon: ScrollText,
-    image: placeholderImages.find(img => img.id === 'govt-schemes'),
   },
   {
     title: { en: "Officer Directory", ml: "ഓഫീസർ ഡയറക്ടറി", hi: "अधिकारी निर्देशिका" },
     description: { en: "Connect with local officers.", ml: "പ്രാദേശിക ഉദ്യോഗസ്ഥരുമായി ബന്ധപ്പെടുക.", hi: "स्थानीय अधिकारियों से जुड़ें।" },
     href: "/officer-directory",
     icon: Users,
-    image: placeholderImages.find(img => img.id === 'officer-directory'),
   },
   {
     title: { en: "FAQ", ml: "പതിവുചോദ്യങ്ങൾ", hi: "सामान्य प्रश्न" },
     description: { en: "Find answers to common questions.", ml: "പൊതുവായ ചോദ്യങ്ങൾക്ക് ഉത്തരം കണ്ടെത്തുക.", hi: "सामान्य प्रश्नों के उत्तर खोजें।" },
     href: "/faq",
     icon: HelpCircle,
-    image: placeholderImages.find(img => img.id === 'faq'),
   },
 ];
 
@@ -146,59 +112,83 @@ export default function DashboardPage() {
                 </div>
             </Card>
            )}
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-headline">{t({ en: "Quick Actions", ml: "ദ്രുത പ്രവർത്തനങ്ങൾ", hi: "त्वरित कार्रवाइयां" })}</CardTitle>
-              <CardDescription>
-                {t({
-                    en: "Navigate to key features of the application.",
-                    ml: "ആപ്ലിക്കേഷൻ്റെ പ്രധാന ഫീച്ചറുകളിലേക്ക് നാവിഗേറ്റ് ചെയ്യുക.",
-                    hi: "एप्लिकेशन की प्रमुख विशेषताओं पर नेविगेट करें।",
-                })}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-                 <AnimatedGrid className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {features.map((feature) => (
-                   <Link href={feature.href} key={feature.href} className="block group">
-                    <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                      {feature.image && (
-                        <div className="relative h-24">
-                          <Image
-                            src={feature.image.imageUrl}
-                            alt={feature.image.description}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            data-ai-hint={feature.image.imageHint}
-                          />
-                        </div>
-                      )}
-                      <div className="p-3 text-center">
-                        <h3 className="font-semibold text-sm">{t(feature.title)}</h3>
-                        <p className="text-xs text-muted-foreground mt-1">{t(feature.description)}</p>
-                      </div>
+           
+            <AnimatedGrid className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <WeatherSummaryCard />
+                 <PriceTrendCard />
+                 <Link href="/scan-crop" className="block group">
+                    <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between">
+                         <CardHeader>
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 rounded-full bg-primary/10 text-primary"><ScanLine size={24} /></div>
+                                <CardTitle className="font-headline">{t({ en: "Scan Crop", ml: "വിള സ്കാൻ", hi: "फ़सल स्कैन" })}</CardTitle>
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-muted-foreground">{t({ en: "Identify crop diseases and pests instantly using your phone's camera.", hi: "अपने फोन के कैमरे का उपयोग करके फसल रोगों और कीटों की तुरंत पहचान करें।"})}</p>
+                        </CardContent>
+                        <CardFooter>
+                            <Button variant="link" className="p-0 h-auto">{t({en: "Scan Now", hi: "अभी स्कैन करें"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
+                        </CardFooter>
                     </Card>
-                  </Link>
-                ))}
-              </AnimatedGrid>
-            </CardContent>
-          </Card>
+                 </Link>
+                 <Link href="/crop-doctor" className="block group">
+                    <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between">
+                         <CardHeader>
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 rounded-full bg-primary/10 text-primary"><Stethoscope size={24} /></div>
+                                <CardTitle className="font-headline">{t({ en: "Crop Doctor", ml: "വിള ഡോക്ടർ", hi: "फ़सल डॉक्टर" })}</CardTitle>
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                             <p className="text-muted-foreground">{t({ en: "Get expert AI advice for any farming problem or question you have.", hi: "अपनी किसी भी कृषि समस्या या प्रश्न के लिए विशेषज्ञ एआई सलाह प्राप्त करें।"})}</p>
+                        </CardContent>
+                        <CardFooter>
+                           <Button variant="link" className="p-0 h-auto">{t({en: "Ask Question", hi: "प्रश्न पूछें"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
+                        </CardFooter>
+                    </Card>
+                 </Link>
+            </AnimatedGrid>
+
+
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">{t({ en: "More Tools & Resources", hi: "और उपकरण और संसाधन" })}</CardTitle>
+                    <CardDescription>{t({ en: "Explore other features to help you on your farm.", hi: "अपने खेत में आपकी मदद करने के लिए अन्य सुविधाओं का अन्वेषण करें।" })}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {secondaryFeatures.map((feature) => (
+                           <Link href={feature.href} key={feature.href}>
+                            <div className="flex items-center p-3 rounded-lg hover:bg-secondary transition-colors">
+                                <div className="p-2 rounded-md bg-secondary mr-4 text-primary">
+                                    <feature.icon size={20} />
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold">{t(feature.title)}</h3>
+                                    <p className="text-xs text-muted-foreground">{t(feature.description)}</p>
+                                </div>
+                                <ArrowRight className="ml-auto h-5 w-5 text-muted-foreground"/>
+                            </div>
+                           </Link>
+                        ))}
+                    </div>
+                </CardContent>
+            </Card>
           
-          <Card>
-            <CardHeader>
-                <CardTitle className="font-headline">{t({ en: "Major Crop Production Trends (India)", hi: "प्रमुख फसल उत्पादन रुझान (भारत)"})}</CardTitle>
-                <CardDescription>{t({en: "Production data in million tonnes for key crops over the last 5 years.", hi: "पिछले 5 वर्षों में प्रमुख फसलों के लिए मिलियन टन में उत्पादन डेटा।"})}</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <DashboardChart />
-            </CardContent>
-          </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">{t({ en: "Major Crop Production Trends (India)", hi: "प्रमुख फसल उत्पादन रुझान (भारत)"})}</CardTitle>
+                    <CardDescription>{t({en: "Production data in million tonnes for key crops over the last 5 years.", hi: "पिछले 5 वर्षों में प्रमुख फसलों के लिए मिलियन टन में उत्पादन डेटा।"})}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <DashboardChart />
+                </CardContent>
+            </Card>
 
         </div>
       </main>
       <Footer />
-      <WelcomeDialog />
     </>
   );
 }
