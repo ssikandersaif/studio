@@ -11,10 +11,9 @@ import {
   SidebarProvider,
   SidebarFooter
 } from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button";
 import { Sprout } from "lucide-react"
 import { motion } from "framer-motion"
-import { ThemeSwitcher } from "@/components/theme-switcher";
+import { WelcomeDialog } from "@/components/welcome-dialog";
 
 export default function MainLayout({
   children,
@@ -58,6 +57,7 @@ export default function MainLayout({
           >
             {children}
           </motion.div>
+          {isClient && <WelcomeDialog />}
       </SidebarInset>
     </SidebarProvider>
   )

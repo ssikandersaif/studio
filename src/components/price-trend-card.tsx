@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import * as React from "react"
 import {
   Area,
   AreaChart,
@@ -24,6 +25,7 @@ import { mockCropPrices } from "@/lib/data"
 import { useLanguage } from "@/contexts/language-context"
 import { DollarSign, ArrowRight } from "lucide-react"
 import { Button } from "./ui/button"
+import { Skeleton } from "./ui/skeleton"
 
 const chartData = mockCropPrices
   .filter(p => ['Tomato', 'Onion', 'Potato'].includes(p.name))
@@ -40,6 +42,12 @@ const chartConfig = {
 
 export function PriceTrendCard() {
     const { t } = useLanguage();
+    const [isClient, setIsClient] = React.useState(false)
+    
+    React.useEffect(() => {
+        setIsClient(true)
+    }, [])
+
     const tomatoPrice = mockCropPrices.find(p => p.name === 'Tomato')?.modalPrice.toLocaleString('en-IN') || 'N/A';
 
     return (
@@ -50,7 +58,11 @@ export function PriceTrendCard() {
                         <div className="p-3 rounded-full bg-primary/10 text-primary"><DollarSign size={24} /></div>
                         <div>
                             <CardTitle className="font-headline">{t({ en: "Market Prices", ml: "വിപണി വിലകൾ", hi: "बाजार मूल्य" })}</CardTitle>
-                            <CardDescription>{t({en: `Tomato today: ₹${tomatoPrice}/Quintal`, hi: `आज टमाटर: ₹${tomatoPrice}/क्विंटल`})}</CardDescription>
+                            {isClient ? (
+                                <CardDescription>{t({en: `Tomato today: ₹${tomatoPrice}/Quintal`, hi: `आज टमाटर: ₹${tomatoPrice}/क्विंटल`})}</CardDescription>
+                            ) : (
+                                <Skeleton className="h-4 w-48 mt-1" />
+                            )}
                         </div>
                     </div>
                 </CardHeader>
