@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Header } from "@/components/header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
@@ -16,33 +17,54 @@ import {
   MapPinOff,
   Sun,
   Wind,
+  Loader2
 } from "lucide-react";
 import { getWeatherData } from "@/services/weather-service";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLanguage } from "@/contexts/language-context";
 import { Button } from "@/components/ui/button";
+import { placeholderImages } from "@/lib/placeholder-images.json";
 
 type IconMap = {
   [key: string]: React.ReactNode;
 };
 
-const iconMap: IconMap = {
-  "01d": <Sun className="h-10 w-10 text-yellow-500" />,
-  "01n": <Sun className="h-10 w-10 text-yellow-500" />,
-  "02d": <CloudSun className="h-10 w-10 text-gray-500" />,
-  "02n": <CloudSun className="h-10 w-10 text-gray-500" />,
-  "03d": <Cloud className="h-10 w-10 text-gray-400" />,
-  "03n": <Cloud className="h-10 w-10 text-gray-400" />,
-  "04d": <Cloud className="h-10 w-10 text-gray-400" />,
-  "04n": <Cloud className="h-10 w-10 text-gray-400" />,
-  "09d": <CloudRain className="h-10 w-10 text-blue-500" />,
-  "09n": <CloudRain className="h-10 w-10 text-blue-500" />,
-  "10d": <CloudRain className="h-10 w-10 text-blue-500" />,
-  "10n": <CloudRain className="h-10 w-10 text-blue-500" />,
-  "11d": <CloudLightning className="h-10 w-10 text-purple-500" />,
-  "11n": <CloudLightning className="h-10 w-10 text-purple-500" />,
-  "50d": <Wind className="h-10 w-10 text-gray-500" />,
-  "50n": <Wind className="h-10 w-10 text-gray-500" />,
+const largeIconMap: IconMap = {
+  "01d": <Sun className="h-20 w-20 text-yellow-400" />,
+  "01n": <Sun className="h-20 w-20 text-yellow-400" />,
+  "02d": <CloudSun className="h-20 w-20" />,
+  "02n": <CloudSun className="h-20 w-20" />,
+  "03d": <Cloud className="h-20 w-20" />,
+  "03n": <Cloud className="h-20 w-20" />,
+  "04d": <Cloud className="h-20 w-20" />,
+  "04n": <Cloud className="h-20 w-20" />,
+  "09d": <CloudRain className="h-20 w-20 text-blue-400" />,
+  "09n": <CloudRain className="h-20 w-20 text-blue-400" />,
+  "10d": <CloudRain className="h-20 w-20 text-blue-400" />,
+  "10n": <CloudRain className="h-20 w-20 text-blue-400" />,
+  "11d": <CloudLightning className="h-20 w-20 text-purple-400" />,
+  "11n": <CloudLightning className="h-20 w-20 text-purple-400" />,
+  "50d": <Wind className="h-20 w-20" />,
+  "50n": <Wind className="h-20 w-20" />,
+};
+
+const smallIconMap: IconMap = {
+  "01d": <Sun className="h-8 w-8 text-yellow-400" />,
+  "01n": <Sun className="h-8 w-8 text-yellow-400" />,
+  "02d": <CloudSun className="h-8 w-8" />,
+  "02n": <CloudSun className="h-8 w-8" />,
+  "03d": <Cloud className="h-8 w-8" />,
+  "03n": <Cloud className="h-8 w-8" />,
+  "04d": <Cloud className="h-8 w-8" />,
+  "04n": <Cloud className="h-8 w-8" />,
+  "09d": <CloudRain className="h-8 w-8 text-blue-400" />,
+  "09n": <CloudRain className="h-8 w-8 text-blue-400" />,
+  "10d": <CloudRain className="h-8 w-8 text-blue-400" />,
+  "10n": <CloudRain className="h-8 w-8 text-blue-400" />,
+  "11d": <CloudLightning className="h-8 w-8 text-purple-400" />,
+  "11n": <CloudLightning className="h-8 w-8 text-purple-400" />,
+  "50d": <Wind className="h-8 w-8" />,
+  "50n": <Wind className="h-8 w-8" />,
 };
 
 type LocationStatus = 'idle' | 'loading' | 'success' | 'denied' | 'unsupported';
@@ -53,6 +75,7 @@ export default function WeatherPage() {
   const [locationStatus, setLocationStatus] = useState<LocationStatus>('idle');
   const { toast } = useToast();
   const { t } = useLanguage();
+  const weatherImage = placeholderImages.find(img => img.id === "weather-card");
 
   const fetchWeather = async (lat: number, lon: number) => {
     setLocationStatus('loading');
@@ -108,101 +131,86 @@ export default function WeatherPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
-  const getIcon = (iconCode: string) => {
-      return iconMap[iconCode] || <CloudSun className="h-10 w-10 text-gray-500" />;
-  }
-
   const renderContent = () => {
       switch (locationStatus) {
         case 'loading':
             return (
-                <div className="grid gap-6">
-                    <Card>
-                        <CardHeader>
-                            <Skeleton className="h-6 w-1/3"/>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <Skeleton className="h-16 w-full"/>
-                            <Skeleton className="h-10 w-full"/>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <Skeleton className="h-6 w-1/4"/>
-                        </CardHeader>
-                        <CardContent>
-                            <Skeleton className="h-32 w-full"/>
-                        </CardContent>
-                    </Card>
-                </div>
+               <Card className="min-h-[600px] flex items-center justify-center">
+                    <Loader2 className="w-16 h-16 animate-spin text-primary"/>
+               </Card>
             );
         case 'success':
             if (!weatherData) return null;
             return (
-                <div className="grid gap-6">
-                    <Card className="bg-secondary/30">
-                    <CardHeader>
-                        <CardTitle className="font-headline">{t({ en: "Current Conditions", ml: "നിലവിലെ അവസ്ഥ", hi: "वर्तमान स्थितियाँ" })}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="grid md:grid-cols-2 gap-6">
-                        <div className="flex items-center gap-6">
-                        {getIcon(weatherData.current.icon)}
-                        <div>
-                            <p className="text-6xl font-bold">
-                            {weatherData.current.temp}°C
-                            </p>
-                            <p className="text-lg text-muted-foreground capitalize">
-                            {weatherData.current.description}
-                            </p>
-                        </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 text-center">
-                            <div className="flex flex-col items-center justify-center p-4 rounded-lg bg-background/50">
-                                <Droplets className="h-6 w-6 text-primary mb-2"/>
-                                <p className="font-bold text-lg">{weatherData.current.humidity}%</p>
-                                <p className="text-sm text-muted-foreground">{t({ en: "Humidity", ml: "ഈർപ്പം", hi: "नमी" })}</p>
-                            </div>
-                            <div className="flex flex-col items-center justify-center p-4 rounded-lg bg-background/50">
-                                <Wind className="h-6 w-6 text-primary mb-2"/>
-                                <p className="font-bold text-lg">{weatherData.current.wind} km/h</p>
-                                <p className="text-sm text-muted-foreground">{t({ en: "Wind", ml: "കാറ്റ്", hi: "हवा" })}</p>
-                            </div>
-                        </div>
-                        <div className="md:col-span-2 p-4 bg-primary text-primary-foreground rounded-lg flex gap-4 items-start">
-                            <Lightbulb className="h-5 w-5 mt-1 shrink-0"/>
-                            <div>
-                                <p className="font-semibold font-headline">{t({ en: "Farming Recommendation:", ml: "കാർഷിക ശുപാർശ:", hi: "खेती की सिफारिश:" })}</p>
-                                <p className="text-sm">{weatherData.current.recommendation}</p>
-                            </div>
-                        </div>
-                    </CardContent>
-                    </Card>
+              <Card className="overflow-hidden relative shadow-lg border-none">
+                {weatherImage && (
+                  <Image
+                    src={weatherImage.imageUrl}
+                    alt={weatherImage.description}
+                    fill
+                    className="object-cover"
+                    data-ai-hint={weatherImage.imageHint}
+                  />
+                )}
+                <div className="absolute inset-0 bg-black/50" />
+                <div className="relative text-white p-6 sm:p-8 space-y-8">
+                  {/* Current Conditions */}
+                  <div className="flex flex-col sm:flex-row justify-between items-center gap-6 text-center sm:text-left">
+                      <div className="flex-1">
+                          <p className="font-semibold text-lg">{locationName}</p>
+                          <p className="text-7xl sm:text-8xl font-bold tracking-tighter">{weatherData.current.temp}°C</p>
+                          <p className="text-xl capitalize text-white/90">{weatherData.current.description}</p>
+                      </div>
+                      <div className="flex-shrink-0">
+                        {largeIconMap[weatherData.current.icon] || <CloudSun className="h-20 w-20" />}
+                      </div>
+                  </div>
 
-                    <Card>
-                    <CardHeader>
-                        <CardTitle className="font-headline">{t({ en: "5-Day Forecast", ml: "5 ദിവസത്തെ പ്രവചനം", hi: "5-दिवसीय पूर्वानुमान" })}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center">
-                        {weatherData.forecast.map((day, index) => (
-                        <div key={index} className="flex flex-col items-center p-2 rounded-lg bg-secondary/60">
-                            <p className="font-bold">{day.day}</p>
-                            <div className="my-2">{getIcon(day.icon)}</div>
-                            <p className="text-xl font-semibold">{day.temp}°C</p>
-                            <p className="text-xs text-muted-foreground capitalize">{day.description}</p>
+                  {/* Additional current details */}
+                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+                      <div className="flex flex-col items-center justify-center">
+                          <Droplets className="h-6 w-6 mb-1"/>
+                          <p className="font-bold text-lg">{weatherData.current.humidity}%</p>
+                          <p className="text-sm text-white/80">{t({ en: "Humidity", ml: "ഈർപ്പം", hi: "नमी" })}</p>
+                      </div>
+                      <div className="flex flex-col items-center justify-center">
+                          <Wind className="h-6 w-6 mb-1"/>
+                          <p className="font-bold text-lg">{weatherData.current.wind} km/h</p>
+                          <p className="text-sm text-white/80">{t({ en: "Wind", ml: "കാറ്റ്", hi: "हवा" })}</p>
+                      </div>
+                       <div className="col-span-2 flex items-center gap-3 text-left p-3 rounded-md bg-black/20">
+                            <Lightbulb className="h-6 w-6 shrink-0 text-yellow-300"/>
+                            <div>
+                                <p className="font-semibold text-sm">{t({ en: "Farming Tip", ml: "കാർഷിക ഉപദേശം", hi: "खेती की सलाह" })}:</p>
+                                <p className="text-xs text-white/80">{weatherData.current.recommendation}</p>
+                            </div>
                         </div>
-                        ))}
-                    </CardContent>
-                    </Card>
+                  </div>
+
+                  {/* 5-Day Forecast */}
+                  <div>
+                    <h3 className="text-lg font-semibold mb-4 font-headline">{t({ en: "5-Day Forecast", ml: "5 ദിവസത്തെ പ്രവചനം", hi: "5-दिवसीय पूर्वानुमान" })}</h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                      {weatherData.forecast.map((day, index) => (
+                        <div key={index} className="flex flex-col items-center p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                          <p className="font-bold text-base">{day.day}</p>
+                          <div className="my-2">{smallIconMap[day.icon] || <CloudSun className="h-8 w-8" />}</div>
+                          <p className="text-xl font-semibold">{day.temp}°</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+              </Card>
             );
           case 'denied':
           case 'unsupported':
           case 'idle':
           default:
             return (
-              <Card className="flex flex-col items-center justify-center text-center p-12 text-muted-foreground">
+              <Card className="flex flex-col items-center justify-center text-center p-12 text-muted-foreground min-h-[400px]">
                 <MapPinOff className="w-16 h-16 mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2">{t({ en: "Location Access Needed", ml: "ലൊക്കേഷൻ ആക്സസ് ആവശ്യമാണ്", hi: "स्थान पहुंच की आवश्यकता है" })}</h3>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">{t({ en: "Location Access Needed", ml: "ലൊക്കേഷൻ ആക്സസ് ആവശ്യമാണ്", hi: "स्थान पहुंच की आवश्यकता है" })}</h3>
                 <p className="max-w-md mb-6">
                     {t({ 
                         en: "Your browser has blocked location access. Please enable it in your browser's settings or click the button below to retry.",
@@ -224,16 +232,9 @@ export default function WeatherPage() {
     <>
       <Header
         title={t({ en: "Weather Forecast", ml: "കാലാവസ്ഥാ പ്രവചനം", hi: "मौसम पूर्वानुमान" })}
-        description={t({ en: "Current conditions and 5-day forecast with farming impact analysis.", ml: "നിലവിലെ അവസ്ഥയും 5 ദിവസത്തെ പ്രവചനവും കാർഷിക ആഘാത വിശകലനവും.", hi: "कृषि प्रभाव विश्लेषण के साथ वर्तमान स्थितियाँ और 5-दिवसीय पूर्वानुमान।" })}
+        description={t({ en: "Current conditions and 5-day forecast for your location.", ml: "നിങ്ങളുടെ സ്ഥലത്തെ നിലവിലെ അവസ്ഥയും 5 ദിവസത്തെ പ്രവചനവും.", hi: "आपके स्थान के लिए वर्तमान स्थितियाँ और 5-दिवसीय पूर्वानुमान।" })}
       />
       <main className="flex-1 p-4 sm:px-8 sm:py-6">
-        <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold capitalize font-headline">
-              {locationStatus === 'success' && locationName 
-                ? `${t({ en: "Weather for", ml: "ഇവിടെ കാലാവസ്ഥ", hi: "के लिए मौसम" })} ${locationName}` 
-                : t({ en: "Weather", ml: "കാലാവസ്ഥ", hi: "मौसम" })}
-            </h2>
-        </div>
         {renderContent()}
       </main>
     </>
