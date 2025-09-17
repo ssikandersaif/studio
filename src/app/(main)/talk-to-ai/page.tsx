@@ -1,6 +1,8 @@
+
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +18,7 @@ import { generalChat } from "@/ai/flows/general-chat-flow";
 import { Loader2, Send, User, Bot } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Message {
     sender: 'user' | 'bot';
@@ -90,7 +92,8 @@ export default function TalkToAiPage() {
                 {messages.map((message, index) => (
                   <div key={index} className={`flex items-start gap-3 ${message.sender === 'user' ? 'justify-end' : ''}`}>
                     {message.sender === 'bot' && (
-                        <Avatar className="w-8 h-8 border bg-primary text-primary-foreground">
+                        <Avatar className="w-8 h-8 border">
+                            <AvatarImage src="https://picsum.photos/seed/bot/100/100" alt="AI Avatar" />
                             <AvatarFallback><Bot size={18} /></AvatarFallback>
                         </Avatar>
                     )}
@@ -110,7 +113,8 @@ export default function TalkToAiPage() {
                 ))}
                 {loading && (
                     <div className="flex items-start gap-3">
-                        <Avatar className="w-8 h-8 border bg-primary text-primary-foreground">
+                        <Avatar className="w-8 h-8 border">
+                            <AvatarImage src="https://picsum.photos/seed/bot/100/100" alt="AI Avatar" />
                             <AvatarFallback><Bot size={18} /></AvatarFallback>
                         </Avatar>
                         <div className="rounded-lg px-4 py-2 bg-secondary flex items-center">
