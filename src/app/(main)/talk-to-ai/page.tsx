@@ -106,6 +106,7 @@ export default function TalkToAiPage() {
                     </div>
                     {message.sender === 'user' && (
                         <Avatar className="w-8 h-8 border">
+                             <AvatarImage src="https://picsum.photos/seed/user/100/100" alt="User Avatar" />
                              <AvatarFallback><User size={18} /></AvatarFallback>
                         </Avatar>
                     )}
