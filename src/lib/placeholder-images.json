@@ -14,7 +14,7 @@
       "imageHint": "agricultural market"
     },
     {
-      "id": "weather-forecast",
+      "id": "weather-card",
       "description": "A dramatic sky with clouds and sun breaking through.",
       "imageUrl": "https://picsum.photos/seed/sky/400/300",
       "imageHint": "sky clouds"
