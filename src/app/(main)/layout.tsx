@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -34,7 +35,7 @@ export default function MainLayout({
         <SidebarHeader>
            <div className="flex items-center gap-3 p-2">
             <Sprout className="h-16 w-16 text-primary" />
-            <span className="min-w-0 flex-1 overflow-hidden whitespace-nowrap transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200 text-3xl font-bold text-primary font-headline">
+            <span className="min-w-0 flex-1 overflow-hidden whitespace-nowrap transition-all group-data-[state=collapsed]:w-0 group-data-[state=collapsed]:opacity-0 group-data-[state=collapsed]:delay-0 delay-200 text-4xl font-bold text-primary font-headline">
               Krishi Mitra
             </span>
           </div>
