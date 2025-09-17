@@ -101,7 +101,7 @@ export function WeatherSummaryCard() {
                 <div>
                     <div className="flex justify-between items-start">
                         <div>
-                             <CardTitle className="font-headline">{t({ en: "Weather", ml: "കാലാവസ്ഥ", hi: "मौसम" })}</CardTitle>
+                             <CardTitle className="font-headline">{t({ en: "Weather", ml: "കാലാവസ്ഥ", hi: "मौसम", ta: "வானிலை", te: "వాతావరణం", kn: "ಹವಾಮಾನ", bn: "আবহাওয়া", mr: "हवामान", gu: "હવામાન", pa: "ਮੌਸਮ" })}</CardTitle>
                              <CardDescription className="text-white/80">{locationName || 'Current Location'}</CardDescription>
                         </div>
                         {getIcon(weatherData.current.icon)}
@@ -111,7 +111,7 @@ export function WeatherSummaryCard() {
                         <p className="text-lg capitalize -mt-1">{weatherData.current.description}</p>
                     </div>
                 </div>
-                 <Button variant="link" className="p-0 h-auto text-white justify-start">{t({en: "View Full Forecast", hi: "पूरा पूर्वानुमान देखें"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
+                 <Button variant="link" className="p-0 h-auto text-white justify-start">{t({en: "View Full Forecast", hi: "पूरा पूर्वानुमान देखें", ml: "പൂർണ്ണമായ പ്രവചനം കാണുക", ta: "முழு முன்னறிவிப்பைக் காண்க", te: "పూర్తి అంచనాను చూడండి", kn: "ಪೂರ್ಣ ಮುನ್ಸೂಚನೆಯನ್ನು ವೀಕ್ಷಿಸಿ", bn: "সম্পূর্ণ পূর্বাভাস দেখুন", mr: "पूर्ण अंदाज पहा", gu: "સંપૂર્ણ આગાહી જુઓ", pa: "ਪੂਰਾ ਪੂਰਵ-ਅਨੁਮਾਨ ਦੇਖੋ"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
             </div>
           </>
         );
@@ -123,12 +123,12 @@ export function WeatherSummaryCard() {
             <div className="relative z-10 flex flex-col justify-between h-full p-6 text-white">
                 <div>
                     <div className="p-3 rounded-full bg-white/20 w-fit mb-2"><MapPinOff size={24} /></div>
-                    <CardTitle className="font-headline">{t({ en: "Weather", ml: "കാലാവസ്ഥ", hi: "मौसम" })}</CardTitle>
-                    <p className="text-white/80 mt-1">{t({en: "Enable location to see local weather.", hi: "स्थानीय मौसम देखने के लिए स्थान सक्षम करें।"})}</p>
+                    <CardTitle className="font-headline">{t({ en: "Weather", ml: "കാലാവസ്ഥ", hi: "मौसम", ta: "வானிலை", te: "వాతావరణం", kn: "ಹವಾಮಾನ", bn: "আবহাওয়া", mr: "हवामान", gu: "હવામાન", pa: "ਮੌਸਮ" })}</CardTitle>
+                    <p className="text-white/80 mt-1">{t({en: "Enable location to see local weather.", hi: "स्थानीय मौसम देखने के लिए स्थान सक्षम करें।", ml: "പ്രാദേശിക കാലാവസ്ഥ കാണാൻ ലൊക്കേഷൻ പ്രവർത്തനക്ഷമമാക്കുക.", ta: "உள்ளூர் வானிலை பார்க்க இருப்பிடத்தை இயக்கவும்.", te: "స్థానిక వాతావరణాన్ని చూడటానికి లొకేషన్‌ను ప్రారంభించండి.", kn: "ಸ್ಥಳೀಯ ಹವಾಮಾನವನ್ನು ನೋಡಲು ಸ್ಥಳವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ.", bn: "স্থানীয় আবহাওয়া দেখতে অবস্থান সক্ষম করুন।", mr: "स्थानिक हवामान पाहण्यासाठी स्थान सक्षम करा.", gu: "સ્થાનિક હવામાન જોવા માટે સ્થાન સક્ષમ કરો.", pa: "ਸਥਾਨਕ ਮੌਸਮ ਦੇਖਣ ਲਈ ਸਥਾਨ ਨੂੰ ਸਮਰੱਥ ਕਰੋ।"})}</p>
                 </div>
                 <Button variant="link" className="p-0 h-auto text-white justify-start" onClick={(e) => { e.preventDefault(); handleGetLocation(); }}>
                     {locationStatus === 'loading' ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <MapPin className="mr-2 h-4 w-4"/>}
-                    {t({en: "Enable Location", hi: "स्थान सक्षम करें"})}
+                    {t({en: "Enable Location", hi: "स्थान सक्षम करें", ml: "ലൊക്കേഷൻ പ്രവർത്തനക്ഷമമാക്കുക", ta: "இருப்பிடத்தை இயக்கு", te: "స్థానాన్ని ప్రారంభించు", kn: "ಸ್ಥಳವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ", bn: "অবস্থান সক্ষম করুন", mr: "स्थान सक्षम करा", gu: "સ્થાન સક્ષમ કરો", pa: "ਸਥਾਨ ਸਮਰੱਥ ਕਰੋ"})}
                 </Button>
             </div>
         );

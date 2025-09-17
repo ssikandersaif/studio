@@ -63,7 +63,7 @@ export function DashboardChart() {
             tickLine={false}
             axisLine={false}
             tickMargin={10}
-            label={{ value: t({en: "Yield (MT)", hi: "उपज (MT)"}), angle: -90, position: 'insideLeft', offset:10 }}
+            label={{ value: t({en: "Yield (MT)", hi: "उपज (MT)", ml: "വിളവ് (MT)", ta: "விளைச்சல் (MT)", te: "దిగుబడి (MT)", kn: "ಇಳುವರಿ (MT)", bn: "ফলন (MT)", mr: "उत्पन्न (MT)", gu: "ઉપજ (MT)", pa: "ਝਾੜ (MT)"}), angle: -90, position: 'insideLeft', offset:10 }}
         />
         <ChartTooltip
           cursor={false}

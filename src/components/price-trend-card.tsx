@@ -57,9 +57,9 @@ export function PriceTrendCard() {
                     <div className="flex items-center gap-4">
                         <div className="p-3 rounded-full bg-primary/10 text-primary"><DollarSign size={24} /></div>
                         <div>
-                            <CardTitle className="font-headline">{t({ en: "Market Prices", ml: "വിപണി വിലകൾ", hi: "बाजार मूल्य" })}</CardTitle>
+                            <CardTitle className="font-headline">{t({ en: "Market Prices", ml: "വിപണി വിലകൾ", hi: "बाजार मूल्य", ta: "சந்தை விலைகள்", te: "మార్కెట్ ధరలు", kn: "ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು", bn: "বাজারদর", mr: "बाजारभाव", gu: "બજારભાવ", pa: "ਬਾਜ਼ਾਰ ਦੀਆਂ ਕੀਮਤਾਂ" })}</CardTitle>
                             {isClient ? (
-                                <CardDescription>{t({en: `Tomato today: ₹${tomatoPrice}/Quintal`, hi: `आज टमाटर: ₹${tomatoPrice}/क्विंटल`})}</CardDescription>
+                                <CardDescription>{t({en: `Tomato today: ₹${tomatoPrice}/Quintal`, hi: `आज टमाटर: ₹${tomatoPrice}/क्विंटल`, ml: `തക്കാളി ഇന്ന്: ₹${tomatoPrice}/ക്വിന്റൽ`, ta: `தக்காளி இன்று: ₹${tomatoPrice}/ குவிண்டால்`, te: `టమోటా ఈరోజు: ₹${tomatoPrice}/క్వింటాల్`, kn: `ಟೊಮೇಟೊ ಇಂದು: ₹${tomatoPrice}/ಕ್ವಿಂಟಲ್`, bn: `টমেটো আজ: ₹${tomatoPrice}/কুইন্টাল`, mr: `टोमॅटो आज: ₹${tomatoPrice}/क्विंटल`, gu: `ટામેટા આજે: ₹${tomatoPrice}/ક્વિન્ટલ`, pa: `ਟਮਾਟਰ ਅੱਜ: ₹${tomatoPrice}/ਕੁਇੰਟਲ`})}</CardDescription>
                             ) : (
                                 <Skeleton className="h-4 w-48 mt-1" />
                             )}
@@ -109,7 +109,7 @@ export function PriceTrendCard() {
                     </ChartContainer>
                 </CardContent>
                  <CardFooter>
-                    <Button variant="link" className="p-0 h-auto">{t({en: "View All Prices", hi: "सभी कीमतें देखें"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
+                    <Button variant="link" className="p-0 h-auto">{t({en: "View All Prices", hi: "सभी कीमतें देखें", ml: "എല്ലാ വിലകളും കാണുക", ta: "அனைத்து விலைகளையும் காண்க", te: "అన్ని ధరలను చూడండి", kn: "ಎಲ್ಲಾ ಬೆಲೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ", bn: "সব দাম দেখুন", mr: "सर्व किंमती पहा", gu: "બધી કિંમતો જુઓ", pa: "ਸਾਰੀਆਂ ਕੀਮਤਾਂ ਦੇਖੋ"})}<ArrowRight className="ml-2 h-4 w-4" /></Button>
                 </CardFooter>
             </Card>
         </Link>
