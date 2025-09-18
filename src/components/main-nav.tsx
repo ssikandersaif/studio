@@ -17,7 +17,6 @@ import {
   Users,
   MessageCircle,
   NotebookPen,
-  BarChart,
 } from "lucide-react"
 import {
   SidebarMenu,
@@ -44,11 +43,6 @@ export function MainNav() {
       href: "/weather",
       label: t({en: "Weather", ml: "കാലാവസ്ഥ", hi: "मौसम"}),
       icon: <CloudSun />,
-    },
-    {
-      href: "/analytics",
-      label: t({en: "Analytics", ml: "വിശകലനം", hi: "विश्लेषण"}),
-      icon: <BarChart />,
     },
     {
       href: "/crop-doctor",
