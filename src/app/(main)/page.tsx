@@ -221,7 +221,7 @@ export default function DashboardPage() {
                         </div>
                     </div>
                 </CardHeader>
-                <CardContent className="h-[450px]">
+                <CardContent className="h-[350px]">
                     <DashboardChart />
                 </CardContent>
             </Card>
@@ -232,3 +232,5 @@ export default function DashboardPage() {
     </>
   );
 }
+
+    
